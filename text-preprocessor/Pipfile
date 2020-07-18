@@ -11,11 +11,6 @@ numpy = "*"
 pandas = "*"
 gensim = "*"
 spacy = "*"
-praw = "*"
-python-dotenv = "*"
-pymongo = {extras = ["srv"],version = "*"}
-requests = "*"
-joblib = "*"
 
 [requires]
 python_version = "3.6"

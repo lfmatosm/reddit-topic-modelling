@@ -6,15 +6,11 @@ verify_ssl = true
 [dev-packages]
 
 [packages]
-nltk = "*"
-numpy = "*"
-pandas = "*"
-gensim = "*"
-spacy = "*"
 praw = "*"
 python-dotenv = "*"
 pymongo = {extras = ["srv"],version = "*"}
 requests = "*"
+numpy = "*"
 joblib = "*"
 
 [requires]
