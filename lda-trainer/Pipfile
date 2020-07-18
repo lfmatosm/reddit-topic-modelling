@@ -11,13 +11,9 @@ numpy = "*"
 pandas = "*"
 gensim = "*"
 spacy = "*"
-praw = "*"
-python-dotenv = "*"
-pymongo = {extras = ["srv"],version = "*"}
-requests = "*"
-joblib = "*"
 scikit-learn = "*"
 cython = "*"
+joblib = "*"
 google-compute-engine = "*"
 
 [requires]
