@@ -22,5 +22,8 @@ Os *datasets*, original e pré-processado utilizados no presente trabalho encont
 ### Executando
 Cada projeto-filho possui sua forma de uso, detalhada em seus README. De forma geral os *scripts* são executáveis por linha de comando.
 
+### Resultados
+Uma avaliação dos resultados de treinamento obtidos no presente trabalho é realizada [neste notebook](https://github.com/lffloyd/reddit-topic-modelling/blob/master/models-evaluation/Reddit_pt%20-%20Modelagem%20de%20t%C3%B3picos%20-%20Resultados%20de%20treinamento.ipynb).
+
 ### Licença
 [MIT](LICENSE)
