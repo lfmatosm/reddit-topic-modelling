@@ -17,7 +17,7 @@ Os utilitários/*scripts* presentes neste projeto são, de forma geral, independ
 * ```text-preprocessor``` - *scripts* para pré-processamento de um *dataset*. Remoção de *stopwords*, *tokenização* e *lemmatização* são realizadas aqui. Um *dataset* deve ser pré-processado antes de ser submetido a treinamento no ```lda-trainer```
 
 ### *Datasets*
-Os *datasets*, original e pré-processado utilizados no presente trabalho encontram-se na pasta de mesmo nome.
+Os *datasets*, original e pré-processado utilizados no presente trabalho encontram-se na pasta de mesmo nome. Observe que as bases de dados são arquivos no formato JSON, onde cada registro é um objeto representando uma submissão dentro do *Reddit*.
 
 ### Executando
 Cada projeto-filho possui sua forma de uso, detalhada em seus README. De forma geral os *scripts* são executáveis por linha de comando.
