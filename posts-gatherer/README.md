@@ -31,6 +31,7 @@ The script needs some arguments to be passed on. These are the following:
 * ```--submissionsCollection``` - collection to save the gathered submissions' data
 * ```--commentsCollection``` - collection to save the gathered comments' data
 * ```--subredditsCollection``` - collection to save the gathered subreddits' data
+* ```--daysPerInterval``` - number of days per time interval to search
 
 Below, a command example, with all the arguments mentioned above:
 

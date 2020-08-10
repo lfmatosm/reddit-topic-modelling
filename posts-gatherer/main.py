@@ -135,12 +135,15 @@ parser.add_argument('--end', type=str, help='gather posts written before this da
 parser.add_argument('--submissionsCollection', type=str, help='MongoDB collection to save submissions', required=True)
 parser.add_argument('--commentsCollection', type=str, help='MongoDB collection to save comments', required=True)
 parser.add_argument('--subredditsCollection', type=str, help='MongoDB collection to save subreddits', required=True)
+parser.add_argument('--daysPerInterval', type=int, help='no. of days per search interval', required=False)
 
 args = parser.parse_args()
 
 startDate = datetime.strptime(args.start, DATE_FORMAT)
 endDate = datetime.strptime(args.end, DATE_FORMAT)
-timestampsInterval = list(get_timestamps_interval(startDate, endDate))
+days = args.daysPerInterval
+timestampsInterval = list(get_timestamps_interval(startDate, endDate, days_per_interval=days) \
+    if (days != None) else get_timestamps_interval(startDate, endDate))
 
 
 print(f'Starting search...')
