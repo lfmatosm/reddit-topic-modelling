@@ -18,7 +18,7 @@ class Preprocessor:
         self.__lemmatize_activated = lemmatize_activated
         self.__pos_categories = pos_categories
 
-        self.__nlp = spacy.load("pt_core_news_sm") if (language == "pt") else spacy.load("en")
+        self.__nlp = spacy.load("pt_core_news_sm") if (language == "pt") else spacy.load("en_core_web_sm")
         self.__stop_words = stopwords.words("portuguese") if (language == "pt") else stopwords.words("english")
 
 
