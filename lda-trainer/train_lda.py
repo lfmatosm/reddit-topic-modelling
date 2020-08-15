@@ -7,6 +7,7 @@ parser = argparse.ArgumentParser(description='Trains LDA models with the given c
 
 parser.add_argument('--dataset', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument('--field', type=str, help='field of interest', required=True)
+parser.add_argument('--useGensimImplementation', type=bool, default=False, help='list of beta values to use')
 parser.add_argument('--minTopics', type=int, help='minimum number of topics to train', required=True)
 parser.add_argument('--maxTopics',type=int, help='maximum number of topics to train', required=True)
 parser.add_argument('--alphas', nargs='+', help='list of alpha values to use', required=True)
@@ -39,6 +40,12 @@ dictionary = create_dictionary(documents)
 
 print("Dictionary created")
 
+corpus = None
+if (args.useGensimImplementation == True):
+    corpus = create_corpus(documents, dictionary)
+
+    print("Corpus created")
+
 documents_processing_end_time = time.time()
 
 documents_processing_total_time_in_seconds = documents_processing_end_time - documents_processing_starting_time
@@ -51,7 +58,7 @@ print(f'Documents total preprocessing time: {str(datetime.timedelta(seconds=docu
 lda_training_start_time = time.time()
 
 print(f'\n\nLDA models training...')
-lda_results_filepath = train_many_lda(documents, dictionary, minTopics, maxTopics, alphas, betas)
+lda_results_filepath = train_many_lda(corpus, documents, dictionary, minTopics, maxTopics, alphas, betas, args.useGensimImplementation)
 
 lda_training_end_time = time.time()
 

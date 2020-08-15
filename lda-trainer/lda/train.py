@@ -52,6 +52,9 @@ def train_lda_gensim(corpus, dictionary, documents, topics, alpha_values, beta_v
         "path": []
     })
 
+    total_iterations = len(topics) * len(alpha_values) * len(beta_values)
+    print(f'Total iterations for training: {total_iterations}')
+    
     for k in topics:
         for alpha in alpha_values:
             for beta in beta_values:
@@ -80,8 +83,6 @@ def train_lda_gensim(corpus, dictionary, documents, topics, alpha_values, beta_v
                     "coherence_score": get_coherence_score_gensim(lda_model, documents),
                     "path": path_to_save
                 }, ignore_index=True)
-
-    print(f'Models for k={k} successfully saved')
 
     return df
 
@@ -185,7 +186,7 @@ def train_lda(dictionary, documents, topics, alpha_values, beta_values):
     return df
 
 
-def train_many_lda(documents, dictionary, min_topics, max_topics, alpha_values, beta_values):
+def train_many_lda(corpus, documents, dictionary, min_topics, max_topics, alpha_values, beta_values, use_gensim_impl=False):
     """Kickstarts LDA models training and computes total training time.
 
     Parameters:
@@ -212,7 +213,10 @@ def train_many_lda(documents, dictionary, min_topics, max_topics, alpha_values, 
 
     topics = [value for value in range(min_topics, max_topics+1)]
 
-    df = train_lda(dictionary, documents, topics, alpha_values, beta_values)
+    if (use_gensim_impl == True):
+        df = train_lda_gensim(corpus, dictionary, documents, topics, alpha_values, beta_values)
+    else:
+        df = train_lda(dictionary, documents, topics, alpha_values, beta_values)
 
     training_end_time = time.time()
 
