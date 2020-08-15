@@ -23,6 +23,8 @@ matplotlib = "*"
 pyldavis = "*"
 jupyter = "*"
 wordcloud = "*"
+torch = "*"
+scipy = "*"
 
 [requires]
 python_version = "3.6"
