@@ -401,7 +401,7 @@ for K_value in list(map(lambda x: int(x), args.topics)):
             "perplexity": test_ppl,
             "topics": topics,
             "10_most_used_topics": thetaWeightedAvg.argsort()[::-1][:10],
-            "path": args.data_path
+            "path": ckpt
         }, ignore_index=True)
 
         output_filepath = OUTPUT_PATH + "etm_results.csv"
