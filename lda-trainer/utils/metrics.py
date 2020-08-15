@@ -4,6 +4,16 @@ from collections import Counter
 from decimal import Decimal
 
 
+def get_coherence_score_gensim(model, documents):
+    coherence_model = CoherenceModel(
+                model=model,
+                texts=documents,
+                coherence='c_v'
+    )
+
+    return coherence_model.get_coherence()
+
+
 def get_coherence_score(topics, documents, dictionary, coherence):
     """Calculates topic coherence using gensim's coherence pipeline.
 

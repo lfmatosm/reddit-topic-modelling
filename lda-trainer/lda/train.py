@@ -1,8 +1,9 @@
-from utils.metrics import get_coherence_score, get_topic_diversity
+from utils.metrics import get_coherence_score, get_topic_diversity, get_coherence_score_gensim
 from utils.misc import update_progress_bar
 from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd, os, time, datetime, numpy as np, joblib
+from gensim.models.ldamulticore import LdaMulticore
 
 
 OUTPUT_PATH = "results/csv/lda/"
@@ -20,6 +21,69 @@ def get_textual_topics(idx_to_word, topic_word_dist):
     for _, topic in enumerate(topic_word_dist):
         topics.append(list(idx_to_word[topic.argsort()]))
     return topics
+
+
+def train_lda_gensim(corpus, dictionary, documents, topics, alpha_values, beta_values):
+    """Trains multiple LDA models, given training hyperparameters and number of topics (K).
+    Also saves training results to a DataFrame object.
+
+    Parameters:
+    
+    dictionary (gensim.corpora.Dictionary): gensim dicionary of words from dataset
+
+    documents (list of str): set of documents
+
+    topics (list of int): list of topic (K) numbers to train, e.g. [3, 5, 8, 10, 12]
+
+    alpha_values (list of float): alpha hyperparameters for LDA to use, e.g. [0.1, 0.2, 0.35, 0.5, 0.7]
+
+    beta_values (list of float): beta hyperparameters for LDA to use, e.g. [0.1, 0.2, 0.35, 0.5, 0.7]
+
+    Returns:
+
+    pandas.DataFrame: a DataFrame with the training results, including hyperparameters used for each model and coherence scores.
+    """
+    df = pd.DataFrame({
+        "k": [],
+        "alpha": [],
+        "beta": [],
+        "model": [],
+        "coherence_score": [],
+        "path": []
+    })
+
+    for k in topics:
+        for alpha in alpha_values:
+            for beta in beta_values:
+                lda_model = LdaMulticore(
+                    workers=3, 
+                    corpus=corpus,
+                    id2word=dictionary,
+                    num_topics=k,
+                    passes=10,
+                    per_word_topics=True,
+                    alpha=alpha,
+                    eta=beta
+                )
+
+                path_to_save = OUTPUT_FOLDER + get_model_name(k, alpha, beta)
+
+                os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
+
+                lda_model.save(path_to_save)
+
+                df = df.append({
+                    "k": k,
+                    "alpha": alpha,
+                    "beta": beta,
+                    "model": get_model_name(k, alpha, beta),
+                    "coherence_score": get_coherence_score_gensim(lda_model, documents),
+                    "path": path_to_save
+                }, ignore_index=True)
+
+    print(f'Models for k={k} successfully saved')
+
+    return df
 
 
 def train_lda(dictionary, documents, topics, alpha_values, beta_values):
