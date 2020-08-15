@@ -13,6 +13,8 @@ import sys
 import matplotlib.pyplot as plt 
 import data
 import scipy.io
+from gensim.corpora import Dictionary
+import json
 
 from torch import nn, optim
 from torch.nn import functional as F
@@ -20,7 +22,7 @@ from torch.nn import functional as F
 import pandas as pd
 
 from etm import ETM
-from utils import nearest_neighbors, get_topic_coherence, get_topic_diversity
+from utils import nearest_neighbors, get_topic_coherence, get_topic_diversity, get_gensim_coherence
 
 
 OUTPUT_PATH = "../training-results/"
@@ -31,6 +33,7 @@ parser = argparse.ArgumentParser(description='The Embedded Topic Model')
 ### data and file related arguments
 parser.add_argument('--dataset', type=str, default='20ng', help='name of corpus')
 parser.add_argument('--data_path', type=str, default='data/20ng', help='directory containing data')
+parser.add_argument('--original_data_path', type=str, default='data/20ng_original', help='directory containing original unmodified data')
 parser.add_argument('--emb_path', type=str, default='data/20ng_embeddings.txt', help='directory containing word embeddings')
 parser.add_argument('--save_path', type=str, default='./results', help='path to save results')
 parser.add_argument('--batch_size', type=int, default=1000, help='input batch size for training')
@@ -63,8 +66,8 @@ parser.add_argument('--num_words', type=int, default=20, help='number of words f
 parser.add_argument('--log_interval', type=int, default=2, help='when to log training')
 parser.add_argument('--visualize_every', type=int, default=10, help='when to visualize results')
 parser.add_argument('--eval_batch_size', type=int, default=1000, help='input batch size for evaluation')
-parser.add_argument('--tc', type=int, default=0, help='whether to compute topic coherence or not')
-parser.add_argument('--td', type=int, default=0, help='whether to compute topic diversity or not')
+parser.add_argument('--tc', type=int, default=1, help='whether to compute topic coherence or not')
+parser.add_argument('--td', type=int, default=1, help='whether to compute topic diversity or not')
 
 args = parser.parse_args()
 
@@ -103,6 +106,29 @@ test_2_tokens = test['tokens_2']
 test_2_counts = test['counts_2']
 args.num_docs_test_2 = len(test_2_tokens)
 
+
+def create_dictionary(documents):
+    """Creates word dictionary for given corpus.
+
+    Parameters:
+    
+    documents (list of str): set of documents
+
+    Returns:
+
+    dictionary (gensim.corpora.Dictionary): gensim dicionary of words from dataset
+    """
+    dictionary = Dictionary(documents)
+    dictionary.compactify()
+
+    return dictionary
+
+
+# Gensim dictionary
+raw_data = json.load(open(args.original_data_path, 'r'))
+documents_gensim = [ data["body"] for data in raw_data]
+dictionary_gensim = create_dictionary(documents_gensim)
+
 embeddings = None
 if not args.train_embeddings:
     emb_path = args.emb_path
@@ -138,6 +164,7 @@ df = pd.DataFrame({
     "k": [],
     "model": [],
     "coherence": [],
+    "gensim_coherence": [],
     "diversity": [],
     "perplexity": [],
     "topics": [],
@@ -392,11 +419,15 @@ for K_value in list(map(lambda x: int(x), args.topics)):
             topic_words = [vocab[a] for a in top_words]
             print('Topic {}: {}'.format(k, topic_words))
             topics.append(topic_words)
-
+        
+        gensim_coherence = get_gensim_coherence(topics, documents_gensim, dictionary_gensim, 'c_v')
+        print("Gensim topic coherence: " + str(gensim_coherence))
+        
         df = df.append({
             "k": K_value,
             "model": args.dataset + "_" + "k" + str(K_value),
             "coherence": TC,
+            "gensim_coherence": gensim_coherence,
             "diversity": TD,
             "perplexity": test_ppl,
             "topics": topics,
