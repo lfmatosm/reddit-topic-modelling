@@ -93,14 +93,21 @@ def get_limits_for_graph(data):
     }
 
 
-def plot_wordcloud(text):
+def plot_wordcloud(text, color):
     """Creates a simple wordcloud graph using an word list.
 
     Parameters:
     
     text (list of str): word list to plot
     """
-    wordcloud = WordCloud(background_color="rgba(255, 255, 255, 0)", mode="RGBA", min_font_size=30, width=2000, height=2000).generate(" ".join(text))
+    wordcloud = WordCloud(
+        background_color="white", 
+        mode="RGBA",
+        max_words=10, 
+        width=1800, 
+        height=1400, 
+        colormap='tab10',
+        color_func=lambda *args, **kwargs: color).generate(" ".join(text))
     
     plt.imshow(wordcloud, interpolation='bilinear')
     
