@@ -19,4 +19,4 @@ You just need to execute ```python3 src/main.py``` script. The script needs some
 
 Below, a command example:
 
-```python3 src/main.py --datasetFile datasets/reddit_pt_2005_2020_desabafos_brasil.json --field body --lang pt --lemmatize True --desiredPos NOUN VERB```
+```python3 preprocess.py --datasetFile datasets/reddit_pt_2005_2020_desabafos_brasil.json --field body --lang pt --lemmatize True --desiredPos NOUN VERB```

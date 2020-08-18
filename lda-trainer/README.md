@@ -22,4 +22,4 @@ Execute the ```python3 src/train_lda.py``` script. These are the arguments that 
 
 Below, a command example:
 
-```python3 src/train_lda.py --dataset datasets/reddit_pt_2005_2020_desabafos_brasil[preprocessed].json --field body --minTopics 3 --maxTopics 30 --alphas 0.1 0.2 0.3 0.4 0.6 0.8 1.0 --betas 0.1 0.2 0.3 0.4 0.6 0.8 1.0```
+```python3 train_lda.py --dataset datasets/reddit_pt_2005_2020_desabafos_brasil[preprocessed].json --field body --minTopics 3 --maxTopics 30 --alphas 0.1 0.2 0.3 0.4 0.6 0.8 1.0 --betas 0.1 0.2 0.3 0.4 0.6 0.8 1.0```
