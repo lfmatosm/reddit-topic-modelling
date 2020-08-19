@@ -2,7 +2,7 @@ from utils.metrics import get_coherence_score, get_topic_diversity, get_coherenc
 from utils.misc import update_progress_bar
 from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.feature_extraction.text import CountVectorizer
-import pandas as pd, os, time, datetime, numpy as np, joblib
+import pandas as pd, os, time, datetime, numpy as np, joblib, re
 from gensim.models.ldamulticore import LdaMulticore
 
 
@@ -21,6 +21,12 @@ def get_textual_topics(idx_to_word, topic_word_dist):
     for _, topic in enumerate(topic_word_dist):
         topics.append(list(idx_to_word[topic.argsort()]))
     return topics
+
+
+def get_gensim_topics(model, k):
+    tuples = model.print_topics(num_topics=k, num_words=20)
+    
+    return [list(map(lambda x: x.strip(), re.sub(r'[\d*.\d*]|\*|"', '', t[1]).split('+'))) for t in tuples]
 
 
 def train_lda_gensim(corpus, dictionary, documents, topics, alpha_values, beta_values):
@@ -48,13 +54,15 @@ def train_lda_gensim(corpus, dictionary, documents, topics, alpha_values, beta_v
         "alpha": [],
         "beta": [],
         "model": [],
-        "coherence_score": [],
+        "gensim_default_coherence": [],
+        "gensim_alt_coherence": [],
         "path": []
     })
 
     total_iterations = len(topics) * len(alpha_values) * len(beta_values)
     print(f'Total iterations for training: {total_iterations}')
-    
+
+    current_iteration = 0
     for k in topics:
         for alpha in alpha_values:
             for beta in beta_values:
@@ -69,20 +77,26 @@ def train_lda_gensim(corpus, dictionary, documents, topics, alpha_values, beta_v
                     eta=beta
                 )
 
-                path_to_save = OUTPUT_FOLDER + get_model_name(k, alpha, beta)
+                path_to_save = OUTPUT_FOLDER + "gensim/" + get_model_name(k, alpha, beta)
 
                 os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
 
                 lda_model.save(path_to_save)
+
+                topics = get_gensim_topics(lda_model, k)
 
                 df = df.append({
                     "k": k,
                     "alpha": alpha,
                     "beta": beta,
                     "model": get_model_name(k, alpha, beta),
-                    "coherence_score": get_coherence_score_gensim(lda_model, documents),
+                    "gensim_default_coherence": get_coherence_score_gensim(lda_model, documents),
+                    "gensim_alt_coherence": get_coherence_score(topics, documents, dictionary, "c_v"),
                     "path": path_to_save
                 }, ignore_index=True)
+
+                current_iteration = current_iteration + 1
+                update_progress_bar(current_iteration, total_iterations)
 
     return df
 
@@ -151,7 +165,7 @@ def train_lda(dictionary, documents, topics, alpha_values, beta_values):
 
                 topics = get_textual_topics(idx_to_word, topic_word_dist)
 
-                path_to_save = OUTPUT_FOLDER + get_model_name(k, a, b)
+                path_to_save = OUTPUT_FOLDER + "scikit/" + get_model_name(k, a, b)
 
                 os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
 
@@ -186,7 +200,7 @@ def train_lda(dictionary, documents, topics, alpha_values, beta_values):
     return df
 
 
-def train_many_lda(corpus, documents, dictionary, min_topics, max_topics, alpha_values, beta_values, use_gensim_impl=False):
+def train_many_lda(documents, dictionary, topics, alpha_values, beta_values, corpus=None):
     """Kickstarts LDA models training and computes total training time.
 
     Parameters:
@@ -211,11 +225,11 @@ def train_many_lda(corpus, documents, dictionary, min_topics, max_topics, alpha_
 
     training_start_time = time.time()
 
-    topics = [value for value in range(min_topics, max_topics+1)]
-
-    if (use_gensim_impl == True):
+    if (corpus != None):
+        folder = "gensim/"
         df = train_lda_gensim(corpus, dictionary, documents, topics, alpha_values, beta_values)
     else:
+        folder = "scikit/"
         df = train_lda(dictionary, documents, topics, alpha_values, beta_values)
 
     training_end_time = time.time()
@@ -230,7 +244,7 @@ def train_many_lda(corpus, documents, dictionary, min_topics, max_topics, alpha_
 
     print("Saving results CSV...")
 
-    output_filepath = OUTPUT_PATH + "training_results.csv"
+    output_filepath = OUTPUT_PATH + folder + "training_results.csv"
 
     os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
 
