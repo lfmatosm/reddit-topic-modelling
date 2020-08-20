@@ -121,7 +121,7 @@ def train_lda(dictionary, documents, topics, alpha_values, beta_values):
     return df
 
 
-def train_many_lda(documents, dictionary, min_topics, max_topics, alpha_values, beta_values):
+def train_many_lda(documents, dictionary, topics, alpha_values, beta_values):
     """Kickstarts LDA models training and computes total training time.
 
     Parameters:
@@ -130,9 +130,7 @@ def train_many_lda(documents, dictionary, min_topics, max_topics, alpha_values, 
 
     dictionary (gensim.corpora.Dictionary): gensim dicionary of words from dataset
 
-    min_topics (int): minimum no of topics to traing
-
-    max_topics (int): maximum no of topics to traing
+    topics (list of int): K values for training, e.g. [3, 5, 8, 10, 12, 15]
 
     alpha_values (list of float): alpha hyperparameters for LDA to use, e.g. [0.1, 0.2, 0.35, 0.5, 0.7]
 
@@ -145,8 +143,6 @@ def train_many_lda(documents, dictionary, min_topics, max_topics, alpha_values, 
     print("\nBeginning training...")
 
     training_start_time = time.time()
-
-    topics = [value for value in range(min_topics, max_topics+1)]
 
     df = train_lda(dictionary, documents, topics, alpha_values, beta_values)
 

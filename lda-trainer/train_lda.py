@@ -7,18 +7,16 @@ parser = argparse.ArgumentParser(description='Trains LDA models with the given c
 
 parser.add_argument('--dataset', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument('--field', type=str, help='field of interest', required=True)
-parser.add_argument('--minTopics', type=int, help='minimum number of topics to train', required=True)
-parser.add_argument('--maxTopics',type=int, help='maximum number of topics to train', required=True)
+parser.add_argument('--topics', nargs='+', help='list of K values', required=True)
 parser.add_argument('--alphas', nargs='+', help='list of alpha values to use', required=True)
 parser.add_argument('--betas', nargs='+', help='list of beta values to use', required=True)
 
 args = parser.parse_args()
 
 documents_path = args.dataset
-minTopics = args.minTopics
-maxTopics = args.maxTopics
-alphas = args.alphas
-betas = args.betas
+topics = list(map(lambda x: int(x), args.topics))
+alphas = list(map(lambda x: float(x), args.alphas))
+betas = list(map(lambda x: float(x), args.betas))
 
 processing_time_start = time.time()
 
@@ -51,7 +49,7 @@ print(f'Documents total preprocessing time: {str(datetime.timedelta(seconds=docu
 lda_training_start_time = time.time()
 
 print(f'\n\nLDA models training...')
-lda_results_filepath = train_many_lda(documents, dictionary, minTopics, maxTopics, alphas, betas)
+lda_results_filepath = train_many_lda(documents, dictionary, topics, alphas, betas)
 
 lda_training_end_time = time.time()
 
