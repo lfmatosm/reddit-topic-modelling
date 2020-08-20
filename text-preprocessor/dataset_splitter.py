@@ -37,7 +37,7 @@ df_deleted_posts_removed = df_without_duplicates[df_without_duplicates.body != "
 
 df_removed_posts_removed = df_deleted_posts_removed[df_deleted_posts_removed.body != "[removed]"]
 
-print("Row count after deleted posts removal: ", len(df_removed_posts_removed))
+print("Row count after deleted/removed posts removal: ", len(df_removed_posts_removed))
 
 df_empty_posts_removed = df_removed_posts_removed[df_removed_posts_removed.body != ""]
 

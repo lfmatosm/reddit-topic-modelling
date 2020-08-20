@@ -56,7 +56,11 @@ print(f'Documents total preprocessing time: {str(datetime.timedelta(seconds=docu
 lda_training_start_time = time.time()
 
 print(f'\n\nLDA models training...')
-lda_results_filepath = train_many_lda(documents, dictionary, topics, alphas, betas, corpus)
+
+if (corpus != None):
+    lda_results_filepath = train_many_lda(documents, dictionary, topics, alphas, betas, corpus)
+else:
+    lda_results_filepath = train_many_lda(documents, dictionary, topics, alphas, betas)
 
 lda_training_end_time = time.time()
 

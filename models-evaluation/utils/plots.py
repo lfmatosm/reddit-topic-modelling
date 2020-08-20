@@ -99,6 +99,8 @@ def plot_wordcloud(text, color):
     Parameters:
     
     text (list of str): word list to plot
+
+    color (str): color to use, e.g. 'white', 'red', 'blue', 'green'
     """
     wordcloud = WordCloud(
         background_color="white", 

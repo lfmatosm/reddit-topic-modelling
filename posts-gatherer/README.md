@@ -4,10 +4,9 @@ An application to gather Reddit comments data.
 The gatherer works like this: you specify subreddits, time period and keywords to search for, and the script will gather comments, submission and subreddit data for you. Also, the script will save the gathered data to a MongoDB database of your choice, given a connection string, inside collections for each kind of data.
 
 ### Setup
-On the project root folder, run:
-```pipenv install```
+Activate/create the Pipenv environment with: ```pipenv shell```
 
-Then activate the Pipenv environment with: ```pipenv shell```
+Then run: ```pipenv install```
 
 On the ```src``` folder, create an ```.env``` with your environment variables. The file should have the following structure:
 
