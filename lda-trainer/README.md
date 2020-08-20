@@ -5,10 +5,9 @@ This script trains LDA models and outputs the training results to a CSV file con
 or hyperparameters used. Also, the models are saved as [joblib](https://joblib.readthedocs.io/en/latest/) objects, where the most important components of each one are persisted.
 
 ### Setup
-On the project root folder, run:
-```pipenv install```
+Activate/create the Pipenv environment with: ```pipenv shell```
 
-Then activate the Pipenv environment with: ```pipenv shell```
+Then run: ```pipenv install```
 
 ### Running
 Execute the ```python3 src/train_lda.py``` script. These are the arguments that must be passed over to the script:

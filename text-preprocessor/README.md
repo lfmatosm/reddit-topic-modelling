@@ -2,10 +2,10 @@
 An application to preprocess a simple document corpus. This script can tokenize, remove stopwords, lemmatize words and remove part-of-speech (POS) categories from the data.
 
 ### Setup
-On the project root folder, run:
-```pipenv install```
+Activate/create the Pipenv environment with: ```pipenv shell```
 
-Then activate the Pipenv environment with: ```pipenv shell```
+Then run: ```pipenv install```
+
 
 ### Running
 You just need to execute ```python3 src/main.py``` script. The script needs some arguments to be passed on. These are the following:
