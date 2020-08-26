@@ -155,7 +155,14 @@ def train_lda(dictionary, documents, topics, alpha_values, beta_values):
     for k in topics:
         for a in alpha_values:
             for b in beta_values:
-                lda = LatentDirichletAllocation(n_components=k, doc_topic_prior=a, topic_word_prior=b)
+                lda = LatentDirichletAllocation(
+                    n_components=k, 
+                    doc_topic_prior=a, 
+                    topic_word_prior=b, 
+                    learning_method='online',
+                    n_jobs=-1,
+                    random_state=0
+                )
 
                 doc_topic_matrix = lda.fit_transform(vectorized_documents)
                 
