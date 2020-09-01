@@ -25,6 +25,8 @@ jupyter = "*"
 wordcloud = "*"
 torch = "*"
 scipy = "*"
+contextualized-topic-models = "*"
+top2vec = "*"
 
 [requires]
 python_version = "3.6"
