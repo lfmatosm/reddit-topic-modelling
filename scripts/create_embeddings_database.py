@@ -1,0 +1,26 @@
+from pymongo import MongoClient, TEXT
+import argparse
+import numpy as np
+
+parser = argparse.ArgumentParser(description='No description')
+parser.add_argument('--embeddings', type=str, help='embeddings txt file', required=True)
+parser.add_argument('--port', type=int, help='local mongo instance port', required=True)
+args = parser.parse_args()
+
+client = MongoClient('localhost', args.port)
+db = client.word_embeddings_300d
+
+with open(args.embeddings, 'r') as file:
+    for line in file:
+        (word, embedding) = line.split()
+        embedding = np.array(embedding)
+
+        db.insert_one({
+            'word': word,
+            'embedding': embedding
+        })
+
+print(f'Inserted documents: {db.count_documents({})}')
+print(f'Creating text index on "word" key...')
+db.create_index([('word', TEXT)])
+print(f'Index creation finished.')
