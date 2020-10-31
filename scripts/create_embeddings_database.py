@@ -9,18 +9,20 @@ args = parser.parse_args()
 
 client = MongoClient('localhost', args.port)
 db = client.word_embeddings_300d
+collection = db.embeddings
 
 with open(args.embeddings, 'r') as file:
     for line in file:
-        (word, embedding) = line.split()
-        embedding = np.array(embedding)
+        data = line.split()
+        word = data[0]
+        embedding = list(data[1:])
 
-        db.insert_one({
+        collection.insert_one({
             'word': word,
             'embedding': embedding
         })
 
-print(f'Inserted documents: {db.count_documents({})}')
+print(f'Inserted documents: {collection.count_documents({})}')
 print(f'Creating text index on "word" key...')
-db.create_index([('word', TEXT)])
+collection.create_index([('word', TEXT)])
 print(f'Index creation finished.')
