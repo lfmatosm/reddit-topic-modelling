@@ -8,7 +8,7 @@ ARGS_DATE_FORMAT = '%Y-%m-%d'
 def remove_bots_posts(dataset):
     bots = ["AutoModerator", "RemindMeBot", "WikiTextBot", "youtubefactsbot", "RedditNiobioBot", "NemLiNemLereiBot"]
 
-    return list(filter(lambda data: (data['author'] == None) or (data['author'] != None and data['author']['name'] not in bots), dataset))
+    return list(filter(lambda data: (not hasattr(data, 'author')) or (data['author'] == None) or (data['author'] != None and data['author']['name'] not in bots), dataset))
 
 
 parser = argparse.ArgumentParser(description='Splits a dataset into others using years as delimiter.')
