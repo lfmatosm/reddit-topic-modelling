@@ -133,8 +133,8 @@ parser.add_argument('--searchResultsPath', type=str, help='path to save the list
 parser.add_argument('--start', type=str, help='gather posts written after this date', required=True)
 parser.add_argument('--end', type=str, help='gather posts written before this date', required=True)
 parser.add_argument('--submissionsCollection', type=str, help='MongoDB collection to save submissions', required=True)
-parser.add_argument('--commentsCollection', type=str, help='MongoDB collection to save comments', required=True)
-parser.add_argument('--subredditsCollection', type=str, help='MongoDB collection to save subreddits', required=True)
+# parser.add_argument('--commentsCollection', type=str, help='MongoDB collection to save comments', required=True)
+# parser.add_argument('--subredditsCollection', type=str, help='MongoDB collection to save subreddits', required=True)
 parser.add_argument('--daysPerInterval', type=int, help='no. of days per search interval', required=False)
 
 args = parser.parse_args()
@@ -198,8 +198,8 @@ for k in range(len(subreddits)):
     subreddit = reddit.subreddit(subreddits[k])
     print("Subreddit name: " + subreddit.display_name)
 
-    subreddit_data = get_subreddit_data(subreddit)
-    insert_subreddit(subreddit_data, k+1, len(subreddits), args.subredditsCollection)
+    # subreddit_data = get_subreddit_data(subreddit)
+    # insert_subreddit(subreddit_data, k+1, len(subreddits), args.subredditsCollection)
 
     submissions = subreddit_submissions_map[subreddits[k]]
     no_of_submissions_in_subreddit = len(submissions)
@@ -214,12 +214,12 @@ for k in range(len(subreddits)):
         if submission_data != None:
             insert_submission(submission_data, i+1, no_of_submissions_in_subreddit, args.submissionsCollection)
 
-        comments = get_comments(submission)
+        # comments = get_comments(submission)
 
-        total_comments = len(comments)
+        # total_comments = len(comments)
     
-        for j in range(total_comments):
-            insert_comment(comments[j], j+1, total_comments, i+1, no_of_submissions_in_subreddit, args.commentsCollection)
+        # for j in range(total_comments):
+        #     insert_comment(comments[j], j+1, total_comments, i+1, no_of_submissions_in_subreddit, args.commentsCollection)
 
     update_progress_bar(no_of_submissions_in_subreddit, no_of_submissions_in_subreddit)
         
