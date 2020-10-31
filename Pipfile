@@ -27,6 +27,7 @@ torch = "*"
 scipy = "*"
 contextualized-topic-models = "*"
 top2vec = "*"
+liwc = "*"
 
 [requires]
 python_version = "3.6"
