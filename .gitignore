@@ -127,3 +127,12 @@ dmypy.json
 
 # Pyre type checker
 .pyre/
+
+# Project specific
+models_training/
+results/
+datasets_for_training/
+.ipynb_checkpoints
+
+#Ignore temporarily
+models_evaluation/
