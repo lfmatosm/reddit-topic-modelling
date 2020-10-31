@@ -94,14 +94,12 @@ def get_gensim_coherence(topics, documents, dictionary, coherence):
 
     float: coherence score
     """
-    coherence_model = CoherenceModel(
-                topics=topics, 
-                texts=documents, 
-                dictionary=dictionary, 
-                coherence=coherence
-    )
-
-    return coherence_model.get_coherence()
+    return CoherenceModel(
+        topics=topics, 
+        texts=documents, 
+        dictionary=dictionary, 
+        coherence=coherence
+    ).get_coherence()
 
 
 def nearest_neighbors(word, embeddings, vocab):

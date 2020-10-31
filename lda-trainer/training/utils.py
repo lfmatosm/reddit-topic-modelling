@@ -2,16 +2,7 @@ from gensim.models import CoherenceModel
 import pandas as pd, functools
 from collections import Counter
 from decimal import Decimal
-
-
-def get_coherence_score_gensim(model, documents):
-    coherence_model = CoherenceModel(
-                model=model,
-                texts=documents,
-                coherence='c_v'
-    )
-
-    return coherence_model.get_coherence()
+from gensim.corpora import Dictionary
 
 
 def get_coherence_score(topics, documents, dictionary, coherence, no_of_words=20):
@@ -69,3 +60,24 @@ def get_topic_diversity(topics, no_of_words=20):
         topic_diversity_scores.append(Decimal(topic_diversity) / Decimal(no_of_words))
     
     return float(Decimal(sum(topic_diversity_scores)) / Decimal(len(topic_diversity_scores)))
+
+
+def create_dictionary(documents):
+    """Creates word dictionary for given corpus.
+
+    Parameters:
+    
+    documents (list of str): set of documents
+
+    Returns:
+
+    dictionary (gensim.corpora.Dictionary): gensim dicionary of words from dataset
+    """
+    dictionary = Dictionary(documents)
+    dictionary.compactify()
+
+    return dictionary
+
+
+def remove_mix_max_df(min_df=1, max_df=1.0):
+    return None
