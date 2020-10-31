@@ -73,8 +73,9 @@ parser.add_argument('--datasetFile', type=str, help='dataset file', required=Tru
 parser.add_argument('--stopwordsFile', type=str, help='additional stop-words file', required=False)
 parser.add_argument('--field', type=str, help='field to be processed', required=True)
 parser.add_argument('--lang', type=str, help='dataset language: string "en" or "pt"', required=True)
-parser.add_argument('--lemmatize', type=bool, help='should lemmatize data?', required=True)
-parser.add_argument('--desiredPos', nargs='+', help='part-of-speech categories to keep. These are simple Spacy POS categories', required=True)
+parser.add_argument('--lemmatize', type=bool, help='should lemmatize data?', required=False, default=False)
+parser.add_argument('--removePos', type=bool, help='should remove POS categories?', required=False, default=False)
+parser.add_argument('--desiredPos', nargs='+', help='part-of-speech categories to keep. These are simple Spacy POS categories', required=False, default=['NOUN'])
 
 args = parser.parse_args()
 
@@ -83,6 +84,7 @@ stopwords_file = args.stopwordsFile
 field_of_interest = args.field
 lang = args.lang
 lemmatize_activated = args.lemmatize
+remove_pos = args.removePos
 posCategories = args.desiredPos
 
 print("Path: ", original_data_path)
@@ -90,6 +92,7 @@ if stopwords_file != None: print("Additional stopwords file: ", stopwords_file)
 print("Field: ", field_of_interest)
 print("Language: ", lang)
 print("Is to lemmatize data? ", lemmatize_activated)
+print("Is to remove POS categories? ", remove_pos)
 print("POS categories to keep: ", posCategories)
 
 data_string = json.load(open(original_data_path, READ_MODE))
@@ -100,7 +103,7 @@ print(original_data_frame.head())
 
 data = np.array(original_data_frame[field_of_interest], dtype = 'object')
 
-processor = Preprocessor(posCategories, lang, lemmatize_activated)
+processor = Preprocessor(posCategories, lang, lemmatize_activated=lemmatize_activated, remove_pos=remove_pos)
 
 processed_data = processor.preprocess(data, stopwords_file)
 

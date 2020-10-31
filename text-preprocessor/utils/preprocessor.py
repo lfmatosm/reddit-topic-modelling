@@ -14,8 +14,9 @@ class Preprocessor:
 
     lemmatize_activated (bool) - optional: if should lemmatize words
     """
-    def __init__(self, pos_categories, language="en", lemmatize_activated=True):
+    def __init__(self, pos_categories, language="en", lemmatize_activated=True, remove_pos=True):
         self.__lemmatize_activated = lemmatize_activated
+        self.__remove_pos_activated = remove_pos
         self.__pos_categories = pos_categories
 
         self.__nlp = spacy.load("pt_core_news_sm") if (language == "pt") else spacy.load("en_core_web_sm")
@@ -97,9 +98,13 @@ class Preprocessor:
 
         print("Tokenized documents.")
 
-        tokens_with_pos = self.filter_part_of_speech_tags(tokenized_data, self.__pos_categories)
+        tokens_with_pos = tokenized_data
 
-        print(f'{", ".join(self.__pos_categories)} POS categories of tokens kept and lemmatized.')
+        if (self.__remove_pos_activated == True):
+
+            tokens_with_pos = self.filter_part_of_speech_tags(tokenized_data, self.__pos_categories)
+
+            print(f'{", ".join(self.__pos_categories)} POS categories of tokens kept and lemmatized.')
 
         additional_stopwords = open(stopwords_file_path, "r").read().split(",") if stopwords_file_path != None else None
 
