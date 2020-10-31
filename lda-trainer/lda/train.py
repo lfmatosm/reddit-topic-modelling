@@ -4,22 +4,26 @@ from sklearn.decomposition import LatentDirichletAllocation
 from sklearn.feature_extraction.text import CountVectorizer
 import pandas as pd, os, time, datetime, numpy as np, joblib, re
 from gensim.models.ldamulticore import LdaMulticore
+from training import constants
 
 
-OUTPUT_PATH = "results/csv/lda/"
+OUTPUT_PATH = constants.CSV_RESULTS_FOLDER + "lda/"
 READ_MODE = "r"
-OUTPUT_FOLDER = "models/lda/"
+OUTPUT_FOLDER = constants.MODELS_FOLDER + "/lda/"
 
 
 def get_model_name(k, a, b):
-    return "lda_" +  "_k=" + str(k) + "_a=" + str(a) + "_b=" + str(b)
+    return "lda_k" + str(k) + "a" + str(a) + "b" + str(b)
+
+def get_model_name_for_k(k):
+    return "lda_k" + str(k)
 
 
 def get_textual_topics(idx_to_word, topic_word_dist):
     topics = []
 
     for _, topic in enumerate(topic_word_dist):
-        topics.append(list(idx_to_word[topic.argsort()]))
+        topics.append(list(idx_to_word[topic.argsort()][:20]))
     return topics
 
 
@@ -101,7 +105,7 @@ def train_lda_gensim(corpus, dictionary, documents, topics, alpha_values, beta_v
     return df
 
 
-def train_lda(dictionary, documents, topics, alpha_values, beta_values):
+def train_lda(dictionary, documents, topics, alpha_values, beta_values, external_dataset=None, use_cv=True):
     """Trains multiple LDA models, given training hyperparameters and number of topics (K).
     Also saves training results to a DataFrame object.
 
@@ -123,8 +127,6 @@ def train_lda(dictionary, documents, topics, alpha_values, beta_values):
     """
     df = pd.DataFrame({
         "k": [],
-        "alpha": [],
-        "beta": [],
         "model": [],
         "c_v": [],
         "u_mass": [],
@@ -136,78 +138,75 @@ def train_lda(dictionary, documents, topics, alpha_values, beta_values):
 
     joined_documents = [ " ".join(document) for document in documents ]
 
-    vectorizer = CountVectorizer(min_df=0.01, max_df=0.85)
+    vectorizer = CountVectorizer(min_df=0.01, max_df=0.85) if (use_cv == True) else CountVectorizer()
 
     vectorized_documents = vectorizer.fit_transform(joined_documents)
+
+    print(f'Resulting vectorized vocabulary has {len(vectorizer.vocabulary_)} tokens, where {len(vectorizer.stop_words_)} stopwords have been removed')
 
     vec_docs_path = OUTPUT_FOLDER + "lda_count_vectorized_documents"
 
     os.makedirs(os.path.dirname(vec_docs_path), exist_ok=True)
 
-    joblib.dump(vectorized_documents, vec_docs_path, compress=6)
+    joblib.dump(vectorized_documents, vec_docs_path, compress=7)
 
-    total_iterations = len(topics) * len(alpha_values) * len(beta_values)
-    print(f'Total iterations for training: {total_iterations}')
+    total_iterations = len(topics)
+
+    eval_dataset = documents if (external_dataset == None) else external_dataset
 
     current_iteration = 0
 
     update_progress_bar(current_iteration, total_iterations)
     for k in topics:
-        for a in alpha_values:
-            for b in beta_values:
-                lda = LatentDirichletAllocation(
-                    n_components=k, 
-                    doc_topic_prior=a, 
-                    topic_word_prior=b, 
-                    learning_method='online',
-                    n_jobs=-1,
-                    random_state=0
-                )
+        lda = LatentDirichletAllocation(
+            n_components=k,
+            learning_method='online',
+            n_jobs=-1,
+            random_state=0
+        )
 
-                doc_topic_matrix = lda.fit_transform(vectorized_documents)
-                
-                topic_word_dist = lda.components_
+        doc_topic_dist = lda.fit_transform(vectorized_documents)
+        
+        topic_word_dist = lda.components_
 
-                idx_to_word = np.array(vectorizer.get_feature_names())
+        idx_to_word = np.array(vectorizer.get_feature_names())
 
-                topics = get_textual_topics(idx_to_word, topic_word_dist)
+        topics = get_textual_topics(idx_to_word, topic_word_dist)
 
-                path_to_save = OUTPUT_FOLDER + "scikit/" + get_model_name(k, a, b)
+        path_to_save = OUTPUT_FOLDER + "scikit/" + get_model_name_for_k(k)
 
-                os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
+        os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
 
-                model = {
-                    "vectorizer": vectorizer,
-                    "vectorized_docs_path": vec_docs_path,
-                    "instance": lda,
-                    "doc_topic_matrix": doc_topic_matrix,
-                    "topic_word_dist": topic_word_dist,
-                    "idx_to_word": idx_to_word,
-                    "topics": topics
-                }
+        model = {
+            "vectorizer": vectorizer,
+            "vectorized_docs_path": vec_docs_path,
+            "instance": lda,
+            "doc_topic_dist": doc_topic_dist,
+            "topic_word_dist": topic_word_dist,
+            "idx_to_word": idx_to_word,
+            "topics": topics
+        }
 
-                joblib.dump(model, path_to_save, compress=6)
+        joblib.dump(model, path_to_save, compress=7)
 
-                df = df.append({
-                    "k": k,
-                    "alpha": a,
-                    "beta": b,
-                    "model": get_model_name(k, a, b),
-                    "c_v": get_coherence_score(topics, documents, dictionary, "c_v"),
-                    "u_mass": get_coherence_score(topics, documents, dictionary, "u_mass"),
-                    "c_uci": get_coherence_score(topics, documents, dictionary, "c_uci"),
-                    "c_npmi": get_coherence_score(topics, documents, dictionary, "c_npmi"),
-                    "diversity": get_topic_diversity(topics),
-                    "path": path_to_save
-                }, ignore_index=True)
+        df = df.append({
+            "k": k,
+            "model": get_model_name_for_k(k),
+            "c_v": get_coherence_score(topics, eval_dataset, dictionary, "c_v"),
+            "u_mass": get_coherence_score(topics, eval_dataset, dictionary, "u_mass"),
+            "c_uci": get_coherence_score(topics, eval_dataset, dictionary, "c_uci"),
+            "c_npmi": get_coherence_score(topics, eval_dataset, dictionary, "c_npmi"),
+            "diversity": get_topic_diversity(topics),
+            "path": path_to_save
+        }, ignore_index=True)
 
-                current_iteration = current_iteration + 1
-                update_progress_bar(current_iteration, total_iterations)
+        current_iteration = current_iteration + 1
+        update_progress_bar(current_iteration, total_iterations)
 
     return df
 
 
-def train_many_lda(documents, dictionary, topics, alpha_values, beta_values, corpus=None):
+def train_many_lda(documents, dictionary, topics, alpha_values, beta_values, corpus=None, external_dataset=None, use_cv=False):
     """Kickstarts LDA models training and computes total training time.
 
     Parameters:
@@ -235,7 +234,7 @@ def train_many_lda(documents, dictionary, topics, alpha_values, beta_values, cor
         df = train_lda_gensim(corpus, dictionary, documents, topics, alpha_values, beta_values)
     else:
         folder = "scikit/"
-        df = train_lda(dictionary, documents, topics, alpha_values, beta_values)
+        df = train_lda(dictionary, documents, topics, alpha_values, beta_values, external_dataset=external_dataset, use_cv=use_cv)
 
     training_end_time = time.time()
 
@@ -249,7 +248,7 @@ def train_many_lda(documents, dictionary, topics, alpha_values, beta_values, cor
 
     print("Saving results CSV...")
 
-    output_filepath = OUTPUT_PATH + folder + "training_results.csv"
+    output_filepath = OUTPUT_PATH + f'lda_results.csv'
 
     os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
 
