@@ -23,15 +23,20 @@ import pandas as pd
 
 from etm import ETM
 from utils import nearest_neighbors, get_topic_coherence, get_topic_diversity, get_gensim_coherence
+from training.utils import get_topic_diversity as my_diversity, get_coherence_score as my_coherence
+from training import constants
+import joblib
 
 
-OUTPUT_PATH = "../training-results/"
+OUTPUT_PATH = constants.CSV_RESULTS_FOLDER + "etm/"
+MODELS_PATH = constants.MODELS_FOLDER + "etm/"
 
 
 parser = argparse.ArgumentParser(description='The Embedded Topic Model')
 
 ### data and file related arguments
 parser.add_argument('--dataset', type=str, default='20ng', help='name of corpus')
+parser.add_argument('--dictionary', type=str, help='word dictionary path', required=True)
 parser.add_argument('--data_path', type=str, default='data/20ng', help='directory containing data')
 parser.add_argument('--original_data_path', type=str, default='data/20ng_original', help='directory containing original unmodified data')
 parser.add_argument('--emb_path', type=str, default='data/20ng_embeddings.txt', help='directory containing word embeddings')
@@ -68,6 +73,7 @@ parser.add_argument('--visualize_every', type=int, default=10, help='when to vis
 parser.add_argument('--eval_batch_size', type=int, default=1000, help='input batch size for evaluation')
 parser.add_argument('--tc', type=int, default=1, help='whether to compute topic coherence or not')
 parser.add_argument('--td', type=int, default=1, help='whether to compute topic diversity or not')
+parser.add_argument('--eval_perplexity', type=int, default=1, help='whether to compute perplexity on document completion task')
 
 args = parser.parse_args()
 
@@ -90,21 +96,22 @@ train_tokens = train['tokens']
 train_counts = train['counts']
 args.num_docs_train = len(train_tokens)
 
-# 2. dev set
-valid_tokens = valid['tokens']
-valid_counts = valid['counts']
-args.num_docs_valid = len(valid_tokens)
+if (args.eval_perplexity == 1):
+    # 2. dev set
+    valid_tokens = valid['tokens']
+    valid_counts = valid['counts']
+    args.num_docs_valid = len(valid_tokens)
 
-# 3. test data
-test_tokens = test['tokens']
-test_counts = test['counts']
-args.num_docs_test = len(test_tokens)
-test_1_tokens = test['tokens_1']
-test_1_counts = test['counts_1']
-args.num_docs_test_1 = len(test_1_tokens)
-test_2_tokens = test['tokens_2']
-test_2_counts = test['counts_2']
-args.num_docs_test_2 = len(test_2_tokens)
+    # 3. test data
+    test_tokens = test['tokens']
+    test_counts = test['counts']
+    args.num_docs_test = len(test_tokens)
+    test_1_tokens = test['tokens_1']
+    test_1_counts = test['counts_1']
+    args.num_docs_test_1 = len(test_1_tokens)
+    test_2_tokens = test['tokens_2']
+    test_2_counts = test['counts_2']
+    args.num_docs_test_2 = len(test_2_tokens)
 
 
 def create_dictionary(documents):
@@ -126,8 +133,11 @@ def create_dictionary(documents):
 
 # Gensim dictionary
 raw_data = json.load(open(args.original_data_path, 'r'))
-documents_gensim = [ data["body"] for data in raw_data]
-dictionary_gensim = create_dictionary(documents_gensim)
+documents_gensim = [ data.split() if (isinstance(data, str)) else data for data in raw_data]
+
+print("Loading word dictionary...")
+dictionary_gensim = joblib.load(args.dictionary)
+print("Word dictionary loaded")
 
 embeddings = None
 if not args.train_embeddings:
@@ -164,12 +174,16 @@ df = pd.DataFrame({
     "k": [],
     "model": [],
     "coherence": [],
-    "gensim_coherence": [],
+    "c_v": [],
+    "u_mass": [],
+    "c_uci": [],
+    "c_npmi": [],
     "diversity": [],
+    "model_diversity": [],
     "perplexity": [],
-    "topics": [],
     "10_most_used_topics": [],
-    "path": []
+    "path": [],
+    "model_path": []
 })
 
 for K_value in list(map(lambda x: int(x), args.topics)):
@@ -286,48 +300,51 @@ for K_value in list(map(lambda x: int(x), args.topics)):
         """
         m.eval()
         with torch.no_grad():
-            if source == 'val':
-                indices = torch.split(torch.tensor(range(args.num_docs_valid)), args.eval_batch_size)
-                tokens = valid_tokens
-                counts = valid_counts
-            else: 
-                indices = torch.split(torch.tensor(range(args.num_docs_test)), args.eval_batch_size)
-                tokens = test_tokens
-                counts = test_counts
+            if (args.eval_perplexity == 1):
+                if source == 'val':
+                    indices = torch.split(torch.tensor(range(args.num_docs_valid)), args.eval_batch_size)
+                    tokens = valid_tokens
+                    counts = valid_counts
+                else: 
+                    indices = torch.split(torch.tensor(range(args.num_docs_test)), args.eval_batch_size)
+                    tokens = test_tokens
+                    counts = test_counts
 
             ## get \beta here
             beta = m.get_beta()
 
-            ### do dc and tc here
-            acc_loss = 0
-            cnt = 0
-            indices_1 = torch.split(torch.tensor(range(args.num_docs_test_1)), args.eval_batch_size)
-            for idx, ind in enumerate(indices_1):
-                ## get theta from first half of docs
-                data_batch_1 = data.get_batch(test_1_tokens, test_1_counts, ind, args.vocab_size, device)
-                sums_1 = data_batch_1.sum(1).unsqueeze(1)
-                if args.bow_norm:
-                    normalized_data_batch_1 = data_batch_1 / sums_1
-                else:
-                    normalized_data_batch_1 = data_batch_1
-                theta, _ = m.get_theta(normalized_data_batch_1)
+            ppl_dc = 0
+            if (args.eval_perplexity == 1):
+                ### do dc and tc here
+                acc_loss = 0
+                cnt = 0
+                indices_1 = torch.split(torch.tensor(range(args.num_docs_test_1)), args.eval_batch_size)
+                for idx, ind in enumerate(indices_1):
+                    ## get theta from first half of docs
+                    data_batch_1 = data.get_batch(test_1_tokens, test_1_counts, ind, args.vocab_size, device)
+                    sums_1 = data_batch_1.sum(1).unsqueeze(1)
+                    if args.bow_norm:
+                        normalized_data_batch_1 = data_batch_1 / sums_1
+                    else:
+                        normalized_data_batch_1 = data_batch_1
+                    theta, _ = m.get_theta(normalized_data_batch_1)
 
-                ## get prediction loss using second half
-                data_batch_2 = data.get_batch(test_2_tokens, test_2_counts, ind, args.vocab_size, device)
-                sums_2 = data_batch_2.sum(1).unsqueeze(1)
-                res = torch.mm(theta, beta)
-                preds = torch.log(res)
-                recon_loss = -(preds * data_batch_2).sum(1)
-                
-                loss = recon_loss / sums_2.squeeze()
-                loss = loss.mean().item()
-                acc_loss += loss
-                cnt += 1
-            cur_loss = acc_loss / cnt
-            ppl_dc = round(math.exp(cur_loss), 1)
-            print('*'*100)
-            print('{} Doc Completion PPL: {}'.format(source.upper(), ppl_dc))
-            print('*'*100)
+                    ## get prediction loss using second half
+                    data_batch_2 = data.get_batch(test_2_tokens, test_2_counts, ind, args.vocab_size, device)
+                    sums_2 = data_batch_2.sum(1).unsqueeze(1)
+                    res = torch.mm(theta, beta)
+                    preds = torch.log(res)
+                    recon_loss = -(preds * data_batch_2).sum(1)
+                    
+                    loss = recon_loss / sums_2.squeeze()
+                    loss = loss.mean().item()
+                    acc_loss += loss
+                    cnt += 1
+                cur_loss = acc_loss / cnt
+                ppl_dc = round(math.exp(cur_loss), 1)
+                print('*'*100)
+                print('{} Doc Completion PPL: {}'.format(source.upper(), ppl_dc))
+                print('*'*100)
 
             TC = None
             TD = None
@@ -354,7 +371,7 @@ for K_value in list(map(lambda x: int(x), args.topics)):
     for epoch in range(1, args.epochs):
         train(epoch)
         val_ppl, _, _ = evaluate(model, 'val')
-        if val_ppl < best_val_ppl:
+        if args.eval_perplexity == 0 or val_ppl < best_val_ppl:
             with open(ckpt, 'wb') as f:
                 torch.save(model, f)
             best_epoch = epoch
@@ -389,6 +406,9 @@ for K_value in list(map(lambda x: int(x), args.topics)):
         thetaAvg = torch.zeros(1, K_value).to(device)
         thetaWeightedAvg = torch.zeros(1, K_value).to(device)
         cnt = 0
+
+        thetas = []
+
         for idx, ind in enumerate(indices):
             data_batch = data.get_batch(train_tokens, train_counts, ind, args.vocab_size, device)
             sums = data_batch.sum(1).unsqueeze(1)
@@ -398,16 +418,31 @@ for K_value in list(map(lambda x: int(x), args.topics)):
             else:
                 normalized_data_batch = data_batch
             theta, _ = model.get_theta(normalized_data_batch)
+
+            thetas.append(theta)
+            # print("THETA: ", theta)
+            # print("LEN(THETA): ", len(theta))
+            # print("THETA SIZE: ", theta.size())
+
             thetaAvg += theta.sum(0).unsqueeze(0) / args.num_docs_train
             weighed_theta = sums * theta
             thetaWeightedAvg += weighed_theta.sum(0).unsqueeze(0)
             if idx % 100 == 0 and idx > 0:
                 print('batch: {}/{}'.format(idx, len(indices)))
+        
+        # print("thetaWeightedAvg: ", thetaWeightedAvg)
+        # print("LEN(thetaWeightedAvg): ", len(thetaWeightedAvg))
+        
         thetaWeightedAvg = thetaWeightedAvg.squeeze().cpu().numpy() / cnt
         print('\nThe 10 most used topics are {}'.format(thetaWeightedAvg.argsort()[::-1][:10]))
 
         ## show topics
         beta = model.get_beta()
+
+        # print("BETA: ", beta)
+        # print("LEN(BETA): ", len(beta))
+        # print("BETA SIZE: ", beta.size())
+
         topic_indices = list(np.random.choice(K_value, 10)) # 10 random topics
         print('\n')
 
@@ -420,19 +455,33 @@ for K_value in list(map(lambda x: int(x), args.topics)):
             print('Topic {}: {}'.format(k, topic_words))
             topics.append(topic_words)
         
-        gensim_coherence = get_gensim_coherence(topics, documents_gensim, dictionary_gensim, 'c_v')
-        print("Gensim topic coherence: " + str(gensim_coherence))
+        # path_to_save = MODELS_PATH + f'etm_k{K_value}'
+        # os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
+        # joblib.dump(model, path_to_save, compress=7)
+
+        portable_model = {
+            "topic_word_dist": beta,
+            "doc_topic_dist": torch.cat(tuple(thetas), 0),
+            "topics": topics,
+        }
+        path_to_save = MODELS_PATH + f'etm_k{K_value}'
+        os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
+        joblib.dump(portable_model, path_to_save, compress=7)
         
         df = df.append({
             "k": K_value,
-            "model": args.dataset + "_" + "k" + str(K_value),
+            "model": f'etm_k{K_value}',
             "coherence": TC,
-            "gensim_coherence": gensim_coherence,
-            "diversity": TD,
+            "c_v": my_coherence(topics, documents_gensim, dictionary_gensim, "c_v"),
+            "u_mass": my_coherence(topics, documents_gensim, dictionary_gensim, "u_mass"),
+            "c_uci": my_coherence(topics, documents_gensim, dictionary_gensim, "c_uci"),
+            "c_npmi": my_coherence(topics, documents_gensim, dictionary_gensim, "c_npmi"),
+            "diversity": my_diversity(topics),
+            "model_diversity": TD,
             "perplexity": test_ppl,
-            "topics": topics,
             "10_most_used_topics": thetaWeightedAvg.argsort()[::-1][:10],
-            "path": ckpt
+            "path": ckpt,
+            "model_path": path_to_save
         }, ignore_index=True)
 
         output_filepath = OUTPUT_PATH + "etm_results.csv"
