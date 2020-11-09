@@ -171,7 +171,7 @@ print("Creating word dictionary for entire corpus...")
 dictionary = create_dictionary(words_tr)
 path_save = OUTPUT_PATH + '/word_dictionary.gdict'
 os.makedirs(os.path.dirname(path_save), exist_ok=True)
-json.dump(dictionary, open(path_save, 'w'))
+joblib.dump(dictionary, path_save, compress=7)
 print(f'Word dictionary created and saved to "{path_save}"')
 
 # Split test set in 2 halves
