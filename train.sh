@@ -17,7 +17,7 @@ echo "Iniciando treinamento de modelos ctm, lda e etm..."
 
 
 # Treinamento CTM
-python3 ctm/ctm_training.py \
+python3 ctm-trainer/train_ctm.py \
     --dataset datasets_for_training/ctm_dataset.txt \
     --dictionary datasets_for_training/word_dictionary.gdict \
     --topics 5 8 10 12 15 18 20 22 25 28 30
