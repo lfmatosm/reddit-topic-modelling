@@ -124,3 +124,13 @@ def pairwise_word_embedding_distance(topics, topk=20):
                 dist += distance.cosine(w1, w2)
             sum_dist += dist / topk
         return sum_dist / len(topics)
+
+
+def get_topic_word_matrix(topic_word_mtx, k, train_data):
+    topics = []
+    for i in range(k):
+        words_dists = list(topic_word_mtx[i].cpu().numpy())
+        component_words = [train_data.idx2token[idx]
+                            for idx, _ in enumerate(words_dists)]
+        topics.append(component_words)
+    return topics

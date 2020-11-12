@@ -85,3 +85,14 @@ def filter_tokens_by_frequencies(documents, min_df=1, max_df=1.0):
     vectorizer.fit_transform(documents)
     
     return [[word for word in document if word not in vectorizer.stop_words_] for document in documents]
+
+
+def get_topic_word_matrix(beta, k_values, vocab):
+    topics = []
+
+    for k in range(k_values):
+        words = list(beta[k].cpu().numpy())
+        topic_words = [vocab[a] for a, _ in enumerate(words)]
+        topics.append(topic_words)
+
+    return topics

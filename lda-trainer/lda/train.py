@@ -27,6 +27,14 @@ def get_textual_topics(idx_to_word, topic_word_dist):
     return topics
 
 
+def get_topic_word_matrix(idx_to_word, topic_word_dist):
+    topics = []
+
+    for _, topic in enumerate(topic_word_dist):
+        topics.append(list([idx_to_word[idx] for idx, _ in enumerate(topic)]))
+    return topics
+
+
 def get_gensim_topics(model, k):
     tuples = model.print_topics(num_topics=k, num_words=20)
     
@@ -184,6 +192,7 @@ def train_lda(dictionary, documents, topics, alpha_values, beta_values, external
             "doc_topic_dist": doc_topic_dist,
             "topic_word_dist": topic_word_dist,
             "idx_to_word": idx_to_word,
+            "topic_word_matrix": get_topic_word_matrix(idx_to_word, topic_word_dist),
             "topics": topics
         }
 

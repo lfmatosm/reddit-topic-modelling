@@ -23,7 +23,7 @@ import pandas as pd
 
 from etm import ETM
 from utils import nearest_neighbors, get_topic_coherence, get_topic_diversity, get_gensim_coherence
-from training.utils import get_topic_diversity as my_diversity, get_coherence_score as my_coherence
+from training.utils import get_topic_diversity as my_diversity, get_coherence_score as my_coherence, get_topic_word_matrix
 from training import constants
 import joblib
 
@@ -420,9 +420,6 @@ for K_value in list(map(lambda x: int(x), args.topics)):
             theta, _ = model.get_theta(normalized_data_batch)
 
             thetas.append(theta)
-            # print("THETA: ", theta)
-            # print("LEN(THETA): ", len(theta))
-            # print("THETA SIZE: ", theta.size())
 
             thetaAvg += theta.sum(0).unsqueeze(0) / args.num_docs_train
             weighed_theta = sums * theta
@@ -430,18 +427,11 @@ for K_value in list(map(lambda x: int(x), args.topics)):
             if idx % 100 == 0 and idx > 0:
                 print('batch: {}/{}'.format(idx, len(indices)))
         
-        # print("thetaWeightedAvg: ", thetaWeightedAvg)
-        # print("LEN(thetaWeightedAvg): ", len(thetaWeightedAvg))
-        
         thetaWeightedAvg = thetaWeightedAvg.squeeze().cpu().numpy() / cnt
         print('\nThe 10 most used topics are {}'.format(thetaWeightedAvg.argsort()[::-1][:10]))
 
         ## show topics
         beta = model.get_beta()
-
-        # print("BETA: ", beta)
-        # print("LEN(BETA): ", len(beta))
-        # print("BETA SIZE: ", beta.size())
 
         topic_indices = list(np.random.choice(K_value, 10)) # 10 random topics
         print('\n')
@@ -455,13 +445,13 @@ for K_value in list(map(lambda x: int(x), args.topics)):
             print('Topic {}: {}'.format(k, topic_words))
             topics.append(topic_words)
         
-        # path_to_save = MODELS_PATH + f'etm_k{K_value}'
-        # os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
-        # joblib.dump(model, path_to_save, compress=7)
+        topic_word_mtx = get_topic_word_matrix(beta, K_value, vocab)
 
         portable_model = {
+            "topic_word_matrix": topic_word_mtx,
             "topic_word_dist": beta,
             "doc_topic_dist": torch.cat(tuple(thetas), 0),
+            "idx_to_word": vocab,
             "topics": topics,
         }
         path_to_save = MODELS_PATH + f'etm_k{K_value}'

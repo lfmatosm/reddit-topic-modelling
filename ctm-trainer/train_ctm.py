@@ -63,7 +63,12 @@ df = pd.DataFrame({
 
 print(f'Beginning training for topic models with K = {topics}')
 for k in topics:
-    ctm = CTM(input_size=len(handler.vocab), bert_input_size=512, inference_type=args.inference, n_components=k)
+    ctm = CTM(
+        input_size=len(handler.vocab), 
+        bert_input_size=512, 
+        inference_type=args.inference, 
+        n_components=k
+    )
 
     ctm.fit(training_dataset) # run the model
 
@@ -72,12 +77,16 @@ for k in topics:
 
     softmax = torch.nn.Softmax(dim=1)
 
+    topic_word_mtx = softmax(torch.from_numpy(topic_word_dist))
+
     path_to_save = BASE_MODELS_PATH + get_model_name(k)
     os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
     joblib.dump({
         "topics": topics,
-        "topic_word_dist": softmax(torch.from_numpy(topic_word_dist)), #Normalizes the matrix
-        "doc_topic_dist": ctm.get_thetas(training_dataset)
+        "topic_word_dist": topic_word_mtx, #Normalizes the matrix
+        "doc_topic_dist": ctm.get_thetas(training_dataset),
+        "idx_to_word": ctm.train_data.idx2token,
+        "topic_word_matrix": utils.get_topic_word_matrix(topic_word_mtx, k, ctm.train_data.idx2token)
     }, path_to_save, compress=7)
 
     df = df.append({

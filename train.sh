@@ -24,7 +24,7 @@ python3 ctm-trainer/train_ctm.py \
 
 # Treinamento LDA
 python3 lda-trainer/train_lda.py \
-    --dataset /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/datasets_for_training/training_dataset.json \
+    --dataset datasets_for_training/training_dataset.json \
     --dictionary datasets_for_training/word_dictionary.gdict \
     --topics 5 8 10 12 15 18 20 22 25 28 30
 
