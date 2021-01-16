@@ -1,4 +1,5 @@
 from utils.preprocessor import Preprocessor
+from utils.parse import str2bool
 import pandas as pd
 import numpy as np
 import sys
@@ -15,7 +16,7 @@ WRITE_MODE = "w"
 READ_MODE = "r"
 
 
-UNDESIRED_WORDS_LIST = ["https", "http", "www"]
+UNDESIRED_WORDS_LIST = ["https", "http", "www", "removed", "deleted"]
 
 
 def get_filename(path):
@@ -75,9 +76,9 @@ parser.add_argument('--datasetFolder', type=str, help='dataset folder', required
 parser.add_argument('--stopwordsFile', type=str, help='additional stop-words file', required=False)
 parser.add_argument('--field', type=str, help='field to be processed', required=True)
 parser.add_argument('--lang', type=str, help='dataset language: string "en" or "pt"', required=True)
-parser.add_argument('--lemmatize', type=bool, help='should lemmatize data?', required=False, default=False)
-parser.add_argument('--removeStopwords', type=bool, help='should remove stopwords?', required=False, default=False)
-parser.add_argument('--removePos', type=bool, help='should remove POS categories?', required=False, default=False)
+parser.add_argument('--lemmatize', type=str2bool, help='should lemmatize data?', required=False, default=False)
+parser.add_argument('--removeStopwords', type=str2bool, help='should remove stopwords?', required=False, default=False)
+parser.add_argument('--removePos', type=str2bool, help='should remove POS categories?', required=False, default=False)
 parser.add_argument('--desiredPos', nargs='+', help='part-of-speech categories to keep. These are simple Spacy POS categories', required=False, default=['NOUN'])
 
 args = parser.parse_args()
@@ -96,6 +97,8 @@ posCategories = args.desiredPos
 print("Path: ", original_data_path)
 if stopwords_file != None: print("Additional stopwords file: ", stopwords_file)
 print("Field: ", field_of_interest)
+print("Dataset: ", dataset_name)
+print("Folder: ", dataset_folder)
 print("Language: ", lang)
 print("Is to lemmatize data? ", lemmatize_activated)
 print("Is to remove stopwords? ", remove_stopwords)

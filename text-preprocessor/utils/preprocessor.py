@@ -60,19 +60,35 @@ class Preprocessor:
 
     #Transforms each word into its base form. e.g. 'fazendo' becomes 'fazer'
     def lemmatize(self, documents):
-        return [[ token.lemma_ for token in document ] for document in documents]
-    
+        tokens = []
 
+        for document in documents:
+            doc_string = self.__nlp(" ".join(document))
+            tokens.append([token for token in doc_string])
+
+        return tokens
+    
+    def get_lemmas(self, documents):
+        return [[token.lemma_ for token in document] for document in documents]
+    
     #For each word, produces a (word, pos, lemma) pair where pos is the part-of-speech category of the given word/token
+    # def filter_part_of_speech_tags(self, documents, categories):
+    #     tokens_with_pos = []
+
+    #     for document in documents:
+    #         doc_string = self.__nlp(" ".join(document))
+    #         tokens_with_pos.append([ token.lemma_ for token in doc_string if token.pos_ in categories])
+
+    #     return tokens_with_pos
+    
     def filter_part_of_speech_tags(self, documents, categories):
         tokens_with_pos = []
 
         for document in documents:
-            doc_string = self.__nlp(" ".join(document))
-            tokens_with_pos.append([ token.lemma_ for token in doc_string if token.pos_ in categories])
+            tokens_with_pos.append([token.lemma_ \
+                for token in document if token.pos_ in categories])
 
         return tokens_with_pos
-    
 
     #Removes POS categories not explicitly specified to be kept on the corpus.
     def filter_part_of_speech_categories(self, documents, categories):
@@ -96,7 +112,7 @@ class Preprocessor:
         """
         data_without_newlines = self.remove_newlines_and_single_quotes(data)
 
-        print("Newlines and single-quotes removed from documents")
+        print("Newlines and single-quotes removed from documents.")
 
         #Breaks each document into a list of words
         tokenize = lambda texts: [(yield simple_preprocess(text, deacc=True, min_len=1)) for text in texts]
@@ -105,18 +121,21 @@ class Preprocessor:
 
         print("Tokenized documents.")
 
-        tokens_with_pos = tokenized_data
+        if self.__lemmatize_activated == True:
+            tokenized_data = self.lemmatize(tokenized_data)
 
-        if (self.__remove_pos_activated == True):
+            print("Lemmatized documents.")
 
-            tokens_with_pos = self.filter_part_of_speech_tags(tokenized_data, self.__pos_categories)
+        if self.__remove_pos_activated == True:
+            tokenized_data = self.filter_part_of_speech_tags(tokenized_data, self.__pos_categories)
 
             print(f'{", ".join(self.__pos_categories)} POS categories of tokens kept and lemmatized.')
-
+        elif self.__lemmatize_activated == True:
+            tokenized_data = self.get_lemmas(tokenized_data)
         
-        preprocessed_data = tokens_with_pos
+        preprocessed_data = tokenized_data
 
-        if (self.__remove_stopwords_activated == True):
+        if self.__remove_stopwords_activated == True:
         
             additional_stopwords = open(stopwords_file_path, "r").read().split(",") if stopwords_file_path != None else None
 

@@ -19,7 +19,7 @@ def get_model_name(k):
 
 parser = argparse.ArgumentParser(description="Trains CTM models with the given corpora of documents.")
 parser.add_argument("--dataset", type=str, help="dataset path. TXT file", required=True)
-parser.add_argument('--dictionary', type=str, help='word dictionary path', required=True)
+parser.add_argument('--dictionary', type=str, help="word dictionary path", required=True)
 parser.add_argument("--topics", nargs="+", help="list of K values", required=True)
 parser.add_argument("--inference", type=str, help="list of K values", required=False, default="combined")
 args = parser.parse_args()
@@ -36,6 +36,7 @@ handler.prepare() # create vocabulary and training data
 print("Generating BERT data...")
 training_bert = bert_embeddings_from_file(args.dataset, "distiluse-base-multilingual-cased")
 # training_bert = bert_embeddings_from_file(args.dataset, "bert-base-portuguese-cased")
+print(f'BERT - {training_bert}')
 
 training_dataset = CTMDataset(handler.bow, training_bert, handler.idx2token)
 
