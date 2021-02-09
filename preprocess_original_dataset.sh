@@ -8,7 +8,7 @@ en_dataset_name=$5
 field="body"
 
 echo "Processando dataset original em portugues..."
-python3 text-preprocessor/preprocess.py \
+python3 text_preprocessor/preprocess.py \
     --datasetFile $pt_dataset \
     --datasetName  $pt_dataset_name \
     --datasetFolder $folder \
@@ -17,7 +17,7 @@ python3 text-preprocessor/preprocess.py \
 echo "Dataset original em portugues processado"
 
 echo "Processando dataset original em ingles..."
-python3 text-preprocessor/preprocess.py \
+python3 text_preprocessor/preprocess.py \
     --datasetFile $en_dataset \
     --datasetName  $en_dataset_name \
     --datasetFolder $folder \

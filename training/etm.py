@@ -73,8 +73,8 @@ for k in topics:
     os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
     joblib.dump({
         "topics": topic_words,
-        "topic_word_dist": t_w_dist,
-        "doc_topic_dist": d_t_dist,
+        "topic_word_dist": t_w_dist.numpy(), #Tensor -> numpy
+        "doc_topic_dist": d_t_dist.numpy(),  #Tensor -> numpy
         "idx_to_word": vocabulary,
         "topic_word_matrix": t_w_mtx
     }, path_to_save, compress=8)
@@ -104,4 +104,3 @@ os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
 df.to_csv(output_filepath)
 
 print("Training finished!")
-

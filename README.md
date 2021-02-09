@@ -13,8 +13,8 @@ Os utilitários/*scripts* presentes neste projeto são, de forma geral, independ
 
 * ```lda-trainer``` - *scripts* de treinamento LDA. Deve ser usado apenas quando possuir um *dataset* pré-processado e em seu formato de entrada (conjunto de registros em um arquivo JSON)
 * ```models-evaluation``` - *notebook* Jupyter e scripts para avaliação de resultados de treinamento
-* ```posts-gatherer``` - *script* para coleta automatizada de postagens do *Reddit*. Você determina em que banco Mongo os dados devem ser salvos e *keywords*/*subreddits* para serem buscados, e o *script* executa a tarefa. Usado para montagem do *dataset* original para treinamento
-* ```text-preprocessor``` - *scripts* para pré-processamento de um *dataset*. Remoção de *stopwords*, *tokenização* e *lemmatização* são realizadas aqui. Um *dataset* deve ser pré-processado antes de ser submetido a treinamento no ```lda-trainer```
+* ```posts_gatherer``` - *script* para coleta automatizada de postagens do *Reddit*. Você determina em que banco Mongo os dados devem ser salvos e *keywords*/*subreddits* para serem buscados, e o *script* executa a tarefa. Usado para montagem do *dataset* original para treinamento
+* ```text_preprocessor``` - *scripts* para pré-processamento de um *dataset*. Remoção de *stopwords*, *tokenização* e *lemmatização* são realizadas aqui. Um *dataset* deve ser pré-processado antes de ser submetido a treinamento no ```lda-trainer```
 
 ### *Datasets*
 Os *datasets*, original e pré-processado utilizados no presente trabalho encontram-se na pasta de mesmo nome. Observe que as bases de dados são arquivos no formato JSON, onde cada registro é um objeto representando uma submissão dentro do *Reddit*.

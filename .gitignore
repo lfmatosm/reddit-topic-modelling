@@ -129,10 +129,10 @@ dmypy.json
 .pyre/
 
 # Project specific
-models_training/
-results/
-datasets_for_training/
+training_outputs/
+resources/
 .ipynb_checkpoints
 
 #Ignore temporarily
 models_evaluation/
+*.json

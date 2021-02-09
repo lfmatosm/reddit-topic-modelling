@@ -81,7 +81,8 @@ for k in topics:
 
     doc_topic_dist = lda.fit_transform(vectorized_documents)
     
-    topic_word_dist = lda.components_
+    # Normalizing components
+    topic_word_dist = lda.components_ / lda.components_.sum(axis=1)[:, np.newaxis]
 
     idx_to_word = np.array(vectorizer.get_feature_names())
 
