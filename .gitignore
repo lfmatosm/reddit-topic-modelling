@@ -135,4 +135,5 @@ resources/
 
 #Ignore temporarily
 models_evaluation/
+evaluation/
 *.json
