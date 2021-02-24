@@ -2,8 +2,11 @@
 
 train_batch_name=$1
 preprocessed_dataset=$2
-min_df=$3
-max_df=$4
+embeddings_file=$3
+word_lemma_maps=$4
+train_size=$5
+min_df=$6
+max_df=$7
 
 echo -e "\n*************************************************************************************"
 
@@ -12,6 +15,9 @@ echo -e "Training: $train_batch_name"
 echo -e "\nPreparing training resources (datasets, vocabulary, dictionary, etc)..."
 python scripts/prepare_dataset_for_training.py \
     --dataset $preprocessed_dataset --dataset_name $train_batch_name \
+    --embeddings $embeddings_file \
+    --word_lemma_maps $word_lemma_maps \
+    --train_size $train_size \
     --min_df $min_df --max_df $max_df
 echo -e "\nTraining resources prepared"
 
@@ -26,30 +32,31 @@ echo -e "\nStarting ctm, lda and etm training..."
 # CTM
 echo -e "\nStarting ctm training...\n"
 python training/ctm.py \
-    --split_documents $base_prepared_resources_dir/split_documents.json \
+    --train_documents $base_prepared_resources_dir/train_documents.json \
+    --test_documents $base_prepared_resources_dir/test_documents.json \
     --data_preparation $base_prepared_resources_dir/ctm_data_preparation.obj \
     --prepared_training_dataset $base_prepared_resources_dir/ctm_training_dataset.dataset \
     --dictionary $base_prepared_resources_dir/word_dictionary.gdict \
-    --topics 5 8 10 12 15 18 20 22 25 28 30
+    --topics 5
 
 # LDA
 echo -e "\nStarting lda training...\n"
 python training/lda.py \
-    --split_documents $base_prepared_resources_dir/split_documents.json \
-    --joined_documents $base_prepared_resources_dir/joined_documents.json \
+    --train_documents $base_prepared_resources_dir/train_documents.json \
+    --test_documents $base_prepared_resources_dir/test_documents.json \
     --dictionary $base_prepared_resources_dir/word_dictionary.gdict \
-    --topics 5 8 10 12 15 18 20 22 25 28 30
-
+    --topics 5
 
 # ETM
 echo -e "\nStarting etm training...\n"
 python training/etm.py \
-    --split_documents $base_prepared_resources_dir/split_documents.json \
+    --train_documents $base_prepared_resources_dir/train_documents.json \
+    --test_documents $base_prepared_resources_dir/test_documents.json \
     --training_dataset $base_prepared_resources_dir/etm_training_dataset.dataset \
     --vocabulary $base_prepared_resources_dir/etm_vocabulary.vocab \
     --dictionary $base_prepared_resources_dir/word_dictionary.gdict \
-    --embeddings skip_s300.txt \
-    --topics 5 8 10 12 15 18 20 22 25 28 30
+    --embeddings $base_prepared_resources_dir/etm_w2v_embeddings.txt \
+    --topics 5
 
 echo -e "\nTraining finished successfully"
 

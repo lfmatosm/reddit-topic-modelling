@@ -1,4 +1,5 @@
-import argparse, distutils
+import argparse
+from distutils import util
 
 def str2bool(v):
-    return bool(distutils.util.strtobool(v))
+    return bool(util.strtobool(v))

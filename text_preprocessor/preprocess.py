@@ -121,7 +121,7 @@ processor = Preprocessor(
     remove_stopwords=remove_stopwords
 )
 
-processed_data = processor.preprocess(data, stopwords_file)
+processed_data, word_lemma_mapping, lemma_word_mapping = processor.preprocess(data, stopwords_file)
 
 print("Size of data after preprocessing: ", len(processed_data))
 
@@ -132,10 +132,24 @@ df_after_preprocessing = df_after_preprocessing[df_after_preprocessing['body'].m
 print(f'Row count after removal of rows with empty "{field_of_interest}" fields: {len(df_after_preprocessing)}')
 
 #output_filepath = OUTPUT_PATH + get_filename(original_data_path) + "[processed]" + FILE_EXTENSION
-output_filepath = "/".join([OUTPUT_PATH, dataset_folder, dataset_name]) + "[processed]" + FILE_EXTENSION
+output_filepath = os.path.join(OUTPUT_PATH, dataset_folder, dataset_name) + "[processed]" + FILE_EXTENSION
 
 os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
 
 json.dump(df_after_preprocessing.to_dict(orient='records'), open(output_filepath, WRITE_MODE))
 
 print("Data dumped to ", output_filepath)
+
+if word_lemma_mapping is not None and lemma_word_mapping is not None:
+    mapping = {
+        "word_lemma": word_lemma_mapping,
+        "lemma_word": lemma_word_mapping,
+    }
+
+    output_filepath = os.path.join(OUTPUT_PATH, dataset_folder, dataset_name) + "[word_lemma_maps]" + FILE_EXTENSION
+
+    os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
+
+    json.dump(mapping, open(output_filepath, WRITE_MODE))
+
+    print("Word-lemma and inverse mappings dumped to ", output_filepath)

@@ -2,6 +2,7 @@ from contextualized_topic_models.models.ctm import CombinedTM, ZeroShotTM
 from contextualized_topic_models.utils.data_preparation import TopicModelDataPreparation
 from utils import constants, ctm_utils
 from utils.metrics import get_coherence_score, get_topic_diversity
+from utils.dataframe import create_model_dataframe, insert_line_in_model_dataframe
 import argparse
 import pandas as pd
 import joblib
@@ -9,8 +10,8 @@ import os
 import torch
 import json
 
-
-BASE_MODELS_PATH = f'{constants.MODELS_FOLDER}ctm/'
+CTM_FOLDER = 'ctm/'
+BASE_MODELS_PATH = f'{constants.MODELS_FOLDER}{CTM_FOLDER}'
 
 
 def get_model_name(k, inference):
@@ -18,7 +19,8 @@ def get_model_name(k, inference):
 
 
 parser = argparse.ArgumentParser(description="Trains CTM models with the given corpora of split_documents.")
-parser.add_argument("--split_documents", type=str, help="dataset path. TXT file", required=True)
+parser.add_argument("--train_documents", type=str, help="dataset path. TXT file", required=True)
+parser.add_argument("--test_documents", type=str, help="dataset path. TXT file", required=True)
 parser.add_argument("--data_preparation", type=str, help="dataset path. TXT file", required=True)
 parser.add_argument("--prepared_training_dataset", type=str, help="dataset path. TXT file", required=True)
 parser.add_argument('--dictionary', type=str, help="word dictionary path", required=True)
@@ -30,7 +32,10 @@ topics = list(map(lambda x: int(x), args.topics))
 print(f'CTM training for K = {topics}')
 
 print("Loading documents and dictionary...")
-split_documents = json.load(open(args.split_documents, "r"))
+train_documents = json.load(open(args.train_documents, "r"))
+test_documents = json.load(open(args.test_documents, "r"))
+print(f'train_documents = {len(train_documents["split"])}')
+print(f'test_documents = {len(test_documents["split"])}')
 dictionary = joblib.load(args.dictionary)
 print("Documents and dictionary loaded")
 
@@ -39,16 +44,7 @@ data_preparation = joblib.load(args.data_preparation)
 prepared_training_dataset = joblib.load(args.prepared_training_dataset)
 print("CTM training resources loaded")
 
-df = pd.DataFrame({
-    "k": [],
-    "model": [],
-    "c_v": [],
-    "u_mass": [],
-    "c_uci": [],
-    "c_npmi": [],
-    "diversity": [],
-    "path": []
-})
+df = create_model_dataframe()
 
 print(f'Vocab length: {len(data_preparation.vocab)}')
 
@@ -76,16 +72,21 @@ for k in topics:
         "topic_word_matrix": ctm_utils.get_topic_word_matrix(topic_word_mtx, k, ctm.train_data.idx2token)
     }, path_to_save, compress=8)
 
-    df = df.append({
-        "k": k,
-        "model": get_model_name(k, args.inference),
-        "c_v": get_coherence_score(topic_words, split_documents, dictionary, "c_v"),
-        "u_mass": get_coherence_score(topic_words, split_documents, dictionary, "u_mass"),
-        "c_uci": get_coherence_score(topic_words, split_documents, dictionary, "c_uci"),
-        "c_npmi": get_coherence_score(topic_words, split_documents, dictionary, "c_npmi"),
-        "diversity": get_topic_diversity(topic_words),
-        "path": path_to_save,
-    }, ignore_index=True)
+    model_name = get_model_name(k, args.inference)
+    npmi_train = get_coherence_score(topic_words, train_documents["split"], dictionary, "c_npmi")
+    npmi_test = get_coherence_score(topic_words, test_documents["split"], dictionary, "c_npmi")
+    diversity = get_topic_diversity(topic_words)
+    model_path = CTM_FOLDER + get_model_name(k, args.inference)
+
+    df = insert_line_in_model_dataframe(
+        df,
+        k,
+        model_name,
+        npmi_train,
+        npmi_test,
+        diversity,
+        model_path,
+    )
 
     print(f'CTM model with {k} topics successfully trained')
 

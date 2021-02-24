@@ -90,6 +90,26 @@ class Preprocessor:
 
         return tokens_with_pos
 
+    def create_word_lemma_mapping(self, documents):
+        word_lemma_mapping = {}
+
+        for document in documents:
+            for token in document:
+                if token.text not in word_lemma_mapping:
+                    word_lemma_mapping[token.text] = token.lemma_
+
+        return word_lemma_mapping
+    
+    def create_lemma_word_mapping(self, dictionary):
+        inverse = {}
+        for k, v in dictionary.items():
+            if v in inverse:
+                inverse[v].append(k)
+            else:
+                inverse[v] = [k]
+
+        return inverse
+
     #Removes POS categories not explicitly specified to be kept on the corpus.
     def filter_part_of_speech_categories(self, documents, categories):
         return [[ token for token, pos in document if pos in categories ] for document in documents]
@@ -121,16 +141,29 @@ class Preprocessor:
 
         print("Tokenized documents.")
 
+        word_lemma_mapping = {} if self.__lemmatize_activated == True else None
+        lemma_word_mapping = {} if self.__lemmatize_activated == True else None
+
         if self.__lemmatize_activated == True:
             tokenized_data = self.lemmatize(tokenized_data)
 
             print("Lemmatized documents.")
+
+            word_lemma_mapping = self.create_word_lemma_mapping(tokenized_data)
+
+            print("Word-lemma mapping created.")
+
+            lemma_word_mapping = self.create_lemma_word_mapping(word_lemma_mapping)
+
+            print("Lemma-word mapping created.")
 
         if self.__remove_pos_activated == True:
             tokenized_data = self.filter_part_of_speech_tags(tokenized_data, self.__pos_categories)
 
             print(f'{", ".join(self.__pos_categories)} POS categories of tokens kept and lemmatized.')
         elif self.__lemmatize_activated == True:
+
+
             tokenized_data = self.get_lemmas(tokenized_data)
         
         preprocessed_data = tokenized_data
@@ -143,4 +176,4 @@ class Preprocessor:
 
             print("Stopwords removed.")
 
-        return self.remove_small_words(preprocessed_data)
+        return self.remove_small_words(preprocessed_data), word_lemma_mapping, lemma_word_mapping

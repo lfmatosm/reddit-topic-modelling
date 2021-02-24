@@ -1,14 +1,15 @@
 from embedded_topic_model.models.etm import ETM
 from utils import constants
 from utils.metrics import get_coherence_score, get_topic_diversity
+from utils.dataframe import create_model_dataframe, insert_line_in_model_dataframe
 import argparse
 import json
 import joblib
 import os
 import pandas as pd
 
-
-BASE_MODELS_PATH = constants.MODELS_FOLDER + 'etm/'
+ETM_FOLDER = 'etm/'
+BASE_MODELS_PATH = constants.MODELS_FOLDER + ETM_FOLDER
 
 
 def get_model_name(k):
@@ -16,7 +17,8 @@ def get_model_name(k):
 
 
 parser = argparse.ArgumentParser(description="Trains ETM models with the given corpora of documents.")
-parser.add_argument("--split_documents", type=str, help="original datset path", required=True)
+parser.add_argument("--train_documents", type=str, help="original dataset path", required=True)
+parser.add_argument("--test_documents", type=str, help="original dataset path", required=True)
 parser.add_argument("--training_dataset", type=str, help="preprocessed training dataset", required=True)
 parser.add_argument("--embeddings", type=str, help="path to word2vec embeddings file to use", required=True)
 parser.add_argument("--vocabulary", type=str, help="training vocabulary", required=True)
@@ -28,7 +30,8 @@ topics = list(map(lambda x: int(x), args.topics))
 print(f'ETM training for K = {topics}')
 
 print("Loading documents and dictionary...")
-split_documents = json.load(open(args.split_documents, "r"))
+train_documents = json.load(open(args.train_documents, "r"))
+test_documents = json.load(open(args.test_documents, "r"))
 dictionary = joblib.load(args.dictionary)
 print("Documents and dictionary loaded")
 
@@ -37,16 +40,7 @@ train_dataset = joblib.load(args.training_dataset)
 vocabulary = joblib.load(args.vocabulary)
 print("ETM training resources loaded")
 
-df = pd.DataFrame({
-    "k": [],
-    "model": [],
-    "c_v": [],
-    "u_mass": [],
-    "c_uci": [],
-    "c_npmi": [],
-    "diversity": [],
-    "path": []
-})
+df = create_model_dataframe()
 
 for k in topics:
     print(f'Starting training for k={k}...')
@@ -56,7 +50,8 @@ for k in topics:
         embeddings=args.embeddings,
         num_topics=k,
         epochs=300,
-        debug_mode=True,
+        use_c_format_w2vec=True,
+        debug_mode=False,
     )
     
     etm_instance.fit(train_dataset)
@@ -79,16 +74,21 @@ for k in topics:
         "topic_word_matrix": t_w_mtx
     }, path_to_save, compress=8)
 
-    df = df.append({
-        "k": k,
-        "model": get_model_name(k),
-        "c_v": get_coherence_score(topic_words, split_documents, dictionary, "c_v"),
-        "u_mass": get_coherence_score(topic_words, split_documents, dictionary, "u_mass"),
-        "c_uci": get_coherence_score(topic_words, split_documents, dictionary, "c_uci"),
-        "c_npmi": get_coherence_score(topic_words, split_documents, dictionary, "c_npmi"),
-        "diversity": get_topic_diversity(topic_words),
-        "path": path_to_save,
-    }, ignore_index=True)
+    model_name = get_model_name(k)
+    npmi_train = get_coherence_score(topic_words, train_documents["split"], dictionary, "c_npmi")
+    npmi_test = get_coherence_score(topic_words, test_documents["split"], dictionary, "c_npmi")
+    diversity = get_topic_diversity(topic_words)
+    model_path = ETM_FOLDER + get_model_name(k)
+
+    df = insert_line_in_model_dataframe(
+        df,
+        k,
+        model_name,
+        npmi_train,
+        npmi_test,
+        diversity,
+        model_path,
+    )
 
     print(f'ETM model with {k} topics successfully trained')
 
