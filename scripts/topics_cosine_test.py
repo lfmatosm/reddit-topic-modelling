@@ -30,6 +30,7 @@ for xi, yi in combs:
     print(f'xi={xi}')
     print(f'yi={yi}')
     similarity = np.average(cosine_similarity(topic_embeddings[xi], topic_embeddings[yi]))
+    print(f'avg similarity = {similarity}')
     print(f'avg cos = {np.average(similarity)}')
     similarities = np.append(similarities, similarity)
 print(f'similarities length = {len(similarities)}')

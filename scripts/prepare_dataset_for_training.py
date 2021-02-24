@@ -57,7 +57,6 @@ def get_original_keys_with_lemmatized_values_in_vocabulary(lemma_word_map, vocab
     keys_with_values = list(filter(key_has_value_in_vocab, list(lemma_word_map.items())))
     return list(map(lambda x: x[0], keys_with_values))
 
-
 def clean_w2v_embedding_of_words_not_in_vocabulary(
     vocabulary, 
     lemma_word_mapping,
@@ -65,18 +64,18 @@ def clean_w2v_embedding_of_words_not_in_vocabulary(
     output_embedding_path, 
     n_dim
 ):
-    keys_with_values_in_vocabulary = get_original_keys_with_lemmatized_values_in_vocabulary(lemma_word_mapping, vocabulary)
+    # keys_with_values_in_vocabulary = get_original_keys_with_lemmatized_values_in_vocabulary(lemma_word_mapping, vocabulary)
     
     lemmas_found = 0
-    original_found = 0
+    # original_found = 0
     vectors = {}
     iterator = MemoryFriendlyFileIterator(embedding_file)
 
-    mock = 0
+    # mock = 0
     for line in iterator:
-        if mock < 100:
-            print(line)
-        mock += 1
+        # if mock < 100:
+        #     print(line)
+        # mock += 1
         word = line[0]
         if word in vocabulary:
             vect = np.array(line[1:]).astype(np.float)
@@ -95,8 +94,8 @@ def clean_w2v_embedding_of_words_not_in_vocabulary(
             f.write(f'{word} {" ".join(vec_str)}\n')
     
     print(f'{lemmas_found}/{len(vocabulary)} lemmatized vocabulary words found in embeddings file')
-    if original_found > 0:
-        print(f'{original_found}/{len(vocabulary) - lemmas_found} original vocabulary words found in embeddings file')
+    # if original_found > 0:
+    #     print(f'{original_found}/{len(vocabulary) - lemmas_found} original vocabulary words found in embeddings file')
 
 
 parser = argparse.ArgumentParser(description='Splits dataset for LDA, ETM and CTM models training.')
