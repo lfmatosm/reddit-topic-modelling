@@ -56,20 +56,20 @@ for k in topics:
     ctm.fit(prepared_training_dataset)
 
     topic_words = ctm.get_topic_lists(20)
-    topic_word_dist = ctm.get_topic_word_matrix()
+    unnormalized_topic_word_dist = ctm.get_topic_word_matrix()
 
     softmax = torch.nn.Softmax(dim=1)
     #Normalizes the matrix
-    topic_word_mtx = softmax(torch.from_numpy(topic_word_dist))
+    topic_word_dist = softmax(torch.from_numpy(unnormalized_topic_word_dist))
 
     path_to_save = BASE_MODELS_PATH + get_model_name(k, args.inference)
     os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
     joblib.dump({
         "topics": topic_words,
-        "topic_word_dist": topic_word_mtx.numpy(), #Tensor -> numpy
+        "topic_word_dist": topic_word_dist.numpy(), #Tensor -> numpy
         "doc_topic_dist": ctm.get_thetas(prepared_training_dataset),
         "idx_to_word": ctm.train_data.idx2token,
-        "topic_word_matrix": ctm_utils.get_topic_word_matrix(topic_word_mtx, k, ctm.train_data.idx2token)
+        "topic_word_matrix": ctm_utils.get_topic_word_matrix(topic_word_dist, k, ctm.train_data.idx2token)
     }, path_to_save, compress=8)
 
     model_name = get_model_name(k, args.inference)

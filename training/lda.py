@@ -22,7 +22,15 @@ def get_textual_topics(idx_to_word, topic_word_dist):
     topics = []
 
     for _, topic in enumerate(topic_word_dist):
-        topics.append(list(idx_to_word[topic.argsort()][:20]))
+        sorted_indices = topic.argsort()
+        word_probabilities = list(topic[sorted_indices][:20])
+        topic_words = list(idx_to_word[sorted_indices][:20])
+
+        topic_with_probabilities = [(word_probabilities[i], topic_words[i]) \
+            for i in range(len(word_probabilities))]
+
+        # topics.append(list(idx_to_word[topic.argsort()][:20]))
+        topics.append(topic_with_probabilities)
     return topics
 
 
