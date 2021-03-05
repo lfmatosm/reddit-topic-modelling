@@ -8,7 +8,7 @@ from matplotlib.lines import Line2D
 from wordcloud import WordCloud
 
 
-OUTPUT_PATH = "results/images/"
+OUTPUT_PATH = "images/"
 FILE_FORMAT = ".png"
 
 
@@ -154,4 +154,23 @@ def plot_pie_chart(probabilities, labels):
             shadow=True, startangle=90, textprops={'fontsize': 16})
     ax1.axis('equal')  # Equal aspect ratio ensures that pie is drawn as a circle.
 
+    plt.show()
+
+
+def plot_coherence_by_k_graph(datas, labels):
+    fig, ax = plt.subplots(1)
+
+    plots = []
+
+    for data in datas:
+        plot, = ax.plot(data["x"], data["y"])
+        plots.append(plot)
+    
+    ax.legend(tuple(plots), tuple(labels), loc="upper right", shadow=True)
+
+    ax.set(xlabel="K", ylabel="NPMI")
+
+    filename = os.path.join(OUTPUT_PATH, 'coherence_by_k.pdf')
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    fig.savefig(filename, bbox_inches='tight')
     plt.show()

@@ -29,6 +29,8 @@ similarities = np.array([])
 for xi, yi in combs:
     print(f'xi={xi}')
     print(f'yi={yi}')
+    print(f'topic_embeddings[xi]={topic_embeddings[xi]}')
+    print(f'topic_embeddings[yi]={topic_embeddings[yi]}')
     similarity = np.average(cosine_similarity(topic_embeddings[xi], topic_embeddings[yi]))
     print(f'avg similarity = {similarity}')
     print(f'avg cos = {np.average(similarity)}')

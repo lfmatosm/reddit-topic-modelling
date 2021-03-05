@@ -8,12 +8,26 @@ import joblib
 import os
 import pandas as pd
 
+
 ETM_FOLDER = 'etm/'
 BASE_MODELS_PATH = constants.MODELS_FOLDER + ETM_FOLDER
 
 
 def get_model_name(k):
     return f'etm_k{k}'
+
+
+def get_topics_with_word_probabilities(idx_to_word, topic_word_dist):
+    topics = []
+    
+    for i in range(len(topic_word_dist)):
+        words_distribution = topic_word_dist[i].cpu().numpy()
+        top_words_indexes = words_distribution.argsort()[-20:]
+        descending_top_words_indexes = top_words_indexes[::-1]
+        topic_words = [(words_distribution[idx], idx_to_word[idx]) for idx in descending_top_words_indexes]
+        topics.append(topic_words)
+
+    return topics
 
 
 parser = argparse.ArgumentParser(description="Trains ETM models with the given corpora of documents.")
@@ -64,10 +78,14 @@ for k in topics:
 
     d_t_dist = etm_instance.get_document_topic_dist()
 
+    topics_with_word_probs = get_topics_with_word_probabilities(vocabulary, t_w_dist)
+    print(f'topics_with_word_probs[0] = {topics_with_word_probs[0]}')
+
     path_to_save = BASE_MODELS_PATH + get_model_name(k)
     os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
     joblib.dump({
         "topics": topic_words,
+        "topics_with_word_probs": topics_with_word_probs,
         "topic_word_dist": t_w_dist.numpy(), #Tensor -> numpy
         "doc_topic_dist": d_t_dist.numpy(),  #Tensor -> numpy
         "idx_to_word": vocabulary,

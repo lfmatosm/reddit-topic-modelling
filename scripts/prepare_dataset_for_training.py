@@ -64,27 +64,16 @@ def clean_w2v_embedding_of_words_not_in_vocabulary(
     output_embedding_path, 
     n_dim
 ):
-    # keys_with_values_in_vocabulary = get_original_keys_with_lemmatized_values_in_vocabulary(lemma_word_mapping, vocabulary)
-    
     lemmas_found = 0
-    # original_found = 0
     vectors = {}
     iterator = MemoryFriendlyFileIterator(embedding_file)
 
-    # mock = 0
     for line in iterator:
-        # if mock < 100:
-        #     print(line)
-        # mock += 1
         word = line[0]
         if word in vocabulary:
             vect = np.array(line[1:]).astype(np.float)
             vectors[word] = vect
             lemmas_found += 1
-        # elif word in keys_with_values_in_vocabulary:
-        #     vect = np.array(line[1:]).astype(np.float)
-        #     vectors[word] = vect
-        #     original_found += 1
     
     nlines = len(vectors)
     with open(output_embedding_path, 'w') as f:
@@ -94,8 +83,6 @@ def clean_w2v_embedding_of_words_not_in_vocabulary(
             f.write(f'{word} {" ".join(vec_str)}\n')
     
     print(f'{lemmas_found}/{len(vocabulary)} lemmatized vocabulary words found in embeddings file')
-    # if original_found > 0:
-    #     print(f'{original_found}/{len(vocabulary) - lemmas_found} original vocabulary words found in embeddings file')
 
 
 parser = argparse.ArgumentParser(description='Splits dataset for LDA, ETM and CTM models training.')
@@ -106,8 +93,8 @@ parser.add_argument('--embeddings', type=str, help='embeddings path', required=T
 parser.add_argument('--n_dim', type=int, help='embeddings size', required=False, default=300)
 parser.add_argument('--train_size', type=float, help='train size', required=False, default=1.0)
 parser.add_argument('--dataset_name', type=str, help='dataset path', default='training_data', required=False)
-parser.add_argument('--min_df', default=0.01, type=float, help='minimum document frequency for document vectorizer', required=False)
-parser.add_argument('--max_df', default=0.85, type=float, help='minimum document frequency for document vectorizer', required=False)
+parser.add_argument('--min_df', default=1, type=float, help='minimum document frequency for document vectorizer', required=False)
+parser.add_argument('--max_df', default=1.0, type=float, help='minimum document frequency for document vectorizer', required=False)
 
 args = parser.parse_args()
 
@@ -117,7 +104,8 @@ dataset=args.dataset
 dataset_name = args.dataset_name
 train_size = float(args.train_size)
 
-ADDITIONAL_STOPWORDS = ["http", "https", "watch", "comment", "comments"]
+# ADDITIONAL_STOPWORDS = ["http", "https", "watch", "comment", "comments"]
+ADDITIONAL_STOPWORDS = ["http", "https"]
 
 print(f'dataset: {dataset}\ndataset_name: {dataset_name}\nmin_df: {min_df}\nmax_df: {max_df}\n')
 

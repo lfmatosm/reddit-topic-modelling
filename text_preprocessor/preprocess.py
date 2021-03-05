@@ -30,7 +30,7 @@ def get_filename(path):
 
 
 def remove_bots_posts(df, bots=["AutoModerator", "RemindMeBot", "WikiTextBot", "youtubefactsbot", "RedditNiobioBot", "NemLiNemLereiBot"]):
-    """Verifies if given word has japanese chars.
+    """Removes bots posts.
 
     Parameters:
     df (pandas.DataFrame): dataset to remove bots' posts
@@ -106,6 +106,7 @@ print("Is to remove POS categories? ", remove_pos)
 print("POS categories to keep: ", posCategories)
 
 data_string = json.load(open(original_data_path, READ_MODE))
+print(f'Total of original documents: {len(data_string)}')
 
 original_data_frame = pd.DataFrame.from_dict(data_string)
 
@@ -122,6 +123,7 @@ processor = Preprocessor(
 )
 
 processed_data, word_lemma_mapping, lemma_word_mapping = processor.preprocess(data, stopwords_file)
+del data
 
 print("Size of data after preprocessing: ", len(processed_data))
 
@@ -153,3 +155,5 @@ if word_lemma_mapping is not None and lemma_word_mapping is not None:
     json.dump(mapping, open(output_filepath, WRITE_MODE))
 
     print("Word-lemma and inverse mappings dumped to ", output_filepath)
+
+print("*******************\n\n\n")

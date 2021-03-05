@@ -10,6 +10,7 @@ import os
 import numpy as np
 from utils import constants
 
+
 LDA_FOLDER = "lda/"
 BASE_MODELS_PATH = constants.MODELS_FOLDER + LDA_FOLDER
 
@@ -22,15 +23,19 @@ def get_textual_topics(idx_to_word, topic_word_dist):
     topics = []
 
     for _, topic in enumerate(topic_word_dist):
-        sorted_indices = topic.argsort()
-        word_probabilities = list(topic[sorted_indices][:20])
-        topic_words = list(idx_to_word[sorted_indices][:20])
+        topics.append(list(np.array(idx_to_word)[topic.argsort()][-20:][::-1]))
+    return topics
 
-        topic_with_probabilities = [(word_probabilities[i], topic_words[i]) \
-            for i in range(len(word_probabilities))]
 
-        # topics.append(list(idx_to_word[topic.argsort()][:20]))
-        topics.append(topic_with_probabilities)
+def get_topics_with_word_probabilities(idx_to_word, topic_word_dist):
+    topics = []
+    
+    for topic_dist in topic_word_dist:
+        top_words_indexes = topic_dist.argsort()[-20:]
+        descending_top_words_indexes = top_words_indexes[::-1]
+        topic_words = [(topic_dist[idx], idx_to_word[idx]) for idx in descending_top_words_indexes]
+        topics.append(topic_words)
+
     return topics
 
 
@@ -82,7 +87,7 @@ for k in topics:
     # Normalizing components
     topic_word_dist = lda.components_ / lda.components_.sum(axis=1)[:, np.newaxis]
 
-    idx_to_word = np.array(vectorizer.get_feature_names())
+    idx_to_word = vectorizer.get_feature_names()
 
     topic_words = get_textual_topics(idx_to_word, topic_word_dist)
 
@@ -90,16 +95,17 @@ for k in topics:
 
     os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
 
-    model = {
-        "instance": lda,
-        "doc_topic_dist": doc_topic_dist,
+    topics_with_word_probs = get_topics_with_word_probabilities(idx_to_word, topic_word_dist)
+    print(f'topics_with_word_probs[0] = {topics_with_word_probs[0]}')
+
+    joblib.dump({
+        "topics": topic_words,
+        "topics_with_word_probs": topics_with_word_probs,
         "topic_word_dist": topic_word_dist,
+        "doc_topic_dist": doc_topic_dist,
         "idx_to_word": idx_to_word,
         "topic_word_matrix": get_topic_word_matrix(idx_to_word, topic_word_dist),
-        "topics": topic_words
-    }
-
-    joblib.dump(model, path_to_save, compress=8)
+    }, path_to_save, compress=8)
 
     model_name = get_model_name_for_k(k)
     npmi_train = get_coherence_score(topic_words, train_documents["split"], dictionary, "c_npmi")

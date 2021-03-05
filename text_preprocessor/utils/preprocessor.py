@@ -2,6 +2,26 @@ from gensim.utils import simple_preprocess
 from nltk.corpus import stopwords
 import spacy
 import re
+import json
+import os
+
+
+class MemoryFriendlyFileIterator(object):
+    def __init__(self, filename):
+        self.filename = filename
+
+    def __iter__(self):
+        for line in open(self.filename):
+            yield line.split()
+
+
+class MemoryFriendlyJSONFileIterator(object):
+    def __init__(self, filename):
+        self.filename = filename
+
+    def __iter__(self):
+        for line in open(self.filename):
+            yield json.loads(line)
 
 
 class Preprocessor:
@@ -58,45 +78,70 @@ class Preprocessor:
         return documents if additional_stopwords == None else [[word for word in doc if word not in additional_stopwords] for doc in documents]
 
 
+    def save_to_temp_file(self, documents):
+        path = 'temp.tmp'
+        with open(path, 'w') as file:
+            for document in documents:
+                file.write(f'{" ".join(document)}\n')
+        return path
+
+
+    def load_from_temp_file(self, path):
+        iterator = MemoryFriendlyFileIterator(path)
+
+        return [line for line in iterator]
+
+    
     #Transforms each word into its base form. e.g. 'fazendo' becomes 'fazer'
-    def lemmatize(self, documents):
-        tokens = []
+    def lemmatize(self, path):
+        output = 'temp2.tmp'
+        documents = MemoryFriendlyFileIterator(path)
 
-        for document in documents:
-            doc_string = self.__nlp(" ".join(document))
-            tokens.append([token for token in doc_string])
+        with open(output, 'w') as file:
+            for document in documents:
+                doc_string = self.__nlp(" ".join(document))
 
-        return tokens
+                document_tokens = [{
+                    "text": token.text,
+                    "lemma": token.lemma_,
+                    "pos": token.pos_,
+                } for token in doc_string]
+                file.write(f'{json.dumps(document_tokens)}\n')
+
+        return output
     
-    def get_lemmas(self, documents):
-        return [[token.lemma_ for token in document] for document in documents]
+    def get_lemmas(self, path):
+        output = 'temp3.tmp'
+        documents = MemoryFriendlyJSONFileIterator(path)
+
+        with open(output, 'w') as file:
+            for document in documents:
+                tokens = [token['lemma'] for token in document]
+                file.write(f'{" ".join(tokens)}\n')
+
+        return output
+
     
-    #For each word, produces a (word, pos, lemma) pair where pos is the part-of-speech category of the given word/token
-    # def filter_part_of_speech_tags(self, documents, categories):
-    #     tokens_with_pos = []
+    def filter_part_of_speech_tags(self, path, categories):
+        output = 'temp3.tmp'
+        documents = MemoryFriendlyJSONFileIterator(path)
 
-    #     for document in documents:
-    #         doc_string = self.__nlp(" ".join(document))
-    #         tokens_with_pos.append([ token.lemma_ for token in doc_string if token.pos_ in categories])
+        with open(output, 'w') as file:
+            for document in documents:
+                tokens = [token['lemma'] for token in document if token['pos'] in categories]
+                file.write(f'{" ".join(tokens)}\n')
 
-    #     return tokens_with_pos
-    
-    def filter_part_of_speech_tags(self, documents, categories):
-        tokens_with_pos = []
+        return output
 
-        for document in documents:
-            tokens_with_pos.append([token.lemma_ \
-                for token in document if token.pos_ in categories])
-
-        return tokens_with_pos
-
-    def create_word_lemma_mapping(self, documents):
+    def create_word_lemma_mapping(self, path):
         word_lemma_mapping = {}
+
+        documents = MemoryFriendlyJSONFileIterator(path)
 
         for document in documents:
             for token in document:
-                if token.text not in word_lemma_mapping:
-                    word_lemma_mapping[token.text] = token.lemma_
+                if token['text'] not in word_lemma_mapping:
+                    word_lemma_mapping[token['text']] = token['lemma']
 
         return word_lemma_mapping
     
@@ -109,10 +154,6 @@ class Preprocessor:
                 inverse[v] = [k]
 
         return inverse
-
-    #Removes POS categories not explicitly specified to be kept on the corpus.
-    def filter_part_of_speech_categories(self, documents, categories):
-        return [[ token for token, pos in document if pos in categories ] for document in documents]
 
 
     def preprocess(self, data, stopwords_file_path=None):
@@ -135,21 +176,27 @@ class Preprocessor:
         print("Newlines and single-quotes removed from documents.")
 
         #Breaks each document into a list of words
-        tokenize = lambda texts: [(yield simple_preprocess(text, deacc=True, min_len=1)) for text in texts]
+        tokenize = lambda texts: [(yield simple_preprocess(text, deacc=True, min_len=1, max_len=30)) \
+            for text in texts]
 
         tokenized_data = tokenize(data_without_newlines)
+        del data_without_newlines
 
         print("Tokenized documents.")
 
         word_lemma_mapping = {} if self.__lemmatize_activated == True else None
         lemma_word_mapping = {} if self.__lemmatize_activated == True else None
 
+        path = self.save_to_temp_file(tokenized_data)
+        del tokenized_data
+        print("Saved tokenized documents to temp file for further processing...")
+
         if self.__lemmatize_activated == True:
-            tokenized_data = self.lemmatize(tokenized_data)
+            path = self.lemmatize(path)
 
             print("Lemmatized documents.")
 
-            word_lemma_mapping = self.create_word_lemma_mapping(tokenized_data)
+            word_lemma_mapping = self.create_word_lemma_mapping(path)
 
             print("Word-lemma mapping created.")
 
@@ -158,15 +205,16 @@ class Preprocessor:
             print("Lemma-word mapping created.")
 
         if self.__remove_pos_activated == True:
-            tokenized_data = self.filter_part_of_speech_tags(tokenized_data, self.__pos_categories)
+            path = self.filter_part_of_speech_tags(path, self.__pos_categories)
 
             print(f'{", ".join(self.__pos_categories)} POS categories of tokens kept and lemmatized.')
         elif self.__lemmatize_activated == True:
+            path = self.get_lemmas(path)
 
-
-            tokenized_data = self.get_lemmas(tokenized_data)
+            print("Token lemmas maintained on documents")
         
-        preprocessed_data = tokenized_data
+        preprocessed_data = self.load_from_temp_file(path)
+        print("Read processed documents from temp file")
 
         if self.__remove_stopwords_activated == True:
         
@@ -175,5 +223,10 @@ class Preprocessor:
             preprocessed_data = self.remove_stopwords(preprocessed_data, additional_stopwords)
 
             print("Stopwords removed.")
+
+        for path in ['temp.tmp', 'temp2.tmp', 'temp3.tmp']:
+            if os.path.exists(path):
+                os.remove(path)
+        print("Removed temporary files.")
 
         return self.remove_small_words(preprocessed_data), word_lemma_mapping, lemma_word_mapping
