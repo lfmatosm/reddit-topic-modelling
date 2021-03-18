@@ -8,6 +8,7 @@ import re
 import os
 from nltk.tokenize.util import is_cjk
 import argparse
+import time
 
 
 OUTPUT_PATH = "datasets/processed"
@@ -83,6 +84,8 @@ parser.add_argument('--desiredPos', nargs='+', help='part-of-speech categories t
 
 args = parser.parse_args()
 
+start = time.time()
+
 original_data_path = args.datasetFile
 dataset_name = args.datasetName
 dataset_folder = args.datasetFolder
@@ -122,7 +125,7 @@ processor = Preprocessor(
     remove_stopwords=remove_stopwords
 )
 
-processed_data, word_lemma_mapping, lemma_word_mapping = processor.preprocess(data, stopwords_file)
+processed_data, word_lemma_mapping, lemma_word_mapping, stopwords = processor.preprocess(data, stopwords_file)
 del data
 
 print("Size of data after preprocessing: ", len(processed_data))
@@ -156,4 +159,15 @@ if word_lemma_mapping is not None and lemma_word_mapping is not None:
 
     print("Word-lemma and inverse mappings dumped to ", output_filepath)
 
-print("*******************\n\n\n")
+if stopwords is not None:
+    output_filepath = os.path.join(OUTPUT_PATH, dataset_folder, dataset_name) + "[stopwords]" + FILE_EXTENSION
+
+    os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
+
+    json.dump(stopwords, open(output_filepath, WRITE_MODE))
+
+    print("Stopwords dumped to ", output_filepath)
+
+end = time.time()
+
+print(f'\n\nElapsed execution time for preprocessing: {end-start}\n*******************\n\n\n')

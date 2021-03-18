@@ -86,6 +86,49 @@ def get_topics_vectors(topics, lemma_word_mapping, embeddings_file):
     return flattened_word_vectors, flattened_word_weights
 
 
+def get_topics_vectors_gensim(topics, lemma_word_mapping, embeddings_file):
+    embeddings = KeyedVectors.load(embeddings_file, mmap='r')
+
+    topics_words = [list(map(lambda x: x[1], topic)) for topic in topics]
+
+    word_vectors = [[] for topic in topics]
+    word_weights = [[] for topic in topics]
+    
+    topics_words_missing_from_embeddings = copy.deepcopy(topics)
+
+    for idx, topic in enumerate(topics_words):
+        for i in range(len(topic)):
+            word = topic[i]
+            try:
+                vector = embeddings[word]
+                word_prob_pair = topics[idx][i]
+                (prob, _) = word_prob_pair
+                word_vectors[idx].append((i, vector))
+                word_weights[idx].append((i, prob))
+            except:
+              for original_word in lemma_word_mapping[word]:
+                try:
+                    vector = embeddings[word]
+                    word_prob_pair = topics[idx][i]
+                    (prob, _) = word_prob_pair
+                    word_vectors[idx].append((i, vector))
+                    word_weights[idx].append((i, prob))
+                except: 
+                    continue
+
+    flattened_word_vectors = []
+    for topic in word_vectors:
+        topic.sort(key=idx_sort)
+        flattened_word_vectors.append(list(map(lambda x: x[1], topic)))
+    
+    flattened_word_weights = []
+    for topic in word_weights:
+        topic.sort(key=idx_sort)
+        flattened_word_weights.append(list(map(lambda x: x[1], topic)))
+    
+    return flattened_word_vectors, flattened_word_weights
+
+
 def get_average_topics_vectors(topics, lemma_word_mapping, embeddings_file):
     word_vectors, word_weights = get_topics_vectors(topics, lemma_word_mapping, embeddings_file)
 

@@ -47,7 +47,10 @@ class Preprocessor:
         self.__pos_categories = pos_categories
 
         self.__nlp = spacy.load("pt_core_news_sm") if (language == "pt") else spacy.load("en_core_web_sm")
-        self.__stop_words = stopwords.words("portuguese") if (language == "pt") else stopwords.words("english")
+
+        raw_stopwords = stopwords.words("portuguese") if (language == "pt") else stopwords.words("english")
+        deaccent_stopwords = simple_preprocess(" ".join(raw_stopwords), deacc=True, min_len=1, max_len=100)
+        self.__stop_words = list(set(raw_stopwords+deaccent_stopwords))
 
 
     #Removes newline chars from each document
@@ -72,10 +75,24 @@ class Preprocessor:
 
 
     #Removes stopwords
-    def remove_stopwords(self, texts, additional_stopwords=None):
-        documents = [[word for word in doc if word not in self.__stop_words] for doc in texts]
+    def remove_stopwords(self, texts, additional_stopwords=[]):
+        stopwords = self.__stop_words + additional_stopwords
+        print(f'Using stoplist of length: {len(stopwords)}')
 
-        return documents if additional_stopwords == None else [[word for word in doc if word not in additional_stopwords] for doc in documents]
+        count = 0
+
+        documents_without_stopwords = []
+        for document in texts:
+            document_without_stopwords = []
+            for word in document:
+                if word not in stopwords:
+                    document_without_stopwords.append(word)
+                else:
+                    count += 1
+            documents_without_stopwords.append(document_without_stopwords)
+
+        print(f'No. of stopwords removed: {count}')
+        return documents_without_stopwords
 
 
     def save_to_temp_file(self, documents):
@@ -216,17 +233,21 @@ class Preprocessor:
         preprocessed_data = self.load_from_temp_file(path)
         print("Read processed documents from temp file")
 
+        stopwords = None
+
         if self.__remove_stopwords_activated == True:
-        
-            additional_stopwords = open(stopwords_file_path, "r").read().split(",") if stopwords_file_path != None else None
+            additional_stopwords = open(stopwords_file_path, "r").read().split(",") if stopwords_file_path is not None else []
 
             preprocessed_data = self.remove_stopwords(preprocessed_data, additional_stopwords)
 
             print("Stopwords removed.")
+        else:
+            stopwords = self.__stop_words
 
         for path in ['temp.tmp', 'temp2.tmp', 'temp3.tmp']:
             if os.path.exists(path):
                 os.remove(path)
         print("Removed temporary files.")
 
-        return self.remove_small_words(preprocessed_data), word_lemma_mapping, lemma_word_mapping
+        # return self.remove_small_words(preprocessed_data), word_lemma_mapping, lemma_word_mapping, stopwords
+        return preprocessed_data, word_lemma_mapping, lemma_word_mapping, stopwords

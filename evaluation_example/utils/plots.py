@@ -7,6 +7,12 @@ from decimal import Decimal
 from matplotlib.lines import Line2D
 from wordcloud import WordCloud
 
+import pandas as pd
+from matplotlib.pyplot import cm
+from matplotlib.colors import to_rgba
+import joblib
+from sklearn.manifold import TSNE
+
 
 OUTPUT_PATH = "images/"
 FILE_FORMAT = ".png"
@@ -173,4 +179,49 @@ def plot_coherence_by_k_graph(datas, labels):
     filename = os.path.join(OUTPUT_PATH, 'coherence_by_k.pdf')
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     fig.savefig(filename, bbox_inches='tight')
+    plt.show()
+
+
+def plot_tsne_graph_for_model(model, label):
+
+    DEFAULT_POINT_SIZE = 2000
+
+    labels = [f'Tópico {idx}: {", ".join(topic[:3])}' for idx, topic in enumerate(model["topics"])]
+    print(f'labels: {labels}')
+
+    n_colors = len(labels)
+    colors_numbers = np.linspace(0, 1, n_colors)
+
+    X_topic_avgs = model["averaged_topics_vectors"]
+    Y_topic_avgs = TSNE().fit_transform(X_topic_avgs)
+
+    Z_topic_avgs = Y_topic_avgs.T
+    print(f'len Z_topic_avgs = {len(Z_topic_avgs)} Z_topic_avgs: {Z_topic_avgs}') 
+
+    color_seq = ['red', 'blue', 'green', 'purple', 'orange']
+    color_map = cm.get_cmap("gist_rainbow")
+
+    fig, ax = plt.subplots(1)
+    ax.scatter(
+        Z_topic_avgs[0], 
+        Z_topic_avgs[1], 
+        s=[100] * n_colors,
+        c=colors_numbers, 
+        cmap=color_map, 
+        marker="*"
+    )
+    for idx, avg in enumerate(Y_topic_avgs):
+        ax.annotate(labels[idx], tuple(avg))
+
+    for idx, X in enumerate(model["topics_vectors"]["word_vectors"]):
+        Z = TSNE().fit_transform(X).T
+        color = [list(color_map(colors_numbers[idx]))]
+        ax.scatter(Z[0], Z[1], c=color, cmap=color_map)
+
+    plt.axis('off')
+
+    filename = os.path.join(OUTPUT_PATH, label + '_tsne.pdf')
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    fig.savefig(filename, bbox_inches='tight')
+
     plt.show()

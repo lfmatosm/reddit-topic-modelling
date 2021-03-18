@@ -39,14 +39,15 @@ def get_topics_vectors(topics, lemma_word_mapping, embeddings_file):
             except:
               for original_word in lemma_word_mapping[word]:
                 try:
-                    vector = embeddings[word]
+                    vector = embeddings[original_word]
                     word_prob_pair = topics[idx][i]
                     (prob, _) = word_prob_pair
                     word_vectors[idx].append((i, vector))
                     word_weights[idx].append((i, prob))
+                    break
                 except: 
                     continue
-
+    
     flattened_word_vectors = []
     for topic in word_vectors:
         topic.sort(key=idx_sort)
@@ -60,14 +61,10 @@ def get_topics_vectors(topics, lemma_word_mapping, embeddings_file):
     return flattened_word_vectors, flattened_word_weights
 
 
-def get_average_topics_vectors(topics, lemma_word_mapping, embeddings_file):
-    word_vectors, word_weights = get_topics_vectors(topics, lemma_word_mapping, embeddings_file)
-
+def get_average_topics_vectors(word_vectors, word_weights):
     weighted_topics = []
     for idx, topic in enumerate(word_vectors):
-        word_weight = word_weights[idx]
-        weighted_topic = [np.multiply(topic[i], word_weight[i]) for i in range(len(topic))]
-        weighted_topics.append(weighted_topic)
+        weighted_topics.append([np.multiply(topic[i], word_weights[idx][i]) for i in range(len(topic))])
 
     return [np.mean(word_vectors, axis=0) for word_vectors in weighted_topics]
 
@@ -90,19 +87,21 @@ for csv in args.csvs:
         path_to_load = os.path.join(models_base_path, "models", model_path)
         print(f'Loading model at: {path_to_load}')
         model = joblib.load(path_to_load)
-        topics_vectors = get_average_topics_vectors(
+        word_vectors, word_weights = get_topics_vectors(
             model["topics_with_word_probs"], 
             lemma_word_mapping, 
-            args.embeddings
+            args.embeddings,
         )
-        # print(f'topic_vectors[0][:5]: {topics_vectors[0][:5]}')
-        most_similar_words = [get_most_similar_terms_to_topic(topic, args.embeddings) for topic in topics_vectors]
-        model["topics_vectors"] = topics_vectors
-        model["most_similar_words"] = most_similar_words
+        model["topics_vectors"] = {
+            "word_vectors": word_vectors, 
+            "word_weights": word_weights
+        }
+        del word_vectors
+        del word_weights
+        model["averaged_topics_vectors"] = get_average_topics_vectors(model["topics_vectors"]["word_vectors"], model["topics_vectors"]["word_weights"])
+        model["most_similar_words"] = [get_most_similar_terms_to_topic(topic, args.embeddings) for topic in model["averaged_topics_vectors"]]
         joblib.dump(model, path_to_load, compress=8)
         del model
-        del topics_vectors
-        del most_similar_words
         print(f'Saved model at {path_to_load}')
         del path_to_load
 

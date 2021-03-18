@@ -20,3 +20,8 @@ You just need to execute ```python3 src/main.py``` script. The script needs some
 Below, a command example:
 
 ```python3 preprocess.py --datasetFile datasets/reddit_pt_2005_2020_desabafos_brasil.json --field body --lang pt --lemmatize True --desiredPos NOUN VERB```
+
+
+python text_preprocessor/preprocess.py --datasetFile datasets/original/brasil_desabafos_2008_2021/reddit-posts-gatherer-pt.submissions.json --datasetName TEST_lemmatized_nouns_only --datasetFolder . --field body --lang pt --lemmatize True --removeStopwords True --removePos True
+
+python text_preprocessor/preprocess.py --datasetFile datasets/original/depression_2009_2015/reddit-posts-gatherer-en.submissions_[until_2015-01-01_dataset].json --datasetName lemmatized_nouns_only_en --datasetFolder TEST_lemmatized_nouns_only --field body --lang en --lemmatize True --removeStopwords True --removePos True

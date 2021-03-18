@@ -9,6 +9,7 @@ import joblib
 import os
 import torch
 import json
+import time
 
 
 CTM_FOLDER = 'ctm/'
@@ -67,6 +68,7 @@ print("Documents and dictionary loaded")
 print("Loading CTM training resources...")
 data_preparation = joblib.load(args.data_preparation)
 prepared_training_dataset = joblib.load(args.prepared_training_dataset)
+print(f'Prepared dataset length: {prepared_training_dataset[0]}')
 print("CTM training resources loaded")
 
 df = create_model_dataframe()
@@ -74,11 +76,15 @@ df = create_model_dataframe()
 print(f'Vocab length: {len(data_preparation.vocab)}')
 
 for k in topics:
+    start = time.time()
+
     ctm = CombinedTM(input_size=len(data_preparation.vocab), bert_input_size=512, n_components=k) \
         if args.inference == "combined" \
             else ZeroShotTM(input_size=len(data_preparation.vocab), bert_input_size=768, n_components=k)
 
     ctm.fit(prepared_training_dataset)
+
+    end = time.time()
 
     topic_words = ctm.get_topic_lists(20)
     unnormalized_topic_word_dist = ctm.get_topic_word_matrix()
@@ -88,7 +94,6 @@ for k in topics:
     topic_word_dist = softmax(torch.from_numpy(unnormalized_topic_word_dist))
 
     topics_with_word_probs = get_topics_with_word_probabilities(ctm.train_data.idx2token, topic_word_dist)
-    print(f'topics_with_word_probs[0] = {topics_with_word_probs[0]}')
 
     path_to_save = BASE_MODELS_PATH + get_model_name(k, args.inference)
     os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
@@ -116,6 +121,7 @@ for k in topics:
         npmi_test,
         diversity,
         model_path,
+        end-start,
     )
 
     print(f'CTM model with {k} topics successfully trained')

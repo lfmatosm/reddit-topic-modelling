@@ -7,6 +7,7 @@ import json
 import joblib
 import os
 import pandas as pd
+import time
 
 
 ETM_FOLDER = 'etm/'
@@ -59,16 +60,19 @@ df = create_model_dataframe()
 for k in topics:
     print(f'Starting training for k={k}...')
 
+    start = time.time()
+
     etm_instance = ETM(
         vocabulary,
         embeddings=args.embeddings,
         num_topics=k,
         epochs=300,
-        use_c_format_w2vec=True,
         debug_mode=False,
     )
     
     etm_instance.fit(train_dataset)
+
+    end = time.time()
 
     topic_words = etm_instance.get_topics(20)
 
@@ -79,7 +83,6 @@ for k in topics:
     d_t_dist = etm_instance.get_document_topic_dist()
 
     topics_with_word_probs = get_topics_with_word_probabilities(vocabulary, t_w_dist)
-    print(f'topics_with_word_probs[0] = {topics_with_word_probs[0]}')
 
     path_to_save = BASE_MODELS_PATH + get_model_name(k)
     os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
@@ -106,6 +109,7 @@ for k in topics:
         npmi_test,
         diversity,
         model_path,
+        end-start
     )
 
     print(f'ETM model with {k} topics successfully trained')

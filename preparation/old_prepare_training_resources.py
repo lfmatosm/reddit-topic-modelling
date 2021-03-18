@@ -1,6 +1,7 @@
 from sklearn.feature_extraction.text import CountVectorizer
 from contextualized_topic_models.utils.preprocessing import WhiteSpacePreprocessing
 from contextualized_topic_models.utils.data_preparation import TopicModelDataPreparation
+from gensim.models import KeyedVectors
 from gensim.corpora import Dictionary
 import json
 import numpy as np
@@ -38,10 +39,10 @@ def create_dictionary(documents):
     dictionary (gensim.corpora.Dictionary): gensim dicionary of words from dataset
     """
     dictionary = Dictionary(documents)
-    dictionary.compactify()
+    # dictionary.compactify()
 
     # Uncomment the line below if you want to keep a proportion of the tokens in the dictionary
-    # dictionary.filter_extremes(no_below=1, no_above=1.0)
+    dictionary.filter_extremes(no_below=1, no_above=1.0)
 
     return dictionary
 
@@ -64,42 +65,89 @@ def clean_w2v_embedding_of_words_not_in_vocabulary(
     output_embedding_path, 
     n_dim
 ):
-    lemmas_found = 0
-    vectors = {}
+    temp_file = output_embedding_path + "_TMP"
+
+    print("Generating smaller W2V embedding based on vocabulary words...")
+
     iterator = MemoryFriendlyFileIterator(embedding_file)
 
-    for line in iterator:
-        word = line[0]
-        if word in vocabulary:
-            vect = np.array(line[1:]).astype(np.float)
-            vectors[word] = vect
-            lemmas_found += 1
+    words_not_found = [word for word in vocabulary]
+
+    nlines = 0
+    with open(temp_file, 'w') as f:
+        for line in iterator:
+            word = line[0]
+            if word in vocabulary:
+                words_not_found.remove(word)
+                vector = np.array(line[1:]).astype(np.float)
+                vec_str = [f'{val}' for val in vector]
+                f.write(f'{word} {" ".join(vec_str)}\n')
+                nlines += 1
     
-    nlines = len(vectors)
+    del iterator
+    print(f'Smaller W2V embedding created with vocabulary words found: {nlines}/{len(vocabulary)}')
+    iterator = MemoryFriendlyFileIterator(embedding_file)
+
+    if len(words_not_found) > 0:
+        with open(temp_file, 'a') as f:
+            for line in iterator:
+                word = line[0]
+                words_added_now = []
+                for word_not_found in words_not_found:
+                    if word_not_found not in words_added_now and word in lemma_word_mapping[word_not_found]:
+                        words_added_now.append(word_not_found)
+                        vector = np.array(line[1:]).astype(np.float)
+                        vec_str = [f'{val}' for val in vector]
+                        f.write(f'{word_not_found} {" ".join(vec_str)}\n')
+                        print(f'Vector for "{word_not_found}" not found on W2V embeddings, replacing it with "{word}" vector')
+                        nlines += 1
+                words_not_found = list(set(words_not_found)-set(words_added_now))
+
+    del iterator
+    del words_not_found
+    iterator = MemoryFriendlyFileIterator(temp_file)
+
     with open(output_embedding_path, 'w') as f:
         f.write(f'{nlines} {n_dim}\n')
-        for word, vector in vectors.items():
-            vec_str = [f'{val}' for val in vector]
-            f.write(f'{word} {" ".join(vec_str)}\n')
-    
-    print(f'{lemmas_found}/{len(vocabulary)} lemmatized vocabulary words found in embeddings file')
+        for line in iterator:
+            f.write(f'{" ".join(line)}\n')
+
+    del iterator
+
+    if os.path.exists(temp_file):
+        os.remove(temp_file)    
+    del temp_file
+    print(f'Total words added to smaller W2V embedding: {nlines}/{len(vocabulary)}')
+    del nlines
+
+    print("Generating optimized Gensim W2V embedding file from smaller W2V embedding...")
+    embeddings = KeyedVectors.load_word2vec_format(
+        output_embedding_path, 
+        binary=False
+    )
+    gensim_embedding_output_path = output_embedding_path.replace('.txt', '.w2v')
+    os.makedirs(os.path.dirname(gensim_embedding_output_path), exist_ok=True)
+    embeddings.save(gensim_embedding_output_path)
+    del embeddings
+    print(f'Generated optimized Gensim W2V embedding file at "{gensim_embedding_output_path}"')
+    del gensim_embedding_output_path
 
 
-parser = argparse.ArgumentParser(description='Splits dataset for LDA, ETM and CTM models training.')
-
+parser = argparse.ArgumentParser(description='Prepares training/testing resources for LDA/CTM/ETM training scripts')
 parser.add_argument('--dataset', type=str, help='dataset path', required=True)
-parser.add_argument('--word_lemma_maps', type=str, help='dataset path', required=False, default=None)
+parser.add_argument('--word_lemma_maps', type=str, help='word-lemma mappings path', required=False, default=None)
+# parser.add_argument('--dictionary', type=str, help='dictionary path', required=True)
+parser.add_argument('--stopwords', type=str, help='stopwords path', required=False, default=None)
 parser.add_argument('--embeddings', type=str, help='embeddings path', required=True)
 parser.add_argument('--n_dim', type=int, help='embeddings size', required=False, default=300)
 parser.add_argument('--train_size', type=float, help='train size', required=False, default=1.0)
 parser.add_argument('--dataset_name', type=str, help='dataset path', default='training_data', required=False)
-parser.add_argument('--min_df', default=1, type=float, help='minimum document frequency for document vectorizer', required=False)
-parser.add_argument('--max_df', default=1.0, type=float, help='minimum document frequency for document vectorizer', required=False)
-
+parser.add_argument('--min_df', default=None, type=float, help='minimum document frequency for document vectorizer', required=False)
+parser.add_argument('--max_df', default=None, type=float, help='minimum document frequency for document vectorizer', required=False)
 args = parser.parse_args()
 
-min_df=args.min_df
-max_df=args.max_df
+min_df=args.min_df if args.min_df is not None else 1
+max_df=args.max_df if args.max_df is not None else 1.0
 dataset=args.dataset
 dataset_name = args.dataset_name
 train_size = float(args.train_size)
@@ -107,7 +155,7 @@ train_size = float(args.train_size)
 # ADDITIONAL_STOPWORDS = ["http", "https", "watch", "comment", "comments"]
 ADDITIONAL_STOPWORDS = ["http", "https"]
 
-print(f'dataset: {dataset}\ndataset_name: {dataset_name}\nmin_df: {min_df}\nmax_df: {max_df}\n')
+print(f'dataset: {dataset}\ndataset_name: {dataset_name}\ntrain_size: {train_size}\nstopwords: {args.stopwords}\nmin_df: {min_df}\nmax_df: {max_df}\n')
 
 OUTPUT_PATH = f'./resources/{dataset_name}'
 
@@ -115,6 +163,11 @@ print("Loading dataset file...")
 documents = json.load(open(dataset, "r"))
 joined_documents = [ " ".join(document["body"]) for document in documents ]
 print(f'Dataset length: {len(joined_documents)}')
+del documents
+
+# print("Loading Gensim dictionary...")
+# dictionary = joblib.load(args.dictionary)
+# print(f'No. of tokens on dictionary: {len(dictionary.token2id)}')
 
 word_lemma_maps = None
 if args.word_lemma_maps is not None:
@@ -122,9 +175,18 @@ if args.word_lemma_maps is not None:
     word_lemma_maps = json.load(open(args.word_lemma_maps, "r"))
     print(f'Word-lemma and inverse mappings loaded with {len(word_lemma_maps)} entries')
 
+stopwords = None
+if args.stopwords is not None:
+    print("Loading stopwords...")
+    stopwords = json.load(open(args.stopwords, "r"))
+    print(f'Stopwords loaded with {len(stopwords)} entries')
+
 print("Counting word frequencies...")
-vectorizer = CountVectorizer(min_df=min_df, max_df=max_df)
+vectorizer = CountVectorizer(min_df=min_df, max_df=max_df, stop_words=stopwords)
 print("Word frequencies computed")
+del min_df
+del max_df
+del stopwords
 
 print("Vectorizing documents...")
 vectorized_documents = vectorizer.fit_transform(joined_documents)
@@ -149,6 +211,7 @@ print(f'Documents length after filtering: {len(documents_without_most_frequent)}
 docs = documents_without_most_frequent
 
 cvz = vectorized_documents.sign()
+del vectorized_documents
 
 # Get vocabulary
 print('Building vocabulary...')
@@ -179,7 +242,7 @@ tsSize = int(num_docs - trSize)
 del cvz
 idx_permute = np.random.permutation(num_docs).astype(int)
 
-print('Vocabulary lengt: {}'.format(len(vocab)))
+print('Vocabulary length: {}'.format(len(vocab)))
 
 docs_tr = [[word2id[w] for w in docs[idx_permute[idx_d]] if w in word2id] for idx_d in range(trSize)]
 docs_ts = [[word2id[w] for w in docs[idx_permute[idx_d]] if w in word2id] for idx_d in range(tsSize)]
@@ -217,6 +280,7 @@ print(f'Saving joined test documents file with {len(test_documents["split"])} do
 os.makedirs(os.path.dirname(documents_path), exist_ok=True)
 json.dump(test_documents, open(documents_path, 'w'))
 print(f'Test documents file saved (JSON): {documents_path}')
+del test_documents
 
 print("Creating word dictionary for entire corpus...")
 dictionary = create_dictionary(words_tr + words_ts)
@@ -224,6 +288,8 @@ path_save = OUTPUT_PATH + '/word_dictionary.gdict'
 os.makedirs(os.path.dirname(path_save), exist_ok=True)
 joblib.dump(dictionary, path_save, compress=7)
 print(f'Word dictionary created and saved to "{path_save}"')
+del dictionary
+del words_ts
 
 # Getting lists of words and doc_indices
 print('(ETM) Creating lists of words...')
@@ -232,10 +298,10 @@ def create_list_words(in_docs):
     return [x for y in in_docs for x in y]
 
 words_tr = create_list_words(docs_tr)
-words_ts = create_list_words(docs_ts)
+# words_ts = create_list_words(docs_ts)
 
 print('  len(words_tr): ', len(words_tr))
-print('  len(words_ts): ', len(words_ts))
+# print('  len(words_ts): ', len(words_ts))
 
 # Get doc indices
 print('(ETM) Getting doc indices...')
@@ -264,11 +330,11 @@ def create_bow(doc_indices, words, n_docs, vocab_size):
     return sparse.coo_matrix(([1]*len(doc_indices),(doc_indices, words)), shape=(n_docs, vocab_size)).tocsr()
 
 bow_tr = create_bow(doc_indices_tr, words_tr, n_docs_tr, len(vocab))
-bow_ts = create_bow(doc_indices_ts, words_ts, n_docs_ts, len(vocab))
+# bow_ts = create_bow(doc_indices_ts, words_ts, n_docs_ts, len(vocab))
 
 del words_tr
 del doc_indices_tr
-del words_ts
+# del words_ts
 del doc_indices_ts
 
 # Split bow intro token/value pairs
@@ -280,17 +346,19 @@ def split_bow(bow_in, n_docs):
     return indices, counts
 
 bow_tr_tokens, bow_tr_counts = split_bow(bow_tr, n_docs_tr)
-bow_ts_tokens, bow_ts_counts = split_bow(bow_ts, n_docs_ts)
+# bow_ts_tokens, bow_ts_counts = split_bow(bow_ts, n_docs_ts)
+del bow_tr
+# del bow_ts
 
 etm_training_dataset = {
     "tokens": _to_numpy_array(bow_tr_tokens), 
     "counts": _to_numpy_array(bow_tr_counts),
 }
 
-etm_testing_dataset = {
-    "tokens": _to_numpy_array(bow_ts_tokens), 
-    "counts": _to_numpy_array(bow_ts_counts),
-}
+# etm_testing_dataset = {
+#     "tokens": _to_numpy_array(bow_ts_tokens), 
+#     "counts": _to_numpy_array(bow_ts_counts),
+# }
 
 print("Creating ETM vocabulary file...")
 path_save = OUTPUT_PATH + '/etm_vocabulary.vocab'
@@ -303,12 +371,18 @@ path_save = OUTPUT_PATH + '/etm_training_dataset.dataset'
 os.makedirs(os.path.dirname(path_save), exist_ok=True)
 joblib.dump(etm_training_dataset, path_save, compress=7)
 print(f'ETM training dataset saved to "{path_save}"')
+del bow_tr_tokens
+del bow_tr_counts
+del etm_training_dataset
 
-print("Creating ETM testing dataset file...")
-path_save = OUTPUT_PATH + '/etm_testing_dataset.dataset'
-os.makedirs(os.path.dirname(path_save), exist_ok=True)
-joblib.dump(etm_testing_dataset, path_save, compress=7)
-print(f'ETM testing dataset saved to "{path_save}"')
+# print("Creating ETM testing dataset file...")
+# path_save = OUTPUT_PATH + '/etm_testing_dataset.dataset'
+# os.makedirs(os.path.dirname(path_save), exist_ok=True)
+# joblib.dump(etm_testing_dataset, path_save, compress=7)
+# print(f'ETM testing dataset saved to "{path_save}"')
+# del bow_ts_tokens
+# del bow_ts_counts
+# del etm_testing_dataset
 
 print("Creating ETM embeddings file with words in vocabulary")
 path_save = OUTPUT_PATH +  '/etm_w2v_embeddings.txt'
@@ -320,9 +394,13 @@ clean_w2v_embedding_of_words_not_in_vocabulary(
     args.n_dim
 )
 print("ETM embeddings file with words in vocabulary created")
+del word_lemma_maps
+del vocab
 
 print("Creating CTM training dataset file...")
 simple_preprocessing = WhiteSpacePreprocessing(train_documents["joined"], "portuguese")
+del train_documents
+
 preprocessed_documents_for_bow, unpreprocessed_corpus_for_contextual, vocab = simple_preprocessing.preprocess()
 print(f'CTM: preprocessed_documents_for_bow = {len(preprocessed_documents_for_bow)}')
 print(f'CTM: unpreprocessed_corpus_for_contextual = {len(unpreprocessed_corpus_for_contextual)}')

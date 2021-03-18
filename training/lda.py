@@ -9,6 +9,7 @@ from sklearn.feature_extraction.text import CountVectorizer
 import os
 import numpy as np
 from utils import constants
+import time
 
 
 LDA_FOLDER = "lda/"
@@ -75,6 +76,8 @@ vectorized_documents = vectorizer.fit_transform(train_documents["joined"])
 print(f'Resulting vectorized vocabulary has {len(vectorizer.vocabulary_)} tokens, where {len(vectorizer.stop_words_)} stopwords have been removed')
 
 for k in topics:
+    start = time.time()
+
     lda = LatentDirichletAllocation(
         n_components=k,
         learning_method='online',
@@ -83,6 +86,8 @@ for k in topics:
     )
 
     doc_topic_dist = lda.fit_transform(vectorized_documents)
+
+    end = time.time()
     
     # Normalizing components
     topic_word_dist = lda.components_ / lda.components_.sum(axis=1)[:, np.newaxis]
@@ -96,7 +101,6 @@ for k in topics:
     os.makedirs(os.path.dirname(path_to_save), exist_ok=True)
 
     topics_with_word_probs = get_topics_with_word_probabilities(idx_to_word, topic_word_dist)
-    print(f'topics_with_word_probs[0] = {topics_with_word_probs[0]}')
 
     joblib.dump({
         "topics": topic_words,
@@ -121,6 +125,7 @@ for k in topics:
         npmi_test,
         diversity,
         model_path,
+        end-start,
     )
 
     print(f'LDA model with {k} topics successfully trained')
