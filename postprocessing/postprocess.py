@@ -92,7 +92,7 @@ def idx_sort(element):
     return element[0]
 
 
-def get_most_similar_terms_to_topic(topic_vector, embeddings_file, top_n = 10):
+def get_most_similar_terms_to_topic(topic_vector, top_n = 10):
     return embeddings.most_similar(positive=[topic_vector], topn=top_n)
 
 logging.info(f'Starting postprocessing...')
@@ -118,7 +118,7 @@ for csv in args.csvs:
         del word_vectors
         del word_weights
         model["averaged_topics_vectors"] = get_average_topics_vectors(model["topics_vectors"]["word_vectors"], model["topics_vectors"]["word_weights"])
-        model["most_similar_words"] = [get_most_similar_terms_to_topic(topic, args.embeddings) for topic in model["averaged_topics_vectors"]]
+        model["most_similar_words"] = [get_most_similar_terms_to_topic(topic) for topic in model["averaged_topics_vectors"]]
         joblib.dump(model, path_to_load, compress=8)
         del model
         logging.info(f'Saved model at {path_to_load}')
