@@ -5,20 +5,39 @@ import argparse
 import os
 import joblib
 import json
+import time
+import logging
+
+
+LOG_FOLDER = "pipeline_logs/"
 
 parser = argparse.ArgumentParser(description='Postprocessing of trained models')
+parser.add_argument('--lang', type=str, help='list CSV files', required=True)
+parser.add_argument('--dataset_name', type=str, help='list CSV files', required=True)
 parser.add_argument('--csvs', nargs='+', help='list CSV files', required=True)
 parser.add_argument('--embeddings', type=str, help='embeddings path', required=True)
 parser.add_argument('--lemma_word_mapping', type=str, help='lemma_word_mapping path', required=True)
 args = parser.parse_args()
 
-print(f'Loading embeddings at {args.embeddings}...')
-embeddings = KeyedVectors.load(args.embeddings, mmap='r')
-print(f'Loaded embeddings')
+LOG_FILE = os.path.join(LOG_FOLDER, f'{args.lang}_postprocess_{args.dataset_name}.txt')
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+logging.basicConfig(
+    filename=LOG_FILE,
+    filemode='a',
+    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+    datefmt='%H:%M:%S',
+    level=logging.INFO
+)
 
-print(f'Loading lemma word mapping...')
+start = time.time()
+
+logging.info(f'Loading embeddings at {args.embeddings}...')
+embeddings = KeyedVectors.load(args.embeddings, mmap='r')
+logging.info(f'Loaded embeddings')
+
+logging.info(f'Loading lemma word mapping...')
 lemma_word_mapping = json.load(open(args.lemma_word_mapping))["lemma_word"]
-print(f'Lemma word mapping loaded')
+logging.info(f'Lemma word mapping loaded')
 
 
 def get_topics_vectors(topics, lemma_word_mapping, embeddings_file):
@@ -76,16 +95,16 @@ def idx_sort(element):
 def get_most_similar_terms_to_topic(topic_vector, embeddings_file, top_n = 10):
     return embeddings.most_similar(positive=[topic_vector], topn=top_n)
 
-print(f'Starting postprocessing...')
+logging.info(f'Starting postprocessing...')
 for csv in args.csvs:
-    print(f'Postprocessing models found in CSV: {csv}...')
+    logging.info(f'Postprocessing models found in CSV: {csv}...')
     training_results = pd.read_csv(csv)
     models_paths = training_results['path'].tolist()
     models_base_path = os.path.sep.join(csv.split(os.path.sep)[:-2])
 
     for model_path in models_paths:
         path_to_load = os.path.join(models_base_path, "models", model_path)
-        print(f'Loading model at: {path_to_load}')
+        logging.info(f'Loading model at: {path_to_load}')
         model = joblib.load(path_to_load)
         word_vectors, word_weights = get_topics_vectors(
             model["topics_with_word_probs"], 
@@ -102,15 +121,18 @@ for csv in args.csvs:
         model["most_similar_words"] = [get_most_similar_terms_to_topic(topic, args.embeddings) for topic in model["averaged_topics_vectors"]]
         joblib.dump(model, path_to_load, compress=8)
         del model
-        print(f'Saved model at {path_to_load}')
+        logging.info(f'Saved model at {path_to_load}')
         del path_to_load
 
     del training_results
     del models_paths
     del models_base_path
-    print(f'Postprocessing finished for models found in CSV: {csv}')
+    logging.info(f'Postprocessing finished for models found in CSV: {csv}')
     del csv
 
 del embeddings
 del lemma_word_mapping
-print(f'Postprocessing finished')
+
+end = time.time()
+
+logging.info(f'Postprocessing finished - Elapsed execution time: {end-start}s')

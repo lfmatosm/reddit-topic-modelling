@@ -10,7 +10,10 @@ import os
 import torch
 import json
 import time
+import logging
 
+
+LOG_FOLDER = "pipeline_logs/"
 
 CTM_FOLDER = 'ctm/'
 BASE_MODELS_PATH = f'{constants.MODELS_FOLDER}{CTM_FOLDER}'
@@ -45,6 +48,8 @@ def get_topic_word_matrix(idx_to_word, topic_word_mtx):
 
 
 parser = argparse.ArgumentParser(description="Trains CTM models with the given corpora of split_documents.")
+parser.add_argument('--dataset_name', type=str, help='dataset path. A JSON file', required=True)
+parser.add_argument('--lang', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument("--train_documents", type=str, help="dataset path. TXT file", required=True)
 parser.add_argument("--test_documents", type=str, help="dataset path. TXT file", required=True)
 parser.add_argument("--data_preparation", type=str, help="dataset path. TXT file", required=True)
@@ -54,26 +59,37 @@ parser.add_argument("--topics", nargs="+", help="list of K values", required=Tru
 parser.add_argument("--inference", type=str, help="list of K values", required=False, default="combined")
 args = parser.parse_args()
 
-topics = list(map(lambda x: int(x), args.topics))
-print(f'CTM training for K = {topics}')
+overall_start = time.time()
 
-print("Loading documents and dictionary...")
+LOG_FILE = os.path.join(LOG_FOLDER, f'{args.lang}_ctm_training_{args.dataset_name}.txt')
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+logging.basicConfig(
+    filename=LOG_FILE,
+    filemode='a',
+    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+    datefmt='%H:%M:%S',
+    level=logging.INFO
+)
+
+topics = list(map(lambda x: int(x), args.topics))
+logging.info(f'CTM training for K = {topics}')
+
+logging.info("Loading documents and dictionary...")
 train_documents = json.load(open(args.train_documents, "r"))
 test_documents = json.load(open(args.test_documents, "r"))
-print(f'train_documents = {len(train_documents["split"])}')
-print(f'test_documents = {len(test_documents["split"])}')
+logging.info(f'train_documents = {len(train_documents["split"])}')
+logging.info(f'test_documents = {len(test_documents["split"])}')
 dictionary = joblib.load(args.dictionary)
-print("Documents and dictionary loaded")
+logging.info("Documents and dictionary loaded")
 
-print("Loading CTM training resources...")
+logging.info("Loading CTM training resources...")
 data_preparation = joblib.load(args.data_preparation)
 prepared_training_dataset = joblib.load(args.prepared_training_dataset)
-print(f'Prepared dataset length: {prepared_training_dataset[0]}')
-print("CTM training resources loaded")
+logging.info("CTM training resources loaded")
 
 df = create_model_dataframe()
 
-print(f'Vocab length: {len(data_preparation.vocab)}')
+logging.info(f'Vocab length: {len(data_preparation.vocab)}')
 
 for k in topics:
     start = time.time()
@@ -124,11 +140,11 @@ for k in topics:
         end-start,
     )
 
-    print(f'CTM model with {k} topics successfully trained')
+    logging.info(f'CTM model with {k} topics successfully trained')
 
-print(df.head())
+logging.info(df.head())
 
-print("Saving results CSV...")
+logging.info("Saving results CSV...")
 
 output_filepath = constants.CSV_RESULTS_FOLDER + f'ctm_{args.inference}_results.csv'
 
@@ -136,4 +152,8 @@ os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
 
 df.to_csv(output_filepath)
 
-print("Training finished!")
+logging.info(f'CSV file with results saved to {output_filepath}')
+
+overall_end = time.time()
+
+logging.info(f'Elapsed training time: {overall_end-overall_start}s')

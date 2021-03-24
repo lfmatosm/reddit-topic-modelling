@@ -9,6 +9,10 @@ import os
 import argparse
 import joblib
 import time
+import logging
+
+
+LOG_FOLDER = "pipeline_logs/"
 
 class MemoryFriendlyFileIterator(object):
     def __init__(self, filename):
@@ -65,7 +69,8 @@ def optimize_embeddings(
     lemma_word_mapping,
     embedding_file,
     output_embedding_path, 
-    n_dim
+    n_dim,
+    logging,
 ):
     original_embeddings = KeyedVectors.load(embedding_file, mmap='r')
     embeddings_redux = KeyedVectors(n_dim)
@@ -73,7 +78,7 @@ def optimize_embeddings(
     words = []
     weights = []
 
-    print("Generating optimized W2V embedding based on vocabulary words...")
+    logging.info("Generating optimized W2V embedding based on vocabulary words...")
 
     count = 0
     for word in vocabulary:
@@ -83,7 +88,7 @@ def optimize_embeddings(
             weights.append(vector)
             count += 1
         except:
-            print(f'[WARN] Embeddings: word "{word}" not found on embeddings!')
+            logging.info(f'Embeddings: word "{word}" not found on embeddings!')
             pass
 
     del original_embeddings
@@ -95,9 +100,9 @@ def optimize_embeddings(
     embeddings_redux.save(output_embedding_path)
     del embeddings_redux
 
-    print(f'\n\nGenerated optimized Gensim W2V embedding file at "{output_embedding_path}"')
+    logging.info(f'\n\nGenerated optimized Gensim W2V embedding file at "{output_embedding_path}"')
     del output_embedding_path
-    print(f'{count}/{len(vocabulary)} words found on embeddings')
+    logging.info(f'{count}/{len(vocabulary)} words found on embeddings')
 
 
 parser = argparse.ArgumentParser(description='Prepares training/testing resources for LDA/CTM/ETM training scripts')
@@ -105,10 +110,21 @@ parser.add_argument('--dataset', type=str, help='dataset path', required=True)
 parser.add_argument('--word_lemma_maps', type=str, help='word-lemma mappings path', required=False, default=None)
 parser.add_argument('--dictionary', type=str, help='dictionary path', required=True)
 parser.add_argument('--embeddings', type=str, help='embeddings path', required=True)
-parser.add_argument('--n_dim', type=int, help='embeddings size', required=False, default=300)
+parser.add_argument('--n_dim', type=int, help='embeddings dimensions', required=False, default=300)
 parser.add_argument('--train_size', type=float, help='train size', required=False, default=1.0)
-parser.add_argument('--dataset_name', type=str, help='dataset path', default='training_data', required=False)
+parser.add_argument('--dataset_name', type=str, help='dataset name', default='training_data', required=False)
+parser.add_argument('--lang', type=str, help='dataset language', required=True, default='en')
 args = parser.parse_args()
+
+LOG_FILE = os.path.join(LOG_FOLDER, f'{args.lang}_preparation_{args.dataset_name}.txt')
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+logging.basicConfig(
+    filename=LOG_FILE,
+    filemode='a',
+    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+    datefmt='%H:%M:%S',
+    level=logging.INFO
+)
 
 start = time.time()
 
@@ -116,48 +132,48 @@ dataset=args.dataset
 dataset_name = args.dataset_name
 train_size = float(args.train_size)
 
-print(f'Dataset: {dataset}\nDataset_name: {dataset_name}\nTrain_size: {train_size}\n\n')
+logging.info(f'Dataset: {dataset}\nDataset_name: {dataset_name}\nTrain_size: {train_size}\n\n')
 
 OUTPUT_PATH = f'./resources/{dataset_name}'
 
-print("Loading dataset file...")
+logging.info("Loading dataset file...")
 documents = json.load(open(dataset, "r"))
 joined_documents = [ " ".join(document["body"]) for document in documents ]
-print(f'Dataset length: {len(joined_documents)}')
+logging.info(f'Dataset length: {len(joined_documents)}')
 del documents
 
-print("Loading Gensim dictionary...")
+logging.info("Loading Gensim dictionary...")
 dictionary = joblib.load(args.dictionary)
-print(f'No. of tokens on dictionary: {len(dictionary.token2id)}')
+logging.info(f'No. of tokens on dictionary: {len(dictionary.token2id)}')
 vocab = [key for key in dictionary.token2id.keys()]
-print(f'Gensim vocabulary length: {len(vocab)}')
+logging.info(f'Gensim vocabulary length: {len(vocab)}')
 word2id = dictionary.token2id
 id2word = {v: k for k, v in word2id.items()}
 
 word_lemma_maps = None
 if args.word_lemma_maps is not None:
-    print("Loading word-lemma mappings...")
+    logging.info("Loading word-lemma mappings...")
     word_lemma_maps = json.load(open(args.word_lemma_maps, "r"))
-    print(f'Word-lemma and inverse mappings loaded with {len(word_lemma_maps)} entries')
+    logging.info(f'Word-lemma and inverse mappings loaded with {len(word_lemma_maps)} entries')
 
 
-print("Filtering words not present in vocabulary...")
+logging.info("Filtering words not present in vocabulary...")
 documents_without_stopwords = [
     [word for word in document.split() \
         if word in vocab] \
             for document in joined_documents]
 documents_without_stopwords = [document for document in documents_without_stopwords if len(document) > 0]
-print("Filtered non-vocabulary words")
+logging.info("Filtered non-vocabulary words")
 
-print(f'Documents length after filtering and removal of empty documents: {len(documents_without_stopwords)}')
+logging.info(f'Documents length after filtering and removal of empty documents: {len(documents_without_stopwords)}')
 
 docs = documents_without_stopwords
 
-print('Tokenizing documents and creating train dataset...')
+logging.info('Tokenizing documents and creating train dataset...')
 num_docs = len(docs)
 trSize = int(np.floor(train_size*num_docs))
 tsSize = int(num_docs - trSize)
-print(f'No. documents - Train: {trSize}\tTest: {tsSize}')
+logging.info(f'No. documents - Train: {trSize}\tTest: {tsSize}')
 
 idx_permute = np.random.permutation(num_docs).astype(int)
 
@@ -173,8 +189,8 @@ del word2id
 del idx_permute
 del docs
 
-print('Number of documents (train): {} [this should be equal to {}]'.format(len(docs_tr), trSize))
-print('Number of documents (test): {} [this should be equal to {}]'.format(len(docs_ts), tsSize))
+logging.info('Number of documents (train): {} [this should be equal to {}]'.format(len(docs_tr), trSize))
+logging.info('Number of documents (test): {} [this should be equal to {}]'.format(len(docs_ts), tsSize))
 del tsSize
 del trSize
 
@@ -183,40 +199,40 @@ words_tr = [[id2word[w] for w in doc] for doc in docs_tr]
 words_ts = [[id2word[w] for w in doc] for doc in docs_ts]
 del id2word
 
-print(f'Final number of documents (train): {len(words_tr)}')
-print(f'Final number of documents (test): {len(words_ts)}')
+logging.info(f'Final number of documents (train): {len(words_tr)}')
+logging.info(f'Final number of documents (test): {len(words_ts)}')
 
 train_documents = {
     "split": words_tr,
     "joined": list(map(lambda x: " ".join(x), words_tr)),
 }
 documents_path = OUTPUT_PATH + "/train_documents.json"
-print(f'Saving train documents file with {len(train_documents["split"])} documents (JSON): {documents_path}')
+logging.info(f'Saving train documents file with {len(train_documents["split"])} documents (JSON): {documents_path}')
 os.makedirs(os.path.dirname(documents_path), exist_ok=True)
 json.dump(train_documents, open(documents_path, 'w'))
-print(f'Train documents file saved (JSON): {documents_path}')
+logging.info(f'Train documents file saved (JSON): {documents_path}')
 
 test_documents = {
     "split": words_ts,
     "joined": list(map(lambda x: " ".join(x), words_ts)),
 }
 documents_path = OUTPUT_PATH + "/test_documents.json"
-print(f'Saving joined test documents file with {len(test_documents["split"])} documents (JSON): {documents_path}')
+logging.info(f'Saving joined test documents file with {len(test_documents["split"])} documents (JSON): {documents_path}')
 os.makedirs(os.path.dirname(documents_path), exist_ok=True)
 json.dump(test_documents, open(documents_path, 'w'))
-print(f'Test documents file saved (JSON): {documents_path}')
+logging.info(f'Test documents file saved (JSON): {documents_path}')
 del test_documents
 
-print("Creating word dictionary for entire corpus...")
+logging.info("Creating word dictionary for entire corpus...")
 path_save = OUTPUT_PATH + '/word_dictionary.gdict'
 os.makedirs(os.path.dirname(path_save), exist_ok=True)
 joblib.dump(dictionary, path_save, compress=8)
-print(f'Word dictionary created and saved to "{path_save}"')
+logging.info(f'Word dictionary created and saved to "{path_save}"')
 del dictionary
 del words_ts
 
 # Getting lists of words and doc_indices
-print('(ETM) Creating lists of words...')
+logging.info('(ETM) Creating lists of words...')
 
 def create_list_words(in_docs):
     return [x for y in in_docs for x in y]
@@ -225,7 +241,7 @@ def create_list_words(in_docs):
 words_tr = create_list_words(docs_tr)
 
 # Get doc indices
-print('(ETM) Getting doc indices...')
+logging.info('(ETM) Getting doc indices...')
 
 def create_doc_indices(in_docs):
     aux = [[j for i in range(len(doc))] for j, doc in enumerate(in_docs)]
@@ -233,9 +249,9 @@ def create_doc_indices(in_docs):
 
 
 doc_indices_tr = create_doc_indices(docs_tr)
-print('  len(np.unique(doc_indices_tr)): {} [this should be {}]'.format(len(np.unique(doc_indices_tr)), len(docs_tr)))
+logging.info('  len(np.unique(doc_indices_tr)): {} [this should be {}]'.format(len(np.unique(doc_indices_tr)), len(docs_tr)))
 doc_indices_ts = create_doc_indices(docs_ts)
-print('  len(np.unique(doc_indices_ts)): {} [this should be {}]'.format(len(np.unique(doc_indices_ts)), len(docs_ts)))
+logging.info('  len(np.unique(doc_indices_ts)): {} [this should be {}]'.format(len(np.unique(doc_indices_ts)), len(docs_ts)))
 
 # Number of documents in each set
 n_docs_tr = len(docs_tr)
@@ -246,7 +262,7 @@ del docs_tr
 del docs_ts
 
 # Create bow representation
-print('(ETM) Creating bow representation...')
+logging.info('(ETM) Creating bow representation...')
 
 def create_bow(doc_indices, words, n_docs, vocab_size):
     return sparse.coo_matrix(([1]*len(doc_indices),(doc_indices, words)), shape=(n_docs, vocab_size)).tocsr()
@@ -258,7 +274,7 @@ del words_tr
 del doc_indices_tr
 del doc_indices_ts
 
-print('(ETM) Splitting bow intro token/value pairs and saving...')
+logging.info('(ETM) Splitting bow intro token/value pairs and saving...')
 
 def split_bow(bow_in, n_docs):
     indices = [[w for w in bow_in[doc,:].indices] for doc in range(n_docs)]
@@ -274,22 +290,22 @@ etm_training_dataset = {
     "counts": _to_numpy_array(bow_tr_counts),
 }
 
-print("Creating ETM vocabulary file...")
+logging.info("Creating ETM vocabulary file...")
 path_save = OUTPUT_PATH + '/etm_vocabulary.vocab'
 os.makedirs(os.path.dirname(path_save), exist_ok=True)
 joblib.dump(vocab, path_save, compress=8)
-print(f'ETM vocabulary saved to "{path_save}"')
+logging.info(f'ETM vocabulary saved to "{path_save}"')
 
-print("Creating ETM training dataset file...")
+logging.info("Creating ETM training dataset file...")
 path_save = OUTPUT_PATH + '/etm_training_dataset.dataset'
 os.makedirs(os.path.dirname(path_save), exist_ok=True)
 joblib.dump(etm_training_dataset, path_save, compress=8)
-print(f'ETM training dataset saved to "{path_save}"')
+logging.info(f'ETM training dataset saved to "{path_save}"')
 del bow_tr_tokens
 del bow_tr_counts
 del etm_training_dataset
 
-print("Creating ETM embeddings file with words in vocabulary")
+logging.info("Creating ETM embeddings file with words in vocabulary")
 path_save = OUTPUT_PATH +  '/etm_w2v_embeddings.w2v'
 optimize_embeddings(
     vocab,
@@ -297,19 +313,20 @@ optimize_embeddings(
     args.embeddings,
     path_save,
     args.n_dim,
+    logging,
 )
-print("ETM embeddings file with words in vocabulary created")
+logging.info("ETM embeddings file with words in vocabulary created")
 del word_lemma_maps
 del vocab
 
-print("Creating CTM training dataset file...")
+logging.info("Creating CTM training dataset file...")
 simple_preprocessing = WhiteSpacePreprocessing(train_documents["joined"], "portuguese")
 del train_documents
 
 preprocessed_documents_for_bow, unpreprocessed_corpus_for_contextual, vocab = simple_preprocessing.preprocess()
-print(f'CTM: preprocessed_documents_for_bow = {len(preprocessed_documents_for_bow)}')
-print(f'CTM: unpreprocessed_corpus_for_contextual = {len(unpreprocessed_corpus_for_contextual)}')
-print(f'CTM: vocab = {len(vocab)}')
+logging.info(f'CTM: preprocessed_documents_for_bow = {len(preprocessed_documents_for_bow)}')
+logging.info(f'CTM: unpreprocessed_corpus_for_contextual = {len(unpreprocessed_corpus_for_contextual)}')
+logging.info(f'CTM: vocab = {len(vocab)}')
 
 data_preparation = TopicModelDataPreparation("distiluse-base-multilingual-cased")
 ctm_training_dataset = data_preparation.create_training_set(unpreprocessed_corpus_for_contextual, preprocessed_documents_for_bow)
@@ -317,15 +334,15 @@ ctm_training_dataset = data_preparation.create_training_set(unpreprocessed_corpu
 path_save = OUTPUT_PATH + '/ctm_data_preparation.obj'
 os.makedirs(os.path.dirname(path_save), exist_ok=True)
 joblib.dump(data_preparation, path_save, compress=8)
-print(f'CTM data preparation instance saved to "{path_save}"')
+logging.info(f'CTM data preparation instance saved to "{path_save}"')
 
 path_save = OUTPUT_PATH + '/ctm_training_dataset.dataset'
 os.makedirs(os.path.dirname(path_save), exist_ok=True)
 joblib.dump(ctm_training_dataset, path_save, compress=8)
-print(f'CTM training dataset saved to "{path_save}"')
+logging.info(f'CTM training dataset saved to "{path_save}"')
 
-print('\nDatasets prepared for training')
+logging.info('\nDatasets prepared for training')
 
 end = time.time()
 
-print(f'\n\nElapsed execution time for preparation: {end-start}s')
+logging.info(f'\n\nElapsed execution time for preparation: {end-start}s')

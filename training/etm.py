@@ -8,7 +8,10 @@ import joblib
 import os
 import pandas as pd
 import time
+import logging
 
+
+LOG_FOLDER = "pipeline_logs/"
 
 ETM_FOLDER = 'etm/'
 BASE_MODELS_PATH = constants.MODELS_FOLDER + ETM_FOLDER
@@ -32,6 +35,8 @@ def get_topics_with_word_probabilities(idx_to_word, topic_word_dist):
 
 
 parser = argparse.ArgumentParser(description="Trains ETM models with the given corpora of documents.")
+parser.add_argument('--dataset_name', type=str, help='dataset path. A JSON file', required=True)
+parser.add_argument('--lang', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument("--train_documents", type=str, help="original dataset path", required=True)
 parser.add_argument("--test_documents", type=str, help="original dataset path", required=True)
 parser.add_argument("--training_dataset", type=str, help="preprocessed training dataset", required=True)
@@ -41,24 +46,36 @@ parser.add_argument('--dictionary', type=str, help="corpus dictionary", required
 parser.add_argument("--topics", nargs="+", help="list of K values", required=True)
 args = parser.parse_args()
 
-topics = list(map(lambda x: int(x), args.topics))
-print(f'ETM training for K = {topics}')
+overall_start = time.time()
 
-print("Loading documents and dictionary...")
+LOG_FILE = os.path.join(LOG_FOLDER, f'{args.lang}_etm_training_{args.dataset_name}.txt')
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+logging.basicConfig(
+    filename=LOG_FILE,
+    filemode='a',
+    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+    datefmt='%H:%M:%S',
+    level=logging.INFO
+)
+
+topics = list(map(lambda x: int(x), args.topics))
+logging.info(f'ETM training for K = {topics}')
+
+logging.info("Loading documents and dictionary...")
 train_documents = json.load(open(args.train_documents, "r"))
 test_documents = json.load(open(args.test_documents, "r"))
 dictionary = joblib.load(args.dictionary)
-print("Documents and dictionary loaded")
+logging.info("Documents and dictionary loaded")
 
-print("Loading ETM training resources...")
+logging.info("Loading ETM training resources...")
 train_dataset = joblib.load(args.training_dataset)
 vocabulary = joblib.load(args.vocabulary)
-print("ETM training resources loaded")
+logging.info("ETM training resources loaded")
 
 df = create_model_dataframe()
 
 for k in topics:
-    print(f'Starting training for k={k}...')
+    logging.info(f'Starting training for k={k}...')
 
     start = time.time()
 
@@ -112,12 +129,12 @@ for k in topics:
         end-start
     )
 
-    print(f'ETM model with {k} topics successfully trained')
+    logging.info(f'ETM model with {k} topics successfully trained')
 
 
-print(df.head())
+logging.info(df.head())
 
-print("Saving results CSV...")
+logging.info("Saving results CSV...")
 
 output_filepath = constants.CSV_RESULTS_FOLDER + f'etm_results.csv'
 
@@ -125,4 +142,8 @@ os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
 
 df.to_csv(output_filepath)
 
-print("Training finished!")
+logging.info(f'CSV file with results saved to {output_filepath}')
+
+overall_end = time.time()
+
+logging.info(f'Elapsed training time: {overall_end-overall_start}s')

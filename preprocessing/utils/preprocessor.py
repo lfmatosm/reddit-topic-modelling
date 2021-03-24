@@ -36,11 +36,13 @@ class Preprocessor:
     """
     def __init__(
         self, pos_categories, 
+        logger=None,
         language="en", 
         lemmatize_activated=True, 
         remove_pos=True,
         remove_stopwords=True
     ):
+        self.__logger = logger if logger is not None else print
         self.__lemmatize_activated = lemmatize_activated
         self.__remove_pos_activated = remove_pos
         self.__remove_stopwords_activated = remove_stopwords
@@ -77,7 +79,7 @@ class Preprocessor:
     #Removes stopwords
     def remove_stopwords(self, texts, additional_stopwords=[]):
         stopwords = self.__stop_words + additional_stopwords
-        print(f'Using stoplist of length: {len(stopwords)}')
+        self.__logger(f'Using stoplist of length: {len(stopwords)}')
 
         count = 0
 
@@ -91,7 +93,7 @@ class Preprocessor:
                     count += 1
             documents_without_stopwords.append(document_without_stopwords)
 
-        print(f'No. of stopwords removed: {count}')
+        self.__logger(f'No. of stopwords removed: {count}')
         return documents_without_stopwords
 
 
@@ -190,7 +192,7 @@ class Preprocessor:
         """
         data_without_newlines = self.remove_newlines_and_single_quotes(data)
 
-        print("Newlines and single-quotes removed from documents.")
+        self.__logger("Newlines and single-quotes removed from documents.")
 
         #Breaks each document into a list of words
         tokenize = lambda texts: [(yield simple_preprocess(text, deacc=True, min_len=1, max_len=30)) \
@@ -199,39 +201,39 @@ class Preprocessor:
         tokenized_data = tokenize(data_without_newlines)
         del data_without_newlines
 
-        print("Tokenized documents.")
+        self.__logger("Tokenized documents.")
 
         word_lemma_mapping = {} if self.__lemmatize_activated == True else None
         lemma_word_mapping = {} if self.__lemmatize_activated == True else None
 
         path = self.save_to_temp_file(tokenized_data)
         del tokenized_data
-        print("Saved tokenized documents to temp file for further processing...")
+        self.__logger("Saved tokenized documents to temp file for further processing...")
 
         if self.__lemmatize_activated == True:
             path = self.lemmatize(path)
 
-            print("Lemmatized documents.")
+            self.__logger("Lemmatized documents.")
 
             word_lemma_mapping = self.create_word_lemma_mapping(path)
 
-            print("Word-lemma mapping created.")
+            self.__logger("Word-lemma mapping created.")
 
             lemma_word_mapping = self.create_lemma_word_mapping(word_lemma_mapping)
 
-            print("Lemma-word mapping created.")
+            self.__logger("Lemma-word mapping created.")
 
         if self.__remove_pos_activated == True:
             path = self.filter_part_of_speech_tags(path, self.__pos_categories)
 
-            print(f'{", ".join(self.__pos_categories)} POS categories of tokens kept and lemmatized.')
+            self.__logger(f'{", ".join(self.__pos_categories)} POS categories of tokens kept and lemmatized.')
         elif self.__lemmatize_activated == True:
             path = self.get_lemmas(path)
 
-            print("Token lemmas maintained on documents")
+            self.__logger("Token lemmas maintained on documents")
         
         preprocessed_data = self.load_from_temp_file(path)
-        print("Read processed documents from temp file")
+        self.__logger("Read processed documents from temp file")
 
         stopwords = None
 
@@ -240,14 +242,14 @@ class Preprocessor:
 
             preprocessed_data = self.remove_stopwords(preprocessed_data, additional_stopwords)
 
-            print("Stopwords removed.")
+            self.__logger("Stopwords removed.")
         else:
             stopwords = self.__stop_words
 
         for path in ['temp.tmp', 'temp2.tmp', 'temp3.tmp']:
             if os.path.exists(path):
                 os.remove(path)
-        print("Removed temporary files.")
+        self.__logger("Removed temporary files.")
 
         # return self.remove_small_words(preprocessed_data), word_lemma_mapping, lemma_word_mapping, stopwords
         return preprocessed_data, word_lemma_mapping, lemma_word_mapping, stopwords

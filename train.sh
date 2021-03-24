@@ -1,6 +1,7 @@
 #!/bin/bash
 
 train_batch_name=$1
+lang=$2
 
 # K
 topics="5 8 10 12 15 18 20 22 25 28 30"
@@ -21,6 +22,8 @@ python training/ctm.py \
     --data_preparation $base_prepared_resources_dir/ctm_data_preparation.obj \
     --prepared_training_dataset $base_prepared_resources_dir/ctm_training_dataset.dataset \
     --dictionary $base_prepared_resources_dir/word_dictionary.gdict \
+    --lang $lang \
+    --dataset_name $train_batch_name \
     --topics $topics || exit 1
 
 # LDA
@@ -29,6 +32,8 @@ python training/lda.py \
     --train_documents $base_prepared_resources_dir/train_documents.json \
     --test_documents $base_prepared_resources_dir/test_documents.json \
     --dictionary $base_prepared_resources_dir/word_dictionary.gdict \
+    --lang $lang \
+    --dataset_name $train_batch_name \
     --topics $topics || exit 1
 
 # # ETM
@@ -40,6 +45,8 @@ python training/etm.py \
     --vocabulary $base_prepared_resources_dir/etm_vocabulary.vocab \
     --dictionary $base_prepared_resources_dir/word_dictionary.gdict \
     --embeddings $base_prepared_resources_dir/etm_w2v_embeddings.w2v \
+    --lang $lang \
+    --dataset_name $train_batch_name \
     --topics $topics || exit 1
 
 echo -e "\nTraining finished successfully"
@@ -52,6 +59,7 @@ echo -e "\nCreating evaluation folder at '$evaluation_base_path' and moving trai
 mkdir -p $evaluation_base_path/resources
 cp -R training_outputs/csvs $evaluation_base_path
 cp -R training_outputs/models $evaluation_base_path
+cp -r pipeline_logs/. $evaluation_base_path/logs
 cp -r $base_prepared_resources_dir/. $evaluation_base_path/resources
 rm -rf training_outputs
 rm -rf $base_prepared_resources_dir
@@ -62,6 +70,7 @@ cp evaluation_example/evaluation_example.ipynb $evaluation_base_path/$notebook_n
 
 echo -e "\nCleaning generated files..."
 rm -rf training_outputs
+rm -rf pipeline_logs
 rm -rf $base_prepared_resources_dir
 echo -e "\nFolder cleaned"
 

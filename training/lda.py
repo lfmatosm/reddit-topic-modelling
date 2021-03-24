@@ -10,6 +10,10 @@ import os
 import numpy as np
 from utils import constants
 import time
+import logging
+
+
+LOG_FOLDER = "pipeline_logs/"
 
 
 LDA_FOLDER = "lda/"
@@ -49,23 +53,35 @@ def get_topic_word_matrix(idx_to_word, topic_word_dist):
 
 
 parser = argparse.ArgumentParser(description='Trains LDA models with the given corpora of documents.')
-
+parser.add_argument('--dataset_name', type=str, help='dataset path. A JSON file', required=True)
+parser.add_argument('--lang', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument('--train_documents', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument('--test_documents', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument('--dictionary', type=str, help='word dictionary path', required=True)
 parser.add_argument('--useCv', type=bool, default=False, help='wheter to use CountVectorizer or not', required=False)
 parser.add_argument('--topics', nargs='+', help='list of K values', required=True)
-
 args = parser.parse_args()
 
-topics = list(map(lambda x: int(x), args.topics))
-print(f'LDA training for K = {topics}')
+overall_start = time.time()
 
-print("Loading documents and dictionary...")
+LOG_FILE = os.path.join(LOG_FOLDER, f'{args.lang}_lda_training_{args.dataset_name}.txt')
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+logging.basicConfig(
+    filename=LOG_FILE,
+    filemode='a',
+    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+    datefmt='%H:%M:%S',
+    level=logging.INFO
+)
+
+topics = list(map(lambda x: int(x), args.topics))
+logging.info(f'LDA training for K = {topics}')
+
+logging.info("Loading documents and dictionary...")
 train_documents = json.load(open(args.train_documents, "r"))
 test_documents = json.load(open(args.test_documents, "r"))
 dictionary = joblib.load(args.dictionary)
-print("Documents and dictionary loaded")
+logging.info("Documents and dictionary loaded")
 
 df = create_model_dataframe()
 
@@ -73,7 +89,7 @@ vectorizer = CountVectorizer(min_df=0.01, max_df=0.85) if args.useCv else CountV
 
 vectorized_documents = vectorizer.fit_transform(train_documents["joined"])
 
-print(f'Resulting vectorized vocabulary has {len(vectorizer.vocabulary_)} tokens, where {len(vectorizer.stop_words_)} stopwords have been removed')
+logging.info(f'Resulting vectorized vocabulary has {len(vectorizer.vocabulary_)} tokens, where {len(vectorizer.stop_words_)} stopwords have been removed')
 
 for k in topics:
     start = time.time()
@@ -128,12 +144,12 @@ for k in topics:
         end-start,
     )
 
-    print(f'LDA model with {k} topics successfully trained')
+    logging.info(f'LDA model with {k} topics successfully trained')
 
 
-print(df.head())
+logging.info(df.head())
 
-print("Saving results CSV...")
+logging.info("Saving results CSV...")
 
 output_filepath = constants.CSV_RESULTS_FOLDER + f'lda_results.csv'
 
@@ -141,4 +157,8 @@ os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
 
 df.to_csv(output_filepath)
 
-print("CSV file with results saved to ", output_filepath)
+logging.info(f'CSV file with results saved to {output_filepath}')
+
+overall_end = time.time()
+
+logging.info(f'Elapsed training time: {overall_end-overall_start}s')

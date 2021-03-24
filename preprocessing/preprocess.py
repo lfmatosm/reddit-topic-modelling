@@ -9,13 +9,14 @@ import os
 from nltk.tokenize.util import is_cjk
 import argparse
 import time
+import logging
 
 
+LOG_FOLDER = "pipeline_logs/"
 OUTPUT_PATH = "datasets/processed"
 FILE_EXTENSION = ".json"
 WRITE_MODE = "w"
 READ_MODE = "r"
-
 
 UNDESIRED_WORDS_LIST = ["https", "http", "www", "removed", "deleted"]
 
@@ -97,29 +98,41 @@ remove_pos = args.removePos
 remove_stopwords = args.removeStopwords
 posCategories = args.desiredPos
 
-print("Path: ", original_data_path)
-if stopwords_file != None: print("Additional stopwords file: ", stopwords_file)
-print("Field: ", field_of_interest)
-print("Dataset: ", dataset_name)
-print("Folder: ", dataset_folder)
-print("Language: ", lang)
-print("Is to lemmatize data? ", lemmatize_activated)
-print("Is to remove stopwords? ", remove_stopwords)
-print("Is to remove POS categories? ", remove_pos)
-print("POS categories to keep: ", posCategories)
+LOG_FILE = os.path.join(LOG_FOLDER, f'{lang}_preprocess_{dataset_name}.txt')
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+logging.basicConfig(
+    filename=LOG_FILE,
+    filemode='a',
+    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+    datefmt='%H:%M:%S',
+    level=logging.INFO
+)
+
+logging.info(f'Path: {original_data_path}')
+if stopwords_file is not None: 
+    logging.info(f'Additional stopwords file: {stopwords_file}')
+logging.info(f'Field: {field_of_interest}')
+logging.info(f'Dataset: {dataset_name}')
+logging.info(f'Folder: {dataset_folder}')
+logging.info(f'Language: {lang}')
+logging.info(f'Is to lemmatize data? {lemmatize_activated}')
+logging.info(f'Is to remove stopwords? {remove_stopwords}')
+logging.info(f'Is to remove POS categories? {remove_pos}')
+logging.info(f'POS categories to keep: {posCategories}')
 
 data_string = json.load(open(original_data_path, READ_MODE))
-print(f'Total of original documents: {len(data_string)}')
+logging.info(f'Total of original documents: {len(data_string)}')
 
 original_data_frame = pd.DataFrame.from_dict(data_string)
 
-print(original_data_frame.head())
+logging.info(original_data_frame.head())
 
 data = np.array(original_data_frame[field_of_interest], dtype = 'object')
 
 processor = Preprocessor(
     posCategories, 
-    lang, 
+    logger=logging.info,
+    language=lang, 
     lemmatize_activated=lemmatize_activated, 
     remove_pos=remove_pos, 
     remove_stopwords=remove_stopwords
@@ -128,13 +141,13 @@ processor = Preprocessor(
 processed_data, word_lemma_mapping, lemma_word_mapping, stopwords = processor.preprocess(data, stopwords_file)
 del data
 
-print("Size of data after preprocessing: ", len(processed_data))
+logging.info(f'Size of data after preprocessing: {len(processed_data)}')
 
 df_after_preprocessing = original_data_frame.assign(body=processed_data)
 
 df_after_preprocessing = df_after_preprocessing[df_after_preprocessing['body'].map(lambda field: len(field)) > 0]
 
-print(f'Row count after removal of rows with empty "{field_of_interest}" fields: {len(df_after_preprocessing)}')
+logging.info(f'Row count after removal of rows with empty "{field_of_interest}" fields: {len(df_after_preprocessing)}')
 
 #output_filepath = OUTPUT_PATH + get_filename(original_data_path) + "[processed]" + FILE_EXTENSION
 output_filepath = os.path.join(OUTPUT_PATH, dataset_folder, dataset_name) + "[processed]" + FILE_EXTENSION
@@ -143,7 +156,7 @@ os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
 
 json.dump(df_after_preprocessing.to_dict(orient='records'), open(output_filepath, WRITE_MODE))
 
-print("Data dumped to ", output_filepath)
+logging.info(f'Data dumped to {output_filepath}')
 
 if word_lemma_mapping is not None and lemma_word_mapping is not None:
     mapping = {
@@ -157,7 +170,7 @@ if word_lemma_mapping is not None and lemma_word_mapping is not None:
 
     json.dump(mapping, open(output_filepath, WRITE_MODE))
 
-    print("Word-lemma and inverse mappings dumped to ", output_filepath)
+    logging.info(f'Word-lemma and inverse mappings dumped to {output_filepath}')
 
 if stopwords is not None:
     output_filepath = os.path.join(OUTPUT_PATH, dataset_folder, dataset_name) + "[stopwords]" + FILE_EXTENSION
@@ -166,8 +179,8 @@ if stopwords is not None:
 
     json.dump(stopwords, open(output_filepath, WRITE_MODE))
 
-    print("Stopwords dumped to ", output_filepath)
+    logging.info(f'Stopwords dumped to {output_filepath}')
 
 end = time.time()
 
-print(f'\n\nElapsed execution time for preprocessing: {end-start}\n*******************\n\n\n')
+logging.info(f'\n\nElapsed execution time for preprocessing: {end-start}\n*******************\n\n\n')

@@ -8,6 +8,10 @@ import matplotlib.pyplot as plt
 import os
 import joblib
 import sys
+import logging
+
+
+LOG_FOLDER = "pipeline_logs/"
 
 
 OUTPUT_PATH = "./images/"
@@ -44,26 +48,26 @@ def get_range_to_plot(frequencies):
 
 def get_document_frequency_counts(documents, min_df_to_analyse=0.0, max_df_to_analyse=1.0):
     total_documents = len(documents)
-    print(f'Total docs: {total_documents}')
+    logging.info(f'Total docs: {total_documents}')
 
     dictionary = Dictionary(documents)
 
-    print(f'Distinct tokens: {len(dictionary.token2id)}')
-    print(f'Docs processed: {dictionary.num_docs}')
-    print(f'Total words processed: {dictionary.num_pos}\n\n')
+    logging.info(f'Distinct tokens: {len(dictionary.token2id)}')
+    logging.info(f'Docs processed: {dictionary.num_docs}')
+    logging.info(f'Total words processed: {dictionary.num_pos}\n\n')
 
     document_freqs = dictionary.dfs
 
-    print(f'Doc-freqs length: {len(document_freqs)}')
+    logging.info(f'Doc-freqs length: {len(document_freqs)}')
 
     min_range = int(min_df_to_analyse*total_documents)
     max_range = int(max_df_to_analyse*total_documents)
 
-    print(f'Look for token counts in the range: ({min_range}, {max_range})')
+    logging.info(f'Look for token counts in the range: ({min_range}, {max_range})')
     interval_markers = np.linspace(min_range, max_range, N_BINS)
     intervals = [(interval_markers[i-1]+1, interval_markers[i]) for i in range(1, len(interval_markers))]
 
-    print(f'Analysis intervals: {intervals}')
+    logging.info(f'Analysis intervals: {intervals}')
 
     document_freqs_by_interval = [0] * len(intervals)
     for value in document_freqs.values():
@@ -72,7 +76,7 @@ def get_document_frequency_counts(documents, min_df_to_analyse=0.0, max_df_to_an
                 document_freqs_by_interval[idx] += 1
                 break
 
-    print(f'Documents-frequencies by interval: {document_freqs_by_interval}')
+    logging.info(f'Documents-frequencies by interval: {document_freqs_by_interval}')
 
     bins = list(map(lambda x: x[0], intervals))
     bins.append(intervals[-1][1])
@@ -117,7 +121,7 @@ def remove_stopwords(documents, stopwords):
                 count += 1
         documents_without_stopwords.append(document_without_stopwords)
 
-    print(f'No. of stopwords removed: {count}')
+    logging.info(f'No. of stopwords removed: {count}')
     return documents_without_stopwords
 
 
@@ -132,11 +136,24 @@ def get_min_df_value_from_fraction(df_fraction, total_documents):
 
 parser = argparse.ArgumentParser(description='Analyses vocabulary composition')
 parser.add_argument('--dataset', type=str, help='dataset path. A JSON file', required=True)
-parser.add_argument('--lang', type=str, help='dataset language', required=False, default='en')
+parser.add_argument('--dataset_name', type=str, help='list CSV files', required=True)
+parser.add_argument('--lang', type=str, help='dataset language', required=True, default='en')
 parser.add_argument('--min_df_to_analyse', type=float, help='min DF to count tokens for analysis. Use only if you know what are you doing', required=False, default=0.0)
 parser.add_argument('--max_df_to_analyse', type=float, help='max DF to count tokens for analysis. Use only if you know what are you doing', required=False, default=1.0)
-# parser.add_argument('--stopwords', type=str, help='stopwords path. A JSON file', required=False, default=None)
 args = parser.parse_args()
+
+ANALYSIS_LOG_FILE = os.path.join(LOG_FOLDER, f'{args.lang}_vocabulary_analysis_{args.dataset_name}.txt')
+FILTERING_LOG_FILE = os.path.join(LOG_FOLDER, f'{args.lang}_vocabulary_filtering_{args.dataset_name}.txt')
+
+LOG_FILE = FILTERING_LOG_FILE if os.path.exists(ANALYSIS_LOG_FILE) else ANALYSIS_LOG_FILE
+os.makedirs(os.path.dirname(LOG_FILE), exist_ok=True)
+logging.basicConfig(
+    filename=LOG_FILE,
+    filemode='a',
+    format='%(asctime)s,%(msecs)d %(name)s %(levelname)s %(message)s',
+    datefmt='%H:%M:%S',
+    level=logging.INFO
+)
 
 raw_documents = json.load(open(args.dataset))
 documents = [document["body"] for document in raw_documents]
@@ -151,9 +168,9 @@ words_document_frequencies, bins, start, end, dictionary = get_document_frequenc
 x = bins[start:end]
 weights = words_document_frequencies[start:end]
 nbins = len(range(start, end))
-print(f'Relevant marks: {x}')
-print(f'Relevant frequencies for each bin: {weights}')
-print(f'No. of bins: {nbins}')
+logging.info(f'Relevant marks: {x}')
+logging.info(f'Relevant frequencies for each bin: {weights}')
+logging.info(f'No. of bins: {nbins}')
 
 plot_aggregated_histogram(
     weights, 
@@ -162,7 +179,7 @@ plot_aggregated_histogram(
     f'histogram_{args.lang}_{start}_to_{end}',
     args.lang,
 )
-print(f'Histogram generated and saved\n\n')
+logging.info(f'Histogram generated and saved\n\n')
 
 stop = int(input('Finish vocabulary analysis: (0 for no, 1 for yes): ')) > 0
 if stop:
@@ -181,12 +198,12 @@ filter_by_max_df = int(input('Do you want to filter tokens by maximum DF? ')) > 
 if filter_by_max_df:
     max_df = float(input('Insert the maximum DF to filter (range: 0-1): '))
 
-print(f'\n\nUsing\n\tNo below: {min_df} documents\n\tNo above: {max_df} of total corpus')
+logging.info(f'\n\nUsing\n\tNo below: {min_df} documents\n\tNo above: {max_df} of total corpus')
 dictionary.filter_extremes(
     no_below=min_df,
     no_above=max_df,
 )
-print(f'Distinct tokens after filtering: {len(dictionary.token2id)}')
+logging.info(f'Distinct tokens after filtering: {len(dictionary.token2id)}')
 
 path = os.path.join(
     OUTPUT_PATH, 
@@ -199,11 +216,4 @@ joblib.dump(
     path,
     compress=8,
 )
-print(f'Saved filtered dictionary instance to {path}')
-
-# if args.stopwords is not None:
-#     stopwords = load_stopwords(args.stopwords)
-#     documents_without_stopwords = remove_stopwords(documents, stopwords)
-
-#     words_document_frequencies, bins, dictionary = get_document_frequency_counts(documents_without_stopwords)
-#     plot_histogram(words_document_frequencies, bins, "histogram_with_stopwords_removal")
+logging.info(f'Saved filtered dictionary instance to {path}')
