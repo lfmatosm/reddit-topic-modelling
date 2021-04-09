@@ -9,6 +9,7 @@ END_COMMENT = "\n\n% Fim de tabela\n\n"
 TABLE_TEMPLATE = """
 \\begin{table}[ht]
 \centering
+\small
 \caption{$TABLE_CAPTION}
 \label{$TABLE_LABEL}
 \\begin{tabular}{| c | c |}

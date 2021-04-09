@@ -6,7 +6,7 @@ from pprint import pprint
 from decimal import Decimal
 from matplotlib.lines import Line2D
 from wordcloud import WordCloud
-
+import math
 import pandas as pd
 from matplotlib.pyplot import cm
 from matplotlib.colors import to_rgba
@@ -18,6 +18,7 @@ OUTPUT_PATH = "images/"
 FILE_FORMAT = ".pdf"
 DEFAULT_MAX_POINT_SIZE = 70
 DEFAULT_MIN_POINT_SIZE = 20
+MAXIMUM_NUMBER_OF_LEGEND_ROWS = 14
 
 
 def plot_graph(x_data, y_data, x_label, y_label):
@@ -145,8 +146,8 @@ def plot_wordcloud_by_word_probability(topic_word_prob_dist, label=None, color=N
     else:
         color_map = cm.get_cmap("gist_rainbow")
         cloud = WordCloud(background_color='white',
-                        # width=1800,
-                        # height=1400,
+                        width=1400,
+                        height=800,
                         max_words=20,
                         colormap=color_map)
 
@@ -185,11 +186,11 @@ def plot_coherence_by_k_graph(datas, labels, legend_position="upper right"):
     plots = []
 
     for data in datas:
-        plot, = ax.plot(data["x"], data["y"])
+        plot, = ax.plot(data["x"], data["y"], "-o")
         plots.append(plot)
     
-    ax.legend(tuple(plots), tuple(labels), loc=legend_position, shadow=True)
-
+    ax.legend(tuple(plots), tuple(labels), shadow=True, bbox_to_anchor=(1.04, 1.0))
+    ax.grid(b=True, alpha=0.4)
     ax.set(xlabel="K", ylabel="NPMI")
 
     filename = os.path.join(OUTPUT_PATH, 'coherence_by_k.pdf')
@@ -217,7 +218,8 @@ def plot_tsne_graph_for_model(model, label, legend_position="upper right"):
         weights = list(map(lambda x: map_number(x, [0, 1], [DEFAULT_MIN_POINT_SIZE, DEFAULT_MAX_POINT_SIZE]), model["topics_vectors"]["word_weights"][idx]))
         ax.scatter(Z[0], Z[1], s=weights, c=color, cmap=color_map, alpha=0.7, label=f'Tópico {idx+1}')
 
-    ax.legend(loc=legend_position)
+    ax.legend(bbox_to_anchor=(1.04, 1.0), ncol=1 if n_colors <= MAXIMUM_NUMBER_OF_LEGEND_ROWS \
+        else int(math.ceil(n_colors/MAXIMUM_NUMBER_OF_LEGEND_ROWS)))
     ax.grid(b=True, alpha=0.4)
 
     filename = os.path.join(OUTPUT_PATH, label + '_tsne.pdf')
