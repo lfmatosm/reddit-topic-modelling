@@ -1,6 +1,7 @@
 import pandas as pd
 from decimal import Decimal
 import os
+from gensim.models import CoherenceModel
 
 OUTPUT_PATH = "results/csv/lda/topics/"
 
@@ -93,3 +94,31 @@ def get_topic_word_probability_pairs(topic_word_dist, idx_to_word):
         pairs.append(topic_word_dict)
     
     return pairs
+
+def get_coherence_score_for_each_topic(topics, documents, dictionary, coherence="c_npmi", no_of_words=20):
+    """Calculates topic coherence using gensim's coherence pipeline.
+
+    Parameters:
+
+    topics (list of str list): topic words for each topic
+    
+    documents (list of str): set of documents
+
+    dictionary (gensim.corpora.Dictionary): gensim dicionary of words from dataset
+
+    coherence (str): coherence type. Can be 'c_v', 'u_mass', 'c_uci' or 'c_npmi'
+
+    Returns:
+
+    float: coherence score
+    """
+    coherence_model = CoherenceModel(
+                topics=topics, 
+                texts=documents, 
+                dictionary=dictionary, 
+                coherence=coherence,
+                processes=0,
+                topn=no_of_words
+    )
+
+    return coherence_model.get_coherence_per_topic()
