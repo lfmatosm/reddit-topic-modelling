@@ -320,7 +320,8 @@ del word_lemma_maps
 del vocab
 
 logging.info("Creating CTM training dataset file...")
-simple_preprocessing = WhiteSpacePreprocessing(train_documents["joined"], "portuguese")
+language = "portuguese" if args.lang == "pt" else "english"
+simple_preprocessing = WhiteSpacePreprocessing(train_documents["joined"], language)
 del train_documents
 
 preprocessed_documents_for_bow, unpreprocessed_corpus_for_contextual, vocab = simple_preprocessing.preprocess()
@@ -328,7 +329,8 @@ logging.info(f'CTM: preprocessed_documents_for_bow = {len(preprocessed_documents
 logging.info(f'CTM: unpreprocessed_corpus_for_contextual = {len(unpreprocessed_corpus_for_contextual)}')
 logging.info(f'CTM: vocab = {len(vocab)}')
 
-data_preparation = TopicModelDataPreparation("distiluse-base-multilingual-cased")
+embeddings_to_use = "distiluse-base-multilingual-cased" if args.lang == "pt" else "bert-base-nli-mean-tokens"
+data_preparation = TopicModelDataPreparation(embeddings_to_use)
 ctm_training_dataset = data_preparation.create_training_set(unpreprocessed_corpus_for_contextual, preprocessed_documents_for_bow)
 
 path_save = OUTPUT_PATH + '/ctm_data_preparation.obj'

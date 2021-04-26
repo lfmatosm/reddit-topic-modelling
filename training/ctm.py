@@ -91,12 +91,14 @@ df = create_model_dataframe()
 
 logging.info(f'Vocab length: {len(data_preparation.vocab)}')
 
+input_size = 768 if args.lang == "en" else 512
+
 for k in topics:
     start = time.time()
 
-    ctm = CombinedTM(input_size=len(data_preparation.vocab), bert_input_size=512, n_components=k) \
+    ctm = CombinedTM(input_size=len(data_preparation.vocab), bert_input_size=input_size, n_components=k) \
         if args.inference == "combined" \
-            else ZeroShotTM(input_size=len(data_preparation.vocab), bert_input_size=768, n_components=k)
+            else ZeroShotTM(input_size=len(data_preparation.vocab), bert_input_size=input_size, n_components=k)
 
     ctm.fit(prepared_training_dataset)
 

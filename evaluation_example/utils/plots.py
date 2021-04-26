@@ -193,15 +193,38 @@ def plot_coherence_by_k_graph(datas, labels, legend_position="upper right"):
     ax.grid(b=True, alpha=0.4)
     ax.set(xlabel="K", ylabel="NPMI")
 
-    filename = os.path.join(OUTPUT_PATH, 'coherence_by_k.pdf')
+    filename = os.path.join(OUTPUT_PATH, f'coherence_by_k{FILE_FORMAT}')
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     fig.savefig(filename, bbox_inches='tight')
     plt.show()
 
 
+def plot_lexical_categories_histogram(categories_count, label='lexical_analysis', topn=10):
+    top_categories = categories_count[:topn]
+    categories = list(map(lambda x: x[0], top_categories))
+    percentages = list(map(lambda x: x[1], top_categories))
+
+    fig, ax = plt.subplots()
+
+    y_pos = np.arange(len(categories))
+
+    ax.barh(y_pos, percentages, align='center')
+    ax.set_yticks(y_pos)
+    ax.set_yticklabels(categories)
+    ax.invert_yaxis()
+    ax.set_xlabel('Fração de palavras dos tópicos')
+    ax.grid(b=True, axis='x', alpha=0.4)
+
+    filename = os.path.join(OUTPUT_PATH, f'{label}{FILE_FORMAT}')
+    os.makedirs(os.path.dirname(filename), exist_ok=True)
+    fig.savefig(filename, bbox_inches='tight')
+
+    plt.show()
+
+
 def map_number(number, first_interval, second_interval):
-    ratio = (number-first_interval[0]) / (first_interval[1]-first_interval[0])
-    return ratio * (second_interval[1]-second_interval[0]) + second_interval[0]
+    ratio = (number - first_interval[0]) / (first_interval[1] - first_interval[0])
+    return ratio * (second_interval[1] - second_interval[0]) + second_interval[0]
 
 
 def plot_tsne_graph_for_model(model, label, legend_position="upper right"):
@@ -222,7 +245,7 @@ def plot_tsne_graph_for_model(model, label, legend_position="upper right"):
         else int(math.ceil(n_colors/MAXIMUM_NUMBER_OF_LEGEND_ROWS)))
     ax.grid(b=True, alpha=0.4)
 
-    filename = os.path.join(OUTPUT_PATH, label + '_tsne.pdf')
+    filename = os.path.join(OUTPUT_PATH, f'{label}_tsne{FILE_FORMAT}')
     os.makedirs(os.path.dirname(filename), exist_ok=True)
     fig.savefig(filename, bbox_inches='tight')
 

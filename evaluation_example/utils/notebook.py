@@ -2,6 +2,10 @@ import pandas as pd
 from decimal import Decimal
 import os
 from gensim.models import CoherenceModel
+from gensim.corpora.dictionary import Dictionary
+from functools import reduce
+import math
+
 
 OUTPUT_PATH = "results/csv/lda/topics/"
 
@@ -122,3 +126,14 @@ def get_coherence_score_for_each_topic(topics, documents, dictionary, coherence=
     )
 
     return coherence_model.get_coherence_per_topic()
+
+
+def get_corpus_statistics(documents):
+    no_of_documents = len(documents)
+    splitted_documents = list(map(lambda x: x["body"].split(), documents))
+    dictionary = Dictionary(splitted_documents)
+    no_of_unique_tokens = len(dictionary.token2id)
+    del dictionary
+    avg_no_of_tokens_in_documents = math.ceil(reduce(lambda x, y: x+len(y), splitted_documents, 0) / no_of_documents)
+    del splitted_documents
+    return no_of_documents, avg_no_of_tokens_in_documents, no_of_unique_tokens
