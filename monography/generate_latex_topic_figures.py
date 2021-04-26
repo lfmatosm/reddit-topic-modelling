@@ -14,8 +14,8 @@ $MINIPAGES
 \end{figure}
 """
 
-MINIPAGE_TEMPLATE = """\\begin{minipage}{.48\\textwidth}
-\includegraphics[scale=0.6]{$IMG_PATH}
+MINIPAGE_TEMPLATE = """\\begin{minipage}{.5\\textwidth}
+\includegraphics[scale=0.6125]{$IMG_PATH}
 \caption{$CAPTION}
 \label{$LABEL}
 \end{minipage}"""
