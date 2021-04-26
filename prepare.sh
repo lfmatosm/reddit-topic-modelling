@@ -4,8 +4,7 @@ train_batch_name=$1
 preprocessed_dataset=$2
 dictionary_file=$3
 embeddings_file=$4
-word_lemma_maps=$5
-train_size=$6
+train_size=$5
 
 echo -e "\n*************************************************************************************"
 
@@ -17,7 +16,6 @@ python preparation/prepare_training_resources.py \
     --dataset $preprocessed_dataset --dataset_name $train_batch_name \
     --dictionary $dictionary_file \
     --embeddings $embeddings_file \
-    --word_lemma_maps $word_lemma_maps \
     --train_size $train_size || exit 1
 
 echo -e "\nTraining resources prepared"

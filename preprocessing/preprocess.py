@@ -138,7 +138,7 @@ processor = Preprocessor(
     remove_stopwords=remove_stopwords
 )
 
-processed_data, word_lemma_mapping, lemma_word_mapping, stopwords = processor.preprocess(data, stopwords_file)
+processed_data, stopwords = processor.preprocess(data, stopwords_file)
 del data
 
 logging.info(f'Size of data after preprocessing: {len(processed_data)}')
@@ -157,20 +157,6 @@ os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
 json.dump(df_after_preprocessing.to_dict(orient='records'), open(output_filepath, WRITE_MODE))
 
 logging.info(f'Data dumped to {output_filepath}')
-
-if word_lemma_mapping is not None and lemma_word_mapping is not None:
-    mapping = {
-        "word_lemma": word_lemma_mapping,
-        "lemma_word": lemma_word_mapping,
-    }
-
-    output_filepath = os.path.join(OUTPUT_PATH, dataset_folder, dataset_name) + "[word_lemma_maps]" + FILE_EXTENSION
-
-    os.makedirs(os.path.dirname(output_filepath), exist_ok=True)
-
-    json.dump(mapping, open(output_filepath, WRITE_MODE))
-
-    logging.info(f'Word-lemma and inverse mappings dumped to {output_filepath}')
 
 if stopwords is not None:
     output_filepath = os.path.join(OUTPUT_PATH, dataset_folder, dataset_name) + "[stopwords]" + FILE_EXTENSION

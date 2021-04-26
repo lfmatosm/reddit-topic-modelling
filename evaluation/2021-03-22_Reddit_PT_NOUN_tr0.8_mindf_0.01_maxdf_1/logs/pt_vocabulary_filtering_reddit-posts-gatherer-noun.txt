@@ -1,0 +1,29 @@
+20:44:29,359 root INFO Total docs: 3394
+20:44:29,359 gensim.corpora.dictionary INFO adding document #0 to Dictionary(0 unique tokens: [])
+20:44:29,602 gensim.corpora.dictionary INFO built Dictionary(11499 unique tokens: ['acontecimento', 'amigo', 'ano', 'atar', 'conhecimento']...) from 3394 documents (total 228104 corpus positions)
+20:44:29,603 root INFO Distinct tokens: 11499
+20:44:29,603 root INFO Docs processed: 3394
+20:44:29,603 root INFO Total words processed: 228104
+
+
+20:44:29,603 root INFO Doc-freqs length: 11499
+20:44:29,603 root INFO Look for token counts in the range: (0, 339)
+20:44:29,603 root INFO Analysis intervals: [(1.0, 33.9), (34.9, 67.8), (68.8, 101.69999999999999), (102.69999999999999, 135.6), (136.6, 169.5), (170.5, 203.39999999999998), (204.39999999999998, 237.29999999999998), (238.29999999999998, 271.2), (272.2, 305.09999999999997), (306.09999999999997, 339.0)]
+20:44:29,611 root INFO Documents-frequencies by interval: [10654, 370, 157, 69, 55, 33, 17, 25, 16, 6]
+20:44:29,612 root INFO Relevant marks: [0.00029464 0.01028285 0.02027107 0.03025928 0.0402475  0.05023571
+ 0.06022392 0.07021214 0.08020035]
+20:44:29,612 root INFO Relevant frequencies for each bin: [10654, 370, 157, 69, 55, 33, 17, 25, 16]
+20:44:29,612 root INFO No. of bins: 9
+20:44:29,891 root INFO Histogram generated and saved
+
+
+20:44:48,349 root INFO 
+
+Using
+	No below: 33 documents
+	No above: 1.0 of total corpus
+20:44:48,379 gensim.corpora.dictionary INFO discarding 10627 tokens: [('devorar', 2), ('dopamina', 10), ('eternidade', 6), ('fraqueza', 25), ('limbo', 22), ('mentalidade', 23), ('reconhecimento', 10), ('aisha', 1), ('clicar', 11), ('dixx', 1)]...
+20:44:48,379 gensim.corpora.dictionary INFO keeping 872 tokens which were in no less than 33 and no more than 3394 (=100.0%) documents
+20:44:48,385 gensim.corpora.dictionary INFO resulting dictionary: Dictionary(872 unique tokens: ['acontecimento', 'amigo', 'ano', 'atar', 'conhecimento']...)
+20:44:48,386 root INFO Distinct tokens after filtering: 872
+20:44:48,406 root INFO Saved filtered dictionary instance to ./images/dictionary/dictionary_pt_min_df_0.01_max_df_1.0.gdict

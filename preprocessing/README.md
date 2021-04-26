@@ -1,27 +1,20 @@
-# text-preprocessor
-An application to preprocess a simple document corpus. This script can tokenize, remove stopwords, lemmatize words and remove part-of-speech (POS) categories from the data.
+# preprocessing
+*Script* para pré-processar um *corpus* simples de documentos armazenado em um arquivo JSON. O *script* realiza remoção de caracteres especiais, tokenização, remoção de *stopwords*, lematização e remoção de caregorias de part-of-speech (POS).
 
-### Setup
-Activate/create the Pipenv environment with: ```pipenv shell```
+### Executando
+Para executar o *script* principal deste diretório, use ```python preprocess.py```. Os argumentos que o script recebe são os seguintes:
 
-Then run: ```pipenv install```
+* ```datasetFile``` (*obrigatório*) - caminho do arquivo do *dataset*. Deve ser um arquivo JSON;
+* ```datasetName``` (*obrigatório*) - nome do *dataset* a ser pré-processado. Usado para gerar o nome do arquivo pós-processado;
+* ```datasetFolder``` (*obrigatório*) - diretório onde o *dataset* será salvo após seu processamento. O diretório poderá ser encontrado no caminho ```datasets/processed/<datasetFolder>```;
+* ```field``` (*obrigatório*) - campo a ser pré-processado do *dataset*. Deve ser um campo existente nos documentos presentes no *dataset* em formato JSON passado;
+* ```lang``` (*obrigatório*) - idioma do *corpus*. Pode receber ```"en"``` ou ```"pt"```;
+* ```lemmatize``` - indica se palavras devem ser reduzidas aos seus lemas ou não. Recebe ```True``` para ativar ou ```False``` para desativar. Por padrão, está desativado;
+* ```removeStopwords``` - indica se deve remover *stopwords*. As *stopwords* serão procuradas com base em listas de palavras definidas para o idioma passado no argumento ```lang```. Caso ```stopwordsFile``` seja passado, as palavras presentes no arquivo também serão removidas caso encontradas no *corpus*. Recebe ```True``` para ativar ou ```False``` para desativar. Por padrão, está desativado;;
+* ```stopwordsFile``` - arquivo com *stopwords* adicionais para remoção;
+* ```removePos``` - indica se deve remover categorias de POS. As categorias de POS devem ser indicadas no argumento ```desiredPos```. Recebe ```True``` para ativar ou ```False``` para desativar. Por padrão, está desativado;;
+* ```desiredPos``` - lista de categorias de POS que devem ser removidas do *corpus*. Caso seja passado, ```removePos``` deve ser passado com o valor ```True```. As categorias seguem [a nomenclatura usada pela biblioteca spaCy](https://spacy.io/usage/linguistic-features#pos-tagging).
 
+Um exemplo de comando é o seguinte:
 
-### Running
-You just need to execute ```python3 src/main.py``` script. The script needs some arguments to be passed on. These are the following:
-
-* ```--datasetFile``` - path of the dataset to preprocess. The dataset must be a Python dictionary array/JSON array
-* ```--field``` - field to be preprocessed inside each dataset object.
-* ```--lang``` - dataset language.
-* ```--lemmatize``` - boolean indicating wheter or not lemmatization should be carried on the dataset.
-* ```--desiredPos``` - list os POS (part-of-speech) categories to maintain on preprocessing. These must be [spaCy](https://spacy.io) POS categories.
-* ```--stopwordsFile``` (*optional*) - file containing additional stopwords to remove. Completely optional
-
-Below, a command example:
-
-```python3 preprocess.py --datasetFile datasets/reddit_pt_2005_2020_desabafos_brasil.json --field body --lang pt --lemmatize True --desiredPos NOUN VERB```
-
-
-python text_preprocessor/preprocess.py --datasetFile datasets/original/brasil_desabafos_2008_2021/reddit-posts-gatherer-pt.submissions.json --datasetName TEST_lemmatized_nouns_only --datasetFolder . --field body --lang pt --lemmatize True --removeStopwords True --removePos True
-
-python text_preprocessor/preprocess.py --datasetFile datasets/original/depression_2009_2015/reddit-posts-gatherer-en.submissions_[until_2015-01-01_dataset].json --datasetName lemmatized_nouns_only_en --datasetFolder TEST_lemmatized_nouns_only --field body --lang en --lemmatize True --removeStopwords True --removePos True
+```python preprocess.py --datasetFile datasets/reddit_pt_2005_2020_desabafos_brasil.json --datasetName 2005_2020_desabafos_brasil_pt --datasetFolder example_datasets --field body --lang pt --lemmatize True --removePos True --desiredPos NOUN VERB ADJ --removeStopwords True```

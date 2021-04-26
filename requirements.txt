@@ -1,5 +1,5 @@
 contextualized_topic_models==1.8.1
-embedded_topic_model==0.1.1
+embedded_topic_model==1.0.1
 torch==1.6.0
 pandas
 gensim
@@ -16,4 +16,6 @@ pymongo
 requests
 numpy
 scipy
+emoji
 nltk
+empath

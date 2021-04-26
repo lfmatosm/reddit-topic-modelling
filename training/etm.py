@@ -38,7 +38,7 @@ parser = argparse.ArgumentParser(description="Trains ETM models with the given c
 parser.add_argument('--dataset_name', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument('--lang', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument("--train_documents", type=str, help="original dataset path", required=True)
-parser.add_argument("--test_documents", type=str, help="original dataset path", required=True)
+parser.add_argument("--validation_documents", type=str, help="original dataset path", required=True)
 parser.add_argument("--training_dataset", type=str, help="preprocessed training dataset", required=True)
 parser.add_argument("--embeddings", type=str, help="path to word2vec embeddings file to use", required=True)
 parser.add_argument("--vocabulary", type=str, help="training vocabulary", required=True)
@@ -63,7 +63,7 @@ logging.info(f'ETM training for K = {topics}')
 
 logging.info("Loading documents and dictionary...")
 train_documents = json.load(open(args.train_documents, "r"))
-test_documents = json.load(open(args.test_documents, "r"))
+validation_documents = json.load(open(args.validation_documents, "r"))
 dictionary = joblib.load(args.dictionary)
 logging.info("Documents and dictionary loaded")
 
@@ -114,7 +114,7 @@ for k in topics:
 
     model_name = get_model_name(k)
     npmi_train = get_coherence_score(topic_words, train_documents["split"], dictionary, "c_npmi")
-    npmi_test = get_coherence_score(topic_words, test_documents["split"], dictionary, "c_npmi")
+    npmi_valid = get_coherence_score(topic_words, validation_documents["split"], dictionary, "c_npmi")
     diversity = get_topic_diversity(topic_words)
     model_path = ETM_FOLDER + get_model_name(k)
 
@@ -123,7 +123,7 @@ for k in topics:
         k,
         model_name,
         npmi_train,
-        npmi_test,
+        npmi_valid,
         diversity,
         model_path,
         end-start
