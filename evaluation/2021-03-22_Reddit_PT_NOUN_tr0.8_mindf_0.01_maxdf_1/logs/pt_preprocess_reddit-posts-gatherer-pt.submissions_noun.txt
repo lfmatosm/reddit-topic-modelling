@@ -1,0 +1,42 @@
+19:50:33,773 root INFO Path: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/datasets/original/brasil_desabafos_2008_2021/reddit-posts-gatherer-pt.submissions_[without_duplicates].json
+19:50:33,773 root INFO Field: body
+19:50:33,773 root INFO Dataset: reddit-posts-gatherer-pt.submissions_noun
+19:50:33,773 root INFO Folder: reddit-posts-gatherer-noun
+19:50:33,773 root INFO Language: pt
+19:50:33,773 root INFO Is to lemmatize data? True
+19:50:33,773 root INFO Is to remove stopwords? True
+19:50:33,773 root INFO Is to remove POS categories? True
+19:50:33,773 root INFO POS categories to keep: ['NOUN']
+19:50:33,845 root INFO Total of original documents: 3404
+19:50:33,858 root INFO                                     _id                                             author  ...  upvote_ratio                                                url
+0  {'$oid': '600876249f06905a08d662ef'}                                               None  ...          1.00  https://www.reddit.com/r/brasil/comments/hb425...
+1  {'$oid': '600876259f06905a08d662f0'}                                               None  ...          0.70  https://www.reddit.com/r/desabafos/comments/hb...
+2  {'$oid': '600876269f06905a08d662f1'}  {'name': 'rainhadasucata', 'id': '6nxr23k7', '...  ...          0.75  https://www.reddit.com/r/desabafos/comments/hb...
+3  {'$oid': '600876269f06905a08d662f2'}  {'name': 'Hannah460', 'id': '6nwmoo19', 'comme...  ...          0.98  https://www.reddit.com/r/desabafos/comments/hb...
+4  {'$oid': '600876279f06905a08d662f3'}  {'name': 'yLithium', 'id': '6b50puto', 'commen...  ...          0.94  https://www.reddit.com/r/desabafos/comments/hb...
+
+[5 rows x 26 columns]
+19:50:36,252 root INFO Newlines and single-quotes removed from documents.
+19:50:36,252 root INFO Tokenized documents.
+19:50:39,525 root INFO Saved tokenized documents to temp file for further processing...
+19:53:01,4 root INFO Lemmatized documents.
+19:53:01,888 root INFO Word-lemma mapping created.
+19:53:01,896 root INFO Lemma-word mapping created.
+19:53:02,900 root INFO NOUN POS categories of tokens kept and lemmatized.
+19:53:02,923 root INFO Read processed documents from temp file
+19:53:02,923 root INFO Using stoplist of length: 234
+19:53:03,542 root INFO No. of stopwords removed: 5759
+19:53:03,546 root INFO Stopwords removed.
+19:53:03,554 root INFO Removed temporary files.
+19:53:03,555 root INFO Size of data after preprocessing: 3404
+19:53:03,640 numexpr.utils INFO NumExpr defaulting to 8 threads.
+19:53:03,792 root INFO Row count after removal of rows with empty "body" fields: 3394
+19:53:04,207 root INFO Data dumped to datasets/processed/reddit-posts-gatherer-noun/reddit-posts-gatherer-pt.submissions_noun[processed].json
+19:53:04,337 root INFO Word-lemma and inverse mappings dumped to datasets/processed/reddit-posts-gatherer-noun/reddit-posts-gatherer-pt.submissions_noun[word_lemma_maps].json
+19:53:04,337 root INFO 
+
+Elapsed execution time for preprocessing: 150.56601929664612
+*******************
+
+
+

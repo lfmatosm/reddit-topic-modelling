@@ -21,7 +21,6 @@ DICTIONARY_FOLDER = "dictionary"
 N_BINS = 11
 FILE_EXTENSION = ".pdf"
 
-# logger = LoggerFactory.get_instance().getLogger('vocab_evaluation')
 
 def normalize(arr, size):
     return np.array(arr) / size
