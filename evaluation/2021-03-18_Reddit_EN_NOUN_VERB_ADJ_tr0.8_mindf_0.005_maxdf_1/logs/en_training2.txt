@@ -1,0 +1,222 @@
+
+*************************************************************************************
+Training: EN_TESTE_2
+
+Starting ctm, lda and etm training...
+
+Starting ctm training...
+
+CTM training for K = [5, 8, 10, 12, 15, 18, 20, 22, 25, 28, 30]
+Loading documents and dictionary...
+train_documents = 25657
+test_documents = 6415
+Documents and dictionary loaded
+Loading CTM training resources...
+Prepared dataset length: {'X': tensor([[0., 0., 0.,  ..., 0., 0., 0.]]), 'X_bert': tensor([-3.4559e-02,  5.2619e-02,  1.3378e-02, -4.4422e-02,  8.7034e-02,
+        -6.6152e-02,  1.4503e-03,  6.2318e-02,  4.3670e-02,  6.5279e-02,
+        -2.1259e-03, -5.9774e-02, -8.6976e-03, -1.8560e-02,  2.9847e-03,
+        -7.6070e-03,  2.8460e-03,  6.4692e-02,  3.6682e-02,  2.2724e-02,
+         1.0630e-02,  1.1618e-02, -2.0981e-02,  3.8586e-02,  2.3375e-02,
+        -5.2053e-03, -7.5772e-02, -2.0417e-03,  5.5802e-02, -2.3455e-02,
+         3.1648e-02,  1.1176e-02, -2.9516e-02, -6.3608e-02,  1.7803e-02,
+        -1.8040e-02,  2.6594e-02, -2.0895e-02, -1.7782e-02,  3.3575e-02,
+        -3.3132e-02, -3.0469e-02,  3.3969e-02, -2.6080e-02, -2.2686e-02,
+         2.7625e-02,  3.1191e-02,  5.6418e-03,  2.1839e-02, -4.4136e-03,
+        -8.4758e-03,  5.7622e-02,  6.7383e-03, -2.3786e-02,  3.4206e-02,
+        -2.9589e-02, -4.6945e-02, -7.5562e-03,  4.3180e-02,  2.9040e-02,
+         2.3936e-02, -3.6344e-02,  3.3563e-02,  4.7270e-02,  3.8490e-03,
+         1.3084e-02,  2.0220e-03,  3.7357e-03,  4.2391e-02,  3.1564e-03,
+         4.6067e-03, -1.4922e-02, -3.4267e-02, -3.0865e-02, -4.6077e-02,
+         8.3334e-02, -1.0630e-02, -2.9659e-02,  3.1712e-02,  1.2086e-02,
+        -8.7585e-03, -6.8974e-02,  6.3990e-03, -3.9125e-02,  3.6827e-02,
+         2.9416e-02,  4.0675e-02, -6.5227e-02, -6.3135e-03,  2.7986e-02,
+         1.3758e-03, -1.7465e-02, -3.1930e-02, -5.6105e-03,  5.9817e-03,
+         1.7755e-02,  1.8653e-03, -1.8762e-02, -2.5790e-03,  8.4826e-04,
+        -5.6857e-03, -1.4359e-02, -8.9946e-02, -6.5300e-03, -2.8525e-02,
+        -5.9275e-02,  1.7099e-02, -4.8058e-02, -3.6072e-02,  7.3130e-03,
+         1.3696e-03,  3.3640e-02,  5.8226e-02,  1.8624e-02,  5.2103e-02,
+         3.7081e-02,  6.1444e-02, -2.8434e-02,  7.0442e-02,  3.7156e-02,
+        -5.7615e-02,  5.7588e-02, -6.0674e-03, -5.4342e-02, -4.1733e-03,
+        -6.0417e-02, -9.0143e-03,  7.6653e-04, -1.2837e-02, -1.0825e-02,
+         2.1213e-02, -4.7203e-02, -4.7139e-04, -3.7555e-02, -3.7054e-03,
+        -1.1041e-02,  8.5045e-04,  1.8041e-02, -8.2990e-03, -4.6247e-03,
+        -8.0115e-02,  2.6692e-03, -2.8260e-02, -3.9464e-02, -1.2326e-01,
+         4.9107e-02, -3.6085e-02,  4.4793e-03,  8.2419e-02, -3.6353e-02,
+         6.6720e-03, -4.7680e-03,  9.4008e-04, -3.7176e-02,  2.0634e-02,
+         9.9045e-03,  1.6683e-02, -1.7992e-02,  1.0019e-02, -1.6761e-02,
+        -5.3645e-03, -7.4098e-02, -3.7352e-02, -2.2314e-02,  5.9433e-02,
+        -1.9465e-02,  8.3145e-03,  1.8582e-02,  4.6021e-02,  2.3844e-02,
+        -2.6146e-02,  2.8693e-02,  1.0192e-01,  4.6901e-02, -1.3424e-02,
+        -3.4228e-03, -1.1787e-02, -4.6386e-02, -1.5520e-02,  4.4158e-02,
+        -6.5425e-03, -2.9461e-02, -1.7957e-02, -1.0989e-02,  6.0048e-03,
+         3.9832e-03,  3.0040e-02, -9.6047e-02,  1.0811e-02,  2.1808e-02,
+        -8.3525e-03, -6.7065e-05,  1.4635e-02,  3.5398e-02,  1.7173e-02,
+        -3.2368e-02,  2.5019e-02,  2.2017e-02, -4.5406e-02,  1.0209e-02,
+        -4.0509e-02, -1.0261e-01, -1.7600e-03, -1.9565e-02, -4.9517e-02,
+        -2.2547e-02, -4.1546e-03, -2.8691e-02, -3.1316e-02,  2.8692e-02,
+         2.5191e-02,  4.5412e-02, -1.3659e-02,  2.7927e-03,  2.0650e-02,
+         1.9864e-02,  3.1446e-02, -5.0741e-02, -3.6347e-02,  1.0820e-02,
+        -2.1145e-02,  1.8160e-03,  3.5829e-02, -2.8857e-02, -4.6948e-02,
+         1.0165e-02,  9.7253e-03, -1.6127e-02, -4.0126e-02,  2.7009e-02,
+         8.5782e-02, -1.1015e-02,  6.1673e-03,  2.5719e-03,  2.1701e-03,
+        -2.6994e-02,  4.0670e-02, -2.9049e-02,  6.9834e-02, -1.2627e-03,
+        -3.2564e-02, -3.5707e-03, -3.6126e-02, -4.1837e-02,  3.1361e-02,
+         2.5698e-02, -1.2826e-02, -2.2690e-02, -4.3932e-02,  1.6317e-02,
+         4.8883e-02,  1.2918e-02, -1.7652e-02, -5.7458e-02,  1.4040e-02,
+         5.8551e-02,  1.0195e-02,  4.8496e-02,  5.6037e-02, -1.9541e-03,
+         4.6744e-02, -2.7069e-02,  1.5168e-02,  4.2914e-02, -1.2465e-02,
+         6.5369e-03, -5.4780e-02, -9.8171e-03, -6.6414e-03,  1.9876e-02,
+         3.0079e-02, -6.2187e-03,  6.2246e-02, -7.9765e-04,  5.2528e-03,
+         1.8408e-03, -5.7427e-03,  1.5127e-03,  4.9049e-02, -8.0309e-03,
+        -3.9879e-02, -3.6692e-02, -2.8160e-02, -7.5531e-03,  3.0611e-02,
+         3.5777e-02,  1.4906e-02,  3.8483e-02,  3.3972e-02, -5.1212e-02,
+        -1.4842e-02,  3.4851e-02,  3.8996e-02, -3.7756e-02, -3.7635e-02,
+         2.5584e-02,  1.3008e-02,  9.3408e-03, -2.3994e-02, -1.1183e-02,
+        -5.2367e-02, -6.4518e-02, -4.6624e-03,  2.1818e-02, -2.1899e-02,
+        -2.1015e-02,  3.6494e-02, -2.6699e-02,  3.3360e-02,  9.4444e-03,
+         7.2555e-02,  4.7238e-02,  2.9929e-02,  2.4867e-02,  2.6713e-02,
+         5.9082e-02,  4.0135e-03, -2.2884e-02, -9.3203e-02,  3.6601e-02,
+         1.9485e-02, -5.8700e-02, -1.7431e-02, -7.0221e-02, -8.4749e-02,
+        -3.5809e-02, -4.7864e-03, -6.8753e-02, -3.0255e-02,  5.7692e-02,
+        -1.0491e-02, -1.6121e-03,  4.1702e-02,  2.8288e-02,  1.2708e-02,
+         1.0253e-01,  6.0837e-02,  3.4113e-02, -1.6398e-02,  5.5189e-02,
+        -3.9846e-02, -3.3774e-02,  8.5433e-02,  3.3277e-02,  9.7640e-06,
+         6.8699e-03, -4.2824e-02, -1.9929e-02, -2.3721e-02,  3.4803e-03,
+        -1.2901e-02, -2.4578e-02,  2.2079e-02, -7.9738e-03, -1.2931e-02,
+         1.2022e-02, -5.5890e-02, -1.0208e-02,  6.2049e-02,  8.1758e-03,
+         3.3259e-02,  4.2637e-02,  5.2785e-02, -1.0826e-02, -2.5306e-02,
+         2.9400e-03,  1.1920e-01,  4.4624e-02, -3.6997e-03, -6.5292e-02,
+        -1.8482e-02,  1.9395e-02, -4.3770e-02,  6.0037e-02, -6.8271e-03,
+        -4.5536e-02, -3.6449e-02, -5.9335e-02,  5.2020e-02, -7.1762e-02,
+         3.1293e-02,  6.7852e-02,  1.3011e-02,  6.7302e-02,  1.6472e-02,
+         1.4072e-01,  2.3688e-02, -1.5069e-02, -2.8575e-02, -9.2764e-03,
+        -2.9129e-02,  2.4642e-02,  3.6466e-03, -2.2306e-02, -1.7715e-02,
+        -2.2329e-02,  9.0400e-03,  5.7886e-02, -2.3832e-02,  2.1560e-02,
+        -5.8334e-02,  3.5471e-02, -8.6071e-02, -1.5445e-02, -6.1772e-02,
+        -2.2302e-02,  7.5499e-02, -8.0432e-03, -2.7634e-02, -2.9039e-03,
+        -4.2404e-02,  3.0911e-02, -7.8631e-03, -1.2293e-02, -1.5149e-02,
+         2.0117e-02,  5.7462e-02,  3.4812e-02,  3.8448e-02, -6.9670e-02,
+        -9.7057e-04, -8.3999e-03,  4.4467e-02,  1.5442e-02,  2.6707e-02,
+         3.9329e-03, -4.8208e-02,  9.3136e-04, -1.7337e-02, -5.7983e-03,
+         2.4805e-03,  7.2198e-02,  2.6101e-02, -1.8819e-03, -2.5601e-02,
+         5.8529e-03,  7.1149e-02, -5.3345e-02,  3.3344e-02,  1.2480e-02,
+        -7.4252e-02, -8.9862e-02,  3.7339e-02,  2.4588e-02, -5.7501e-03,
+         2.0675e-02, -5.4771e-02,  2.5737e-02,  1.8268e-03,  4.0379e-02,
+         4.8512e-02,  2.4607e-02,  4.8122e-02, -2.0672e-02,  2.8004e-02,
+        -7.2786e-02,  5.1747e-02, -1.0000e-02, -2.8275e-02, -1.2687e-03,
+         9.3671e-03, -2.4906e-02, -2.0632e-02,  1.0034e-02, -1.3581e-02,
+         3.0614e-02, -6.1439e-02, -6.9932e-02, -3.1348e-02, -7.7384e-02,
+         3.2945e-02,  2.4983e-03,  2.5042e-03,  2.1454e-02, -3.9260e-02,
+         1.1148e-02,  1.5292e-02,  1.4357e-03,  5.6969e-03, -6.6451e-02,
+        -3.8113e-02,  1.5569e-03, -5.6655e-02, -2.0149e-02,  2.4416e-03,
+        -1.7523e-02, -2.3131e-02,  4.7833e-02,  2.9935e-02,  1.4963e-02,
+         1.1382e-02,  3.1945e-02,  2.0168e-02,  3.2899e-02,  4.1076e-02,
+         5.9060e-02,  7.0328e-03,  2.4914e-02, -1.6276e-02,  2.4693e-03,
+         1.9611e-02, -3.5536e-02,  1.7700e-03,  3.9743e-02,  4.8407e-02,
+         2.6231e-02,  7.5082e-02, -6.9753e-03, -1.1343e-02, -8.0212e-02,
+        -3.0588e-02,  2.5930e-02])}
+CTM training resources loaded
+Vocab length: 1518
+CTM model with 5 topics successfully trained
+CTM model with 8 topics successfully trained
+CTM model with 10 topics successfully trained
+CTM model with 12 topics successfully trained
+CTM model with 15 topics successfully trained
+CTM model with 18 topics successfully trained
+CTM model with 20 topics successfully trained
+CTM model with 22 topics successfully trained
+CTM model with 25 topics successfully trained
+CTM model with 28 topics successfully trained
+CTM model with 30 topics successfully trained
+      k             model  ...                  path  train_time_in_seconds
+0   5.0   ctm_k5_combined  ...   ctm/ctm_k5_combined             999.582293
+1   8.0   ctm_k8_combined  ...   ctm/ctm_k8_combined            1015.768187
+2  10.0  ctm_k10_combined  ...  ctm/ctm_k10_combined            1017.148931
+3  12.0  ctm_k12_combined  ...  ctm/ctm_k12_combined            1014.235711
+4  15.0  ctm_k15_combined  ...  ctm/ctm_k15_combined            1019.391483
+
+[5 rows x 7 columns]
+Saving results CSV...
+Training finished!
+
+Starting lda training...
+
+LDA training for K = [5, 8, 10, 12, 15, 18, 20, 22, 25, 28, 30]
+Loading documents and dictionary...
+Documents and dictionary loaded
+Resulting vectorized vocabulary has 1519 tokens, where 0 stopwords have been removed
+LDA model with 5 topics successfully trained
+LDA model with 8 topics successfully trained
+LDA model with 10 topics successfully trained
+LDA model with 12 topics successfully trained
+LDA model with 15 topics successfully trained
+LDA model with 18 topics successfully trained
+LDA model with 20 topics successfully trained
+LDA model with 22 topics successfully trained
+LDA model with 25 topics successfully trained
+LDA model with 28 topics successfully trained
+LDA model with 30 topics successfully trained
+      k    model  c_npmi_train  ...  diversity         path train_time_in_seconds
+0   5.0   lda_k5     -0.004345  ...   0.320000   lda/lda_k5             57.734073
+1   8.0   lda_k8      0.004177  ...   0.368750   lda/lda_k8             56.710082
+2  10.0  lda_k10      0.010082  ...   0.360000  lda/lda_k10             60.100803
+3  12.0  lda_k12      0.010627  ...   0.350000  lda/lda_k12             61.207827
+4  15.0  lda_k15      0.020894  ...   0.406667  lda/lda_k15             64.148535
+
+[5 rows x 7 columns]
+Saving results CSV...
+CSV file with results saved to  training_outputs/csvs/lda_results.csv
+
+Starting etm training...
+
+ETM training for K = [5, 8, 10, 12, 15, 18, 20, 22, 25, 28, 30]
+Loading documents and dictionary...
+Documents and dictionary loaded
+Loading ETM training resources...
+ETM training resources loaded
+Starting training for k=5...
+ETM model with 5 topics successfully trained
+Starting training for k=8...
+ETM model with 8 topics successfully trained
+Starting training for k=10...
+ETM model with 10 topics successfully trained
+Starting training for k=12...
+ETM model with 12 topics successfully trained
+Starting training for k=15...
+ETM model with 15 topics successfully trained
+Starting training for k=18...
+ETM model with 18 topics successfully trained
+Starting training for k=20...
+ETM model with 20 topics successfully trained
+Starting training for k=22...
+ETM model with 22 topics successfully trained
+Starting training for k=25...
+ETM model with 25 topics successfully trained
+Starting training for k=28...
+ETM model with 28 topics successfully trained
+Starting training for k=30...
+ETM model with 30 topics successfully trained
+      k    model  c_npmi_train  ...  diversity         path train_time_in_seconds
+0   5.0   etm_k5      0.003521  ...   0.640000   etm/etm_k5           2089.624361
+1   8.0   etm_k8      0.008220  ...   0.462500   etm/etm_k8           2157.599200
+2  10.0  etm_k10      0.012676  ...   0.430000  etm/etm_k10           2234.057293
+3  12.0  etm_k12      0.011359  ...   0.425000  etm/etm_k12           2392.358231
+4  15.0  etm_k15      0.014300  ...   0.393333  etm/etm_k15           2424.535615
+
+[5 rows x 7 columns]
+Saving results CSV...
+Training finished!
+
+Training finished successfully
+
+Creating evaluation folder at 'evaluation/2021-03-18_EN_TESTE_2' and moving training outputs to the folder...
+
+Creating notebook at 'evaluation/2021-03-18_EN_TESTE_2.ipynb'...
+
+Cleaning generated files...
+
+Folder cleaned
+
+Postprocessing finished successfully
+
+*************************************************************************************

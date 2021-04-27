@@ -1,0 +1,142 @@
+20:48:31,656 root INFO Dataset: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/datasets/processed/reddit-posts-gatherer-noun/reddit-posts-gatherer-pt.submissions_noun[processed].json
+Dataset_name: Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1
+Train_size: 0.8
+
+
+20:48:31,656 root INFO Loading dataset file...
+20:48:31,726 root INFO Dataset length: 3394
+20:48:31,735 root INFO Loading Gensim dictionary...
+20:48:31,744 root INFO No. of tokens on dictionary: 872
+20:48:31,744 root INFO Gensim vocabulary length: 872
+20:48:31,744 root INFO Loading word-lemma mappings...
+20:48:31,771 root INFO Word-lemma and inverse mappings loaded with 2 entries
+20:48:31,771 root INFO Filtering words not present in vocabulary...
+20:48:32,829 root INFO Filtered non-vocabulary words
+20:48:32,829 root INFO Documents length after filtering and removal of empty documents: 3394
+20:48:32,829 root INFO Tokenizing documents and creating train dataset...
+20:48:32,829 root INFO No. documents - Train: 2715	Test: 679
+20:48:32,854 root INFO Number of documents (train): 2715 [this should be equal to 2715]
+20:48:32,854 root INFO Number of documents (test): 679 [this should be equal to 679]
+20:48:32,864 root INFO Final number of documents (train): 2715
+20:48:32,864 root INFO Final number of documents (test): 679
+20:48:32,866 root INFO Saving train documents file with 2715 documents (JSON): ./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/train_documents.json
+20:48:32,951 root INFO Train documents file saved (JSON): ./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/train_documents.json
+20:48:32,953 root INFO Saving joined test documents file with 679 documents (JSON): ./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/test_documents.json
+20:48:32,978 root INFO Test documents file saved (JSON): ./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/test_documents.json
+20:48:32,978 root INFO Creating word dictionary for entire corpus...
+20:48:32,994 root INFO Word dictionary created and saved to "./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/word_dictionary.gdict"
+20:48:32,994 root INFO (ETM) Creating lists of words...
+20:48:32,997 root INFO (ETM) Getting doc indices...
+20:48:33,27 root INFO   len(np.unique(doc_indices_tr)): 2715 [this should be 2715]
+20:48:33,35 root INFO   len(np.unique(doc_indices_ts)): 679 [this should be 679]
+20:48:33,37 root INFO (ETM) Creating bow representation...
+20:48:33,82 root INFO (ETM) Splitting bow intro token/value pairs and saving...
+20:48:33,591 root INFO Creating ETM vocabulary file...
+20:48:33,599 root INFO ETM vocabulary saved to "./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_vocabulary.vocab"
+20:48:33,599 root INFO Creating ETM training dataset file...
+20:48:33,905 root INFO ETM training dataset saved to "./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_training_dataset.dataset"
+20:48:33,915 root INFO Creating ETM embeddings file with words in vocabulary
+20:48:33,915 gensim.utils INFO loading Word2VecKeyedVectors object from /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/embeddings/ptwiki_20180420_300d_optimized.w2v
+20:48:35,205 gensim.utils INFO loading vectors from /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/embeddings/ptwiki_20180420_300d_optimized.w2v.vectors.npy with mmap=r
+20:48:35,206 gensim.utils INFO setting ignored attribute vectors_norm to None
+20:48:35,207 gensim.utils INFO loaded /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/embeddings/ptwiki_20180420_300d_optimized.w2v
+20:48:35,207 root INFO Generating optimized W2V embedding based on vocabulary words...
+20:48:35,207 root INFO Embeddings: word "fardar" not found on embeddings!
+20:48:35,207 root INFO Embeddings: word "horar" not found on embeddings!
+20:48:35,207 root INFO Embeddings: word "motivacao" not found on embeddings!
+20:48:35,207 root INFO Embeddings: word "pontar" not found on embeddings!
+20:48:35,207 root INFO Embeddings: word "vaziar" not found on embeddings!
+20:48:35,208 root INFO Embeddings: word "grupar" not found on embeddings!
+20:48:35,208 root INFO Embeddings: word "bocar" not found on embeddings!
+20:48:35,208 root INFO Embeddings: word "cartar" not found on embeddings!
+20:48:35,208 root INFO Embeddings: word "filhar" not found on embeddings!
+20:48:35,209 root INFO Embeddings: word "maridar" not found on embeddings!
+20:48:35,209 root INFO Embeddings: word "amigar" not found on embeddings!
+20:48:35,209 root INFO Embeddings: word "futurar" not found on embeddings!
+20:48:35,210 root INFO Embeddings: word "quarentenar" not found on embeddings!
+20:48:35,210 root INFO Embeddings: word "sensacao" not found on embeddings!
+20:48:35,210 root INFO Embeddings: word "vezar" not found on embeddings!
+20:48:35,210 root INFO Embeddings: word "doenca" not found on embeddings!
+20:48:35,210 root INFO Embeddings: word "doencas" not found on embeddings!
+20:48:35,211 root INFO Embeddings: word "politicar" not found on embeddings!
+20:48:35,211 root INFO Embeddings: word "respostar" not found on embeddings!
+20:48:35,211 root INFO Embeddings: word "angustiar" not found on embeddings!
+20:48:35,211 root INFO Embeddings: word "aniversariar" not found on embeddings!
+20:48:35,211 root INFO Embeddings: word "casamentar" not found on embeddings!
+20:48:35,212 root INFO Embeddings: word "frustracao" not found on embeddings!
+20:48:35,212 root INFO Embeddings: word "raivar" not found on embeddings!
+20:48:35,212 root INFO Embeddings: word "tarefar" not found on embeddings!
+20:48:35,212 root INFO Embeddings: word "mear" not found on embeddings!
+20:48:35,212 root INFO Embeddings: word "quartar" not found on embeddings!
+20:48:35,213 root INFO Embeddings: word "medicacao" not found on embeddings!
+20:48:35,213 root INFO Embeddings: word "psiquiatro" not found on embeddings!
+20:48:35,213 root INFO Embeddings: word "inseguranca" not found on embeddings!
+20:48:35,231 root INFO Embeddings: word "covid" not found on embeddings!
+20:48:35,231 root INFO Embeddings: word "academiar" not found on embeddings!
+20:48:35,231 root INFO Embeddings: word "cabelar" not found on embeddings!
+20:48:35,232 root INFO Embeddings: word "feirar" not found on embeddings!
+20:48:35,232 root INFO Embeddings: word "granir" not found on embeddings!
+20:48:35,232 root INFO Embeddings: word "idear" not found on embeddings!
+20:48:35,232 root INFO Embeddings: word "nocao" not found on embeddings!
+20:48:35,232 root INFO Embeddings: word "psicologos" not found on embeddings!
+20:48:35,232 root INFO Embeddings: word "solidao" not found on embeddings!
+20:48:35,232 root INFO Embeddings: word "certar" not found on embeddings!
+20:48:35,232 root INFO Embeddings: word "professorar" not found on embeddings!
+20:48:35,232 root INFO Embeddings: word "razoar" not found on embeddings!
+20:48:35,232 root INFO Embeddings: word "infernar" not found on embeddings!
+20:48:35,233 root INFO Embeddings: word "buracar" not found on embeddings!
+20:48:35,233 root INFO Embeddings: word "garotar" not found on embeddings!
+20:48:35,233 root INFO Embeddings: word "condicao" not found on embeddings!
+20:48:35,233 root INFO Embeddings: word "medicinar" not found on embeddings!
+20:48:35,233 root INFO Embeddings: word "redar" not found on embeddings!
+20:48:35,234 root INFO Embeddings: word "alimentacao" not found on embeddings!
+20:48:35,234 root INFO Embeddings: word "memoriar" not found on embeddings!
+20:48:35,234 root INFO Embeddings: word "salariar" not found on embeddings!
+20:48:35,234 root INFO Embeddings: word "paginar" not found on embeddings!
+20:48:35,235 root INFO Embeddings: word "reacao" not found on embeddings!
+20:48:35,235 root INFO Embeddings: word "almoco" not found on embeddings!
+20:48:35,235 root INFO Embeddings: word "estilar" not found on embeddings!
+20:48:35,235 root INFO Embeddings: word "amanhar" not found on embeddings!
+20:48:35,235 root INFO Embeddings: word "esperancas" not found on embeddings!
+20:48:35,235 root INFO Embeddings: word "estomagar" not found on embeddings!
+20:48:35,235 root INFO Embeddings: word "preocupacao" not found on embeddings!
+20:48:35,235 root INFO Embeddings: word "opcoes" not found on embeddings!
+20:48:35,235 root INFO Embeddings: word "rostir" not found on embeddings!
+20:48:35,236 root INFO Embeddings: word "roupar" not found on embeddings!
+20:48:35,236 root INFO Embeddings: word "preguica" not found on embeddings!
+20:48:35,236 root INFO Embeddings: word "recaida" not found on embeddings!
+20:48:35,236 root INFO Embeddings: word "empresar" not found on embeddings!
+20:48:35,236 root INFO Embeddings: word "zonar" not found on embeddings!
+20:48:35,236 root INFO Embeddings: word "ocar" not found on embeddings!
+20:48:35,237 root INFO Embeddings: word "bolsar" not found on embeddings!
+20:48:35,237 root INFO Embeddings: word "engenhar" not found on embeddings!
+20:48:35,237 root INFO Embeddings: word "ciumar" not found on embeddings!
+20:48:35,237 root INFO Embeddings: word "recuperacao" not found on embeddings!
+20:48:35,237 root INFO Embeddings: word "insegurancas" not found on embeddings!
+20:48:35,238 root INFO Embeddings: word "cansaco" not found on embeddings!
+20:48:35,238 root INFO Embeddings: word "cigarrar" not found on embeddings!
+20:48:35,238 root INFO Embeddings: word "emocoes" not found on embeddings!
+20:48:35,629 gensim.utils INFO saving Word2VecKeyedVectors object under ./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v, separately None
+20:48:35,630 gensim.utils INFO not storing attribute vectors_norm
+20:48:35,656 gensim.utils INFO saved ./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+20:48:35,656 root INFO 
+
+Generated optimized Gensim W2V embedding file at "./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v"
+20:48:35,656 root INFO 797/872 words found on embeddings
+20:48:35,658 root INFO ETM embeddings file with words in vocabulary created
+20:48:35,662 root INFO Creating CTM training dataset file...
+20:48:35,844 root INFO CTM: preprocessed_documents_for_bow = 2714
+20:48:35,845 root INFO CTM: unpreprocessed_corpus_for_contextual = 2714
+20:48:35,845 root INFO CTM: vocab = 865
+20:48:35,929 sentence_transformers.SentenceTransformer INFO Load pretrained SentenceTransformer: distiluse-base-multilingual-cased
+20:48:35,929 sentence_transformers.SentenceTransformer INFO Did not find folder distiluse-base-multilingual-cased
+20:48:35,929 sentence_transformers.SentenceTransformer INFO Try to download model from server: https://sbert.net/models/distiluse-base-multilingual-cased.zip
+20:48:35,931 sentence_transformers.SentenceTransformer INFO Load SentenceTransformer from folder: /home/luizmatos/.cache/torch/sentence_transformers/sbert.net_models_distiluse-base-multilingual-cased
+20:48:39,853 sentence_transformers.SentenceTransformer INFO Use pytorch device: cpu
+20:50:50,836 root INFO CTM data preparation instance saved to "./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/ctm_data_preparation.obj"
+20:50:51,260 root INFO CTM training dataset saved to "./resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/ctm_training_dataset.dataset"
+20:50:51,260 root INFO 
+Datasets prepared for training
+20:50:51,260 root INFO 
+
+Elapsed execution time for preparation: 139.60388255119324s

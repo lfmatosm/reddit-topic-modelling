@@ -1,0 +1,22 @@
+12:28:55,45 root INFO Dataset: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/resources/train_documents.json
+Dataset_name: training_data
+n
+
+12:28:55,46 root INFO Loading dataset file...
+12:28:55,296 root INFO Creating CTM training dataset file...
+12:28:56,856 root INFO CTM: preprocessed_documents_for_bow = 25657
+12:28:56,856 root INFO CTM: unpreprocessed_corpus_for_contextual = 25657
+12:28:56,856 root INFO CTM: vocab = 1519
+12:28:57,976 sentence_transformers.SentenceTransformer INFO Load pretrained SentenceTransformer: bert-base-nli-mean-tokens
+12:28:57,976 sentence_transformers.SentenceTransformer INFO Did not find folder bert-base-nli-mean-tokens
+12:28:57,977 sentence_transformers.SentenceTransformer INFO Try to download model from server: https://sbert.net/models/bert-base-nli-mean-tokens.zip
+12:28:57,977 sentence_transformers.SentenceTransformer INFO Downloading sentence transformer model from https://sbert.net/models/bert-base-nli-mean-tokens.zip and saving it at /home/luizmatos/.cache/torch/sentence_transformers/sbert.net_models_bert-base-nli-mean-tokens
+12:35:31,739 sentence_transformers.SentenceTransformer INFO Load SentenceTransformer from folder: /home/luizmatos/.cache/torch/sentence_transformers/sbert.net_models_bert-base-nli-mean-tokens
+12:35:33,554 sentence_transformers.SentenceTransformer INFO Use pytorch device: cpu
+13:04:05,681 root INFO CTM data preparation instance saved to "./resources/training_data/ctm_data_preparation.obj"
+13:04:11,14 root INFO CTM training dataset saved to "./resources/training_data/ctm_training_dataset.dataset"
+13:04:11,14 root INFO 
+Datasets prepared for training
+13:04:11,14 root INFO 
+
+Elapsed execution time for CTM preparation: 2115.9687871932983s

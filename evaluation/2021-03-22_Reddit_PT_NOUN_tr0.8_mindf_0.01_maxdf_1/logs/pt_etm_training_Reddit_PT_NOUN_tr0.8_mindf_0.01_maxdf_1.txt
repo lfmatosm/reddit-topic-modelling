@@ -1,0 +1,1036 @@
+21:11:19,360 root INFO ETM training for K = [5, 8, 10, 12, 15, 18, 20, 22, 25, 28, 30]
+21:11:19,361 root INFO Loading documents and dictionary...
+21:11:19,390 root INFO Documents and dictionary loaded
+21:11:19,390 root INFO Loading ETM training resources...
+21:11:19,412 root INFO ETM training resources loaded
+21:11:19,413 root INFO Starting training for k=5...
+21:11:19,414 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:11:19,423 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:11:19,423 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:12:25,658 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:12:25,690 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3155 virtual)
+21:12:25,692 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6053 virtual)
+21:12:25,694 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9066 virtual)
+21:12:25,696 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11837 virtual)
+21:12:25,699 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14878 virtual)
+21:12:25,702 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17994 virtual)
+21:12:25,705 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20478 virtual)
+21:12:25,708 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23428 virtual)
+21:12:25,710 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26545 virtual)
+21:12:25,713 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (30043 virtual)
+21:12:25,715 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (33005 virtual)
+21:12:25,717 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35931 virtual)
+21:12:25,719 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38438 virtual)
+21:12:25,722 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40898 virtual)
+21:12:25,767 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43370 virtual)
+21:12:25,817 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (46118 virtual)
+21:12:25,820 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49519 virtual)
+21:12:25,827 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51873 virtual)
+21:12:25,830 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (55206 virtual)
+21:12:25,834 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58742 virtual)
+21:12:25,836 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (61421 virtual)
+21:12:25,844 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (64178 virtual)
+21:12:25,902 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67645 virtual)
+21:12:25,952 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70572 virtual)
+21:12:25,955 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (73437 virtual)
+21:12:25,958 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (76031 virtual)
+21:12:25,961 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (79243 virtual)
+21:12:25,966 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81760 virtual)
+21:12:25,970 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84787 virtual)
+21:12:25,976 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86956 virtual)
+21:12:26,54 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (89334 virtual)
+21:12:26,65 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (92357 virtual)
+21:12:26,92 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (94895 virtual)
+21:12:26,94 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (97094 virtual)
+21:12:26,97 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99757 virtual)
+21:12:26,105 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (103130 virtual)
+21:12:26,120 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (105387 virtual)
+21:12:26,132 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (108141 virtual)
+21:12:26,192 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (110805 virtual)
+21:12:26,202 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (113479 virtual)
+21:12:26,215 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (116417 virtual)
+21:12:26,218 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118984 virtual)
+21:12:26,344 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,344 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,346 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,347 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,375 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,376 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,376 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,379 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,407 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,407 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,416 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,417 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,418 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,419 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,436 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:12:26,446 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119866 virtual documents
+21:12:26,595 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:12:26,624 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3155 virtual)
+21:12:26,626 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6053 virtual)
+21:12:26,628 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9066 virtual)
+21:12:26,630 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11837 virtual)
+21:12:26,631 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14878 virtual)
+21:12:26,633 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17994 virtual)
+21:12:26,634 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20478 virtual)
+21:12:26,637 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23428 virtual)
+21:12:26,640 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26545 virtual)
+21:12:26,642 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (30043 virtual)
+21:12:26,643 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31623 virtual)
+21:12:26,762 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,763 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,765 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,765 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,766 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,766 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,766 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,767 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,814 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,815 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,853 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,853 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,860 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:12:26,861 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:12:26,874 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:12:26,883 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31864 virtual documents
+21:12:27,27 root INFO ETM model with 5 topics successfully trained
+21:12:27,27 root INFO Starting training for k=8...
+21:12:27,27 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:12:27,34 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:12:27,34 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:13:33,730 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:13:33,761 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3155 virtual)
+21:13:33,763 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6053 virtual)
+21:13:33,765 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9066 virtual)
+21:13:33,768 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11837 virtual)
+21:13:33,771 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14878 virtual)
+21:13:33,774 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17970 virtual)
+21:13:33,777 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20455 virtual)
+21:13:33,780 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23383 virtual)
+21:13:33,782 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26488 virtual)
+21:13:33,785 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (30038 virtual)
+21:13:33,787 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (32988 virtual)
+21:13:33,789 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35927 virtual)
+21:13:33,791 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38393 virtual)
+21:13:33,794 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40850 virtual)
+21:13:33,864 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43315 virtual)
+21:13:33,919 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (46070 virtual)
+21:13:33,924 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49423 virtual)
+21:13:33,929 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51797 virtual)
+21:13:33,937 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (54745 virtual)
+21:13:33,943 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58448 virtual)
+21:13:33,945 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (61241 virtual)
+21:13:33,959 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (64116 virtual)
+21:13:34,32 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67431 virtual)
+21:13:34,93 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70325 virtual)
+21:13:34,96 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (73302 virtual)
+21:13:34,99 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (75912 virtual)
+21:13:34,101 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (79167 virtual)
+21:13:34,109 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81643 virtual)
+21:13:34,118 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84569 virtual)
+21:13:34,123 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86804 virtual)
+21:13:34,199 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (89087 virtual)
+21:13:34,239 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (92095 virtual)
+21:13:34,259 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (94432 virtual)
+21:13:34,274 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (96972 virtual)
+21:13:34,284 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99628 virtual)
+21:13:34,291 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (102698 virtual)
+21:13:34,313 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (105281 virtual)
+21:13:34,315 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (108022 virtual)
+21:13:34,381 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (110566 virtual)
+21:13:34,417 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (113237 virtual)
+21:13:34,419 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (115489 virtual)
+21:13:34,435 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118852 virtual)
+21:13:34,449 gensim.topic_coherence.text_analysis INFO 43 batches submitted to accumulate stats from 2752 documents (118939 virtual)
+21:13:34,607 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:34,608 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:34,621 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:34,621 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:34,625 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:34,625 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:34,626 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:34,627 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:34,655 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:34,656 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:34,698 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:34,698 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:34,708 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:34,708 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:34,743 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:13:34,759 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119873 virtual documents
+21:13:34,998 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:13:35,30 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3155 virtual)
+21:13:35,32 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6053 virtual)
+21:13:35,34 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9066 virtual)
+21:13:35,36 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11837 virtual)
+21:13:35,39 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14878 virtual)
+21:13:35,42 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17970 virtual)
+21:13:35,44 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20455 virtual)
+21:13:35,47 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23383 virtual)
+21:13:35,50 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26488 virtual)
+21:13:35,52 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (30038 virtual)
+21:13:35,54 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31618 virtual)
+21:13:35,208 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:35,209 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:35,213 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:35,214 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:35,214 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:35,214 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:35,214 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:35,215 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:35,295 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:35,295 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:35,320 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:35,320 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:35,323 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:13:35,323 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:13:35,351 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:13:35,366 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31864 virtual documents
+21:13:35,598 root INFO ETM model with 8 topics successfully trained
+21:13:35,598 root INFO Starting training for k=10...
+21:13:35,599 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:13:35,605 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:13:35,605 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:14:41,906 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:14:41,938 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3155 virtual)
+21:14:41,940 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6053 virtual)
+21:14:41,942 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9066 virtual)
+21:14:41,944 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11837 virtual)
+21:14:41,945 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14878 virtual)
+21:14:41,947 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17970 virtual)
+21:14:41,949 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20455 virtual)
+21:14:41,952 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23383 virtual)
+21:14:41,954 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26488 virtual)
+21:14:41,957 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29984 virtual)
+21:14:41,960 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (32950 virtual)
+21:14:41,962 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35906 virtual)
+21:14:41,964 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38388 virtual)
+21:14:41,966 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40753 virtual)
+21:14:42,35 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43158 virtual)
+21:14:42,116 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (45925 virtual)
+21:14:42,120 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49391 virtual)
+21:14:42,129 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51759 virtual)
+21:14:42,132 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (54677 virtual)
+21:14:42,135 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58270 virtual)
+21:14:42,138 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (61156 virtual)
+21:14:42,140 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (63997 virtual)
+21:14:42,226 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67344 virtual)
+21:14:42,294 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70276 virtual)
+21:14:42,297 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (73240 virtual)
+21:14:42,300 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (75541 virtual)
+21:14:42,303 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (79097 virtual)
+21:14:42,318 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81461 virtual)
+21:14:42,321 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84452 virtual)
+21:14:42,332 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86673 virtual)
+21:14:42,406 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (88929 virtual)
+21:14:42,451 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (91973 virtual)
+21:14:42,472 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (94204 virtual)
+21:14:42,502 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (96685 virtual)
+21:14:42,505 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99390 virtual)
+21:14:42,508 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (102418 virtual)
+21:14:42,526 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (105035 virtual)
+21:14:42,541 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (107837 virtual)
+21:14:42,614 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (110399 virtual)
+21:14:42,626 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (113006 virtual)
+21:14:42,638 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (115250 virtual)
+21:14:42,662 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118588 virtual)
+21:14:42,672 gensim.topic_coherence.text_analysis INFO 43 batches submitted to accumulate stats from 2752 documents (118902 virtual)
+21:14:42,857 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:42,857 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:42,871 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:42,872 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:42,872 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:42,873 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:42,877 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:42,877 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:42,927 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:42,928 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:42,932 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:42,933 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:42,939 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:42,940 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:42,989 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:14:43,8 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119879 virtual documents
+21:14:43,288 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:14:43,319 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3155 virtual)
+21:14:43,322 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6053 virtual)
+21:14:43,323 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9066 virtual)
+21:14:43,325 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11837 virtual)
+21:14:43,327 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14878 virtual)
+21:14:43,328 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17970 virtual)
+21:14:43,330 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20455 virtual)
+21:14:43,333 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23383 virtual)
+21:14:43,335 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26488 virtual)
+21:14:43,338 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29984 virtual)
+21:14:43,340 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31615 virtual)
+21:14:43,515 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:43,515 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:43,517 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:43,517 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:43,518 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:43,518 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:43,518 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:43,519 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:43,579 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:43,579 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:43,625 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:43,625 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:43,626 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:14:43,627 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:14:43,715 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:14:43,737 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31865 virtual documents
+21:14:44,27 root INFO ETM model with 10 topics successfully trained
+21:14:44,27 root INFO Starting training for k=12...
+21:14:44,28 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:14:44,34 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:14:44,34 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:15:51,336 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:15:51,367 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:15:51,369 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:15:51,371 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:15:51,373 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:15:51,375 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:15:51,376 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:15:51,378 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:15:51,381 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:15:51,384 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:15:51,387 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:15:51,389 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (32796 virtual)
+21:15:51,391 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35821 virtual)
+21:15:51,394 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38214 virtual)
+21:15:51,396 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40627 virtual)
+21:15:51,467 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43133 virtual)
+21:15:51,563 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (45692 virtual)
+21:15:51,571 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49274 virtual)
+21:15:51,574 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51732 virtual)
+21:15:51,576 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (54562 virtual)
+21:15:51,580 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58226 virtual)
+21:15:51,582 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (60979 virtual)
+21:15:51,585 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (63880 virtual)
+21:15:51,694 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67203 virtual)
+21:15:51,751 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70191 virtual)
+21:15:51,756 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (73101 virtual)
+21:15:51,762 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (75472 virtual)
+21:15:51,766 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (78941 virtual)
+21:15:51,771 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81382 virtual)
+21:15:51,782 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84326 virtual)
+21:15:51,792 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86338 virtual)
+21:15:51,904 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (88854 virtual)
+21:15:51,932 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (91778 virtual)
+21:15:51,947 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (94046 virtual)
+21:15:51,969 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (96498 virtual)
+21:15:51,981 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99230 virtual)
+21:15:51,992 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (102280 virtual)
+21:15:52,13 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (104683 virtual)
+21:15:52,17 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (107732 virtual)
+21:15:52,109 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (110139 virtual)
+21:15:52,121 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (112806 virtual)
+21:15:52,134 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (115095 virtual)
+21:15:52,159 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118436 virtual)
+21:15:52,168 gensim.topic_coherence.text_analysis INFO 43 batches submitted to accumulate stats from 2752 documents (118885 virtual)
+21:15:52,375 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:52,376 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:52,376 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:52,377 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:52,397 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:52,398 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:52,410 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:52,411 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:52,427 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:52,427 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:52,457 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:52,457 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:52,469 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:52,469 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:52,522 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:15:52,546 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119882 virtual documents
+21:15:52,885 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:15:52,915 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:15:52,917 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:15:52,919 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:15:52,921 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:15:52,923 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:15:52,926 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:15:52,928 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:15:52,931 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:15:52,934 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:15:52,936 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:15:52,938 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31603 virtual)
+21:15:53,122 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:53,122 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:53,127 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:53,127 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:53,129 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:53,129 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:53,138 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:53,138 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:53,238 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:53,239 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:53,262 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:53,263 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:53,265 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:15:53,265 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:15:53,305 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:15:53,326 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31867 virtual documents
+21:15:53,666 root INFO ETM model with 12 topics successfully trained
+21:15:53,667 root INFO Starting training for k=15...
+21:15:53,667 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:15:53,673 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:15:53,673 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:17:00,742 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:17:00,775 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3155 virtual)
+21:17:00,777 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6053 virtual)
+21:17:00,779 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9066 virtual)
+21:17:00,781 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11837 virtual)
+21:17:00,783 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14878 virtual)
+21:17:00,785 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17970 virtual)
+21:17:00,786 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20455 virtual)
+21:17:00,789 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23346 virtual)
+21:17:00,792 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26468 virtual)
+21:17:00,795 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29983 virtual)
+21:17:00,798 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (32940 virtual)
+21:17:00,800 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35903 virtual)
+21:17:00,803 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38276 virtual)
+21:17:00,805 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40742 virtual)
+21:17:00,891 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43150 virtual)
+21:17:00,992 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (45768 virtual)
+21:17:01,1 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49380 virtual)
+21:17:01,5 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51755 virtual)
+21:17:01,8 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (54620 virtual)
+21:17:01,11 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58253 virtual)
+21:17:01,14 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (61005 virtual)
+21:17:01,17 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (63885 virtual)
+21:17:01,124 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67205 virtual)
+21:17:01,203 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70190 virtual)
+21:17:01,211 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (73144 virtual)
+21:17:01,214 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (75483 virtual)
+21:17:01,222 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (79086 virtual)
+21:17:01,232 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81442 virtual)
+21:17:01,235 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84438 virtual)
+21:17:01,262 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86377 virtual)
+21:17:01,344 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (88876 virtual)
+21:17:01,403 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (91895 virtual)
+21:17:01,423 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (94131 virtual)
+21:17:01,455 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (96567 virtual)
+21:17:01,466 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99281 virtual)
+21:17:01,473 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (102351 virtual)
+21:17:01,502 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (104840 virtual)
+21:17:01,518 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (107818 virtual)
+21:17:01,567 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (110172 virtual)
+21:17:01,615 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (112798 virtual)
+21:17:01,630 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (115087 virtual)
+21:17:01,666 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118428 virtual)
+21:17:01,690 gensim.topic_coherence.text_analysis INFO 43 batches submitted to accumulate stats from 2752 documents (118877 virtual)
+21:17:01,911 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:01,912 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:01,917 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:01,917 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:01,921 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:01,921 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:01,934 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:01,935 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:01,953 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:01,954 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:02,1 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:02,2 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:02,36 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:02,36 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:02,95 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:17:02,124 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119882 virtual documents
+21:17:02,598 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:17:02,627 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3155 virtual)
+21:17:02,630 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6053 virtual)
+21:17:02,631 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9066 virtual)
+21:17:02,633 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11837 virtual)
+21:17:02,635 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14878 virtual)
+21:17:02,637 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17970 virtual)
+21:17:02,638 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20455 virtual)
+21:17:02,641 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23346 virtual)
+21:17:02,643 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26468 virtual)
+21:17:02,646 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29983 virtual)
+21:17:02,648 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31609 virtual)
+21:17:02,856 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:02,856 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:02,863 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:02,863 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:02,863 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:02,864 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:02,864 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:02,864 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:02,956 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:02,957 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:02,984 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:02,984 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:03,5 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:17:03,5 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:17:03,54 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:17:03,80 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31866 virtual documents
+21:17:03,502 root INFO ETM model with 15 topics successfully trained
+21:17:03,502 root INFO Starting training for k=18...
+21:17:03,503 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:17:03,509 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:17:03,509 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:18:10,822 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:18:10,852 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:18:10,855 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:18:10,857 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:18:10,859 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:18:10,860 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:18:10,862 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:18:10,864 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:18:10,867 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:18:10,869 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:18:10,873 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:18:10,875 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (32796 virtual)
+21:18:10,878 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35821 virtual)
+21:18:10,880 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38214 virtual)
+21:18:10,882 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40627 virtual)
+21:18:10,973 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43133 virtual)
+21:18:11,92 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (45692 virtual)
+21:18:11,100 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49274 virtual)
+21:18:11,106 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51732 virtual)
+21:18:11,109 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (54562 virtual)
+21:18:11,113 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58188 virtual)
+21:18:11,115 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (60976 virtual)
+21:18:11,118 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (63845 virtual)
+21:18:11,251 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67154 virtual)
+21:18:11,328 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70151 virtual)
+21:18:11,331 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (73070 virtual)
+21:18:11,338 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (75347 virtual)
+21:18:11,345 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (78805 virtual)
+21:18:11,355 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81346 virtual)
+21:18:11,366 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84226 virtual)
+21:18:11,371 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86222 virtual)
+21:18:11,506 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (88547 virtual)
+21:18:11,545 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (91697 virtual)
+21:18:11,573 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (93930 virtual)
+21:18:11,604 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (96373 virtual)
+21:18:11,612 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99101 virtual)
+21:18:11,627 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (102184 virtual)
+21:18:11,641 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (104329 virtual)
+21:18:11,652 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (107535 virtual)
+21:18:11,733 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (109833 virtual)
+21:18:11,779 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (112614 virtual)
+21:18:11,795 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (114935 virtual)
+21:18:11,838 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118210 virtual)
+21:18:11,867 gensim.topic_coherence.text_analysis INFO 43 batches submitted to accumulate stats from 2752 documents (118849 virtual)
+21:18:12,94 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:12,95 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:12,102 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:12,103 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:12,132 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:12,133 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:12,140 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:12,140 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:12,153 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:12,153 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:12,188 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:12,188 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:12,204 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:12,205 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:12,313 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:18:12,350 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119887 virtual documents
+21:18:12,878 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:18:12,909 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:18:12,911 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:18:12,913 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:18:12,915 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:18:12,917 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:18:12,920 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:18:12,923 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:18:12,926 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:18:12,929 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:18:12,932 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:18:12,934 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31603 virtual)
+21:18:13,170 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:13,170 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:13,172 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:13,172 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:13,172 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:13,173 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:13,202 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:13,202 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:13,280 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:13,281 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:13,326 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:13,326 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:13,340 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:18:13,340 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:18:13,408 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:18:13,442 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31867 virtual documents
+21:18:13,988 root INFO ETM model with 18 topics successfully trained
+21:18:13,988 root INFO Starting training for k=20...
+21:18:13,988 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:18:13,994 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:18:13,994 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:19:21,818 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:19:21,850 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:19:21,852 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:19:21,854 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:19:21,856 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:19:21,859 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:19:21,862 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:19:21,865 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:19:21,868 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:19:21,871 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:19:21,874 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:19:21,876 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (32796 virtual)
+21:19:21,879 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35821 virtual)
+21:19:21,881 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38214 virtual)
+21:19:21,884 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40627 virtual)
+21:19:21,993 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43133 virtual)
+21:19:22,94 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (45692 virtual)
+21:19:22,101 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49274 virtual)
+21:19:22,118 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51732 virtual)
+21:19:22,122 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (54562 virtual)
+21:19:22,128 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58188 virtual)
+21:19:22,131 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (60976 virtual)
+21:19:22,133 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (63845 virtual)
+21:19:22,246 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67154 virtual)
+21:19:22,359 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70151 virtual)
+21:19:22,362 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (72989 virtual)
+21:19:22,365 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (75343 virtual)
+21:19:22,368 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (78801 virtual)
+21:19:22,378 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81342 virtual)
+21:19:22,391 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84206 virtual)
+21:19:22,415 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86188 virtual)
+21:19:22,490 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (88522 virtual)
+21:19:22,592 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (91557 virtual)
+21:19:22,626 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (93916 virtual)
+21:19:22,641 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (96356 virtual)
+21:19:22,646 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99076 virtual)
+21:19:22,673 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (102127 virtual)
+21:19:22,697 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (104309 virtual)
+21:19:22,712 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (107356 virtual)
+21:19:22,743 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (109795 virtual)
+21:19:22,852 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (112509 virtual)
+21:19:22,881 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (114913 virtual)
+21:19:22,886 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118167 virtual)
+21:19:22,893 gensim.topic_coherence.text_analysis INFO 43 batches submitted to accumulate stats from 2752 documents (118833 virtual)
+21:19:23,164 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:23,164 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:23,172 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:23,172 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:23,179 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:23,179 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:23,216 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:23,217 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:23,217 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:23,218 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:23,319 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:23,320 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:23,323 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:23,323 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:23,422 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:19:23,466 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119889 virtual documents
+21:19:24,52 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:19:24,83 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:19:24,85 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:19:24,87 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:19:24,89 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:19:24,91 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:19:24,95 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:19:24,97 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:19:24,100 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:19:24,103 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:19:24,106 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:19:24,108 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31603 virtual)
+21:19:24,356 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:24,357 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:24,359 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:24,360 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:24,360 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:24,361 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:24,362 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:24,362 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:24,508 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:24,508 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:24,531 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:24,531 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:24,537 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:19:24,538 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:19:24,594 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:19:24,635 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31867 virtual documents
+21:19:25,238 root INFO ETM model with 20 topics successfully trained
+21:19:25,238 root INFO Starting training for k=22...
+21:19:25,238 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:19:25,245 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:19:25,245 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:20:32,895 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:20:32,928 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:20:32,930 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:20:32,932 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:20:32,934 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:20:32,937 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:20:32,941 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:20:32,944 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:20:32,947 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:20:32,949 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:20:32,952 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:20:32,955 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (32796 virtual)
+21:20:32,958 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35821 virtual)
+21:20:32,960 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38174 virtual)
+21:20:32,963 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40601 virtual)
+21:20:33,67 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43113 virtual)
+21:20:33,172 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (45653 virtual)
+21:20:33,190 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49256 virtual)
+21:20:33,193 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51679 virtual)
+21:20:33,196 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (54435 virtual)
+21:20:33,202 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58136 virtual)
+21:20:33,205 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (60941 virtual)
+21:20:33,210 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (63821 virtual)
+21:20:33,318 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67117 virtual)
+21:20:33,427 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70135 virtual)
+21:20:33,432 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (72989 virtual)
+21:20:33,443 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (75343 virtual)
+21:20:33,447 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (78805 virtual)
+21:20:33,451 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81346 virtual)
+21:20:33,471 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84260 virtual)
+21:20:33,502 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86242 virtual)
+21:20:33,550 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (88593 virtual)
+21:20:33,681 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (91740 virtual)
+21:20:33,684 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (93975 virtual)
+21:20:33,712 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (96386 virtual)
+21:20:33,729 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99167 virtual)
+21:20:33,746 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (102221 virtual)
+21:20:33,777 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (104439 virtual)
+21:20:33,787 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (107585 virtual)
+21:20:33,798 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (109831 virtual)
+21:20:33,936 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (112612 virtual)
+21:20:33,940 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (114933 virtual)
+21:20:33,968 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118208 virtual)
+21:20:33,972 gensim.topic_coherence.text_analysis INFO 43 batches submitted to accumulate stats from 2752 documents (118847 virtual)
+21:20:34,231 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:34,232 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:34,234 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:34,234 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:34,248 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:34,248 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:34,267 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:34,268 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:34,284 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:34,285 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:34,363 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:34,363 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:34,385 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:34,385 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:34,479 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:20:34,527 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119887 virtual documents
+21:20:35,200 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:20:35,232 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:20:35,235 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:20:35,237 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:20:35,239 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:20:35,242 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:20:35,245 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:20:35,248 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:20:35,251 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:20:35,254 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:20:35,257 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:20:35,259 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31603 virtual)
+21:20:35,502 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:35,502 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:35,504 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:35,505 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:35,509 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:35,510 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:35,510 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:35,511 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:35,646 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:35,646 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:35,684 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:35,685 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:35,692 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:20:35,692 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:20:35,765 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:20:35,807 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31867 virtual documents
+21:20:36,500 root INFO ETM model with 22 topics successfully trained
+21:20:36,500 root INFO Starting training for k=25...
+21:20:36,500 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:20:36,506 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:20:36,506 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:21:43,686 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:21:43,719 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:21:43,721 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:21:43,723 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:21:43,725 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:21:43,728 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14858 virtual)
+21:21:43,732 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17658 virtual)
+21:21:43,735 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20361 virtual)
+21:21:43,738 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23279 virtual)
+21:21:43,741 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26359 virtual)
+21:21:43,743 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29819 virtual)
+21:21:43,746 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (32727 virtual)
+21:21:43,749 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35819 virtual)
+21:21:43,751 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38175 virtual)
+21:21:43,754 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40602 virtual)
+21:21:43,862 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43114 virtual)
+21:21:44,1 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (45654 virtual)
+21:21:44,5 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49257 virtual)
+21:21:44,8 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51680 virtual)
+21:21:44,11 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (54436 virtual)
+21:21:44,15 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58137 virtual)
+21:21:44,18 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (60942 virtual)
+21:21:44,21 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (63822 virtual)
+21:21:44,158 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67118 virtual)
+21:21:44,256 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70136 virtual)
+21:21:44,264 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (72990 virtual)
+21:21:44,274 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (75344 virtual)
+21:21:44,298 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (78802 virtual)
+21:21:44,301 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81343 virtual)
+21:21:44,304 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84225 virtual)
+21:21:44,308 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86221 virtual)
+21:21:44,440 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (88546 virtual)
+21:21:44,510 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (91696 virtual)
+21:21:44,538 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (93929 virtual)
+21:21:44,589 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (96372 virtual)
+21:21:44,592 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99100 virtual)
+21:21:44,601 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (102183 virtual)
+21:21:44,624 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (104328 virtual)
+21:21:44,663 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (107534 virtual)
+21:21:44,724 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (109804 virtual)
+21:21:44,774 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (112521 virtual)
+21:21:44,797 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (114921 virtual)
+21:21:44,841 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118188 virtual)
+21:21:44,880 gensim.topic_coherence.text_analysis INFO 43 batches submitted to accumulate stats from 2752 documents (118840 virtual)
+21:21:45,121 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:45,122 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:45,161 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:45,162 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:45,189 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:45,190 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:45,194 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:45,195 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:45,202 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:45,202 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:45,235 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:45,235 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:45,351 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:45,352 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:45,445 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:21:45,501 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119888 virtual documents
+21:21:46,218 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:21:46,250 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:21:46,252 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:21:46,255 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:21:46,256 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:21:46,260 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14858 virtual)
+21:21:46,263 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17658 virtual)
+21:21:46,266 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20361 virtual)
+21:21:46,269 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23279 virtual)
+21:21:46,272 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26359 virtual)
+21:21:46,274 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29819 virtual)
+21:21:46,276 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31596 virtual)
+21:21:46,539 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:46,540 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:46,548 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:46,548 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:46,549 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:46,549 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:46,551 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:46,552 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:46,679 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:46,679 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:46,712 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:46,713 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:46,733 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:21:46,733 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:21:46,818 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:21:46,868 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31868 virtual documents
+21:21:47,630 root INFO ETM model with 25 topics successfully trained
+21:21:47,630 root INFO Starting training for k=28...
+21:21:47,631 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:21:47,637 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:21:47,637 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:22:55,292 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:22:55,324 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:22:55,326 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:22:55,328 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:22:55,330 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:22:55,331 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:22:55,333 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:22:55,334 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:22:55,336 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:22:55,338 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:22:55,342 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:22:55,345 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (32796 virtual)
+21:22:55,348 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35821 virtual)
+21:22:55,352 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38174 virtual)
+21:22:55,354 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40601 virtual)
+21:22:55,489 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43113 virtual)
+21:22:55,596 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (45653 virtual)
+21:22:55,628 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49256 virtual)
+21:22:55,640 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51679 virtual)
+21:22:55,643 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (54435 virtual)
+21:22:55,647 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58136 virtual)
+21:22:55,650 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (60941 virtual)
+21:22:55,653 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (63821 virtual)
+21:22:55,791 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67117 virtual)
+21:22:55,900 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70135 virtual)
+21:22:55,902 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (72962 virtual)
+21:22:55,912 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (75021 virtual)
+21:22:55,916 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (78745 virtual)
+21:22:55,926 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81298 virtual)
+21:22:55,950 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84123 virtual)
+21:22:55,987 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86170 virtual)
+21:22:56,76 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (88521 virtual)
+21:22:56,162 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (91320 virtual)
+21:22:56,189 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (93897 virtual)
+21:22:56,232 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (96291 virtual)
+21:22:56,244 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99016 virtual)
+21:22:56,264 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (102075 virtual)
+21:22:56,293 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (104272 virtual)
+21:22:56,326 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (107353 virtual)
+21:22:56,414 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (109786 virtual)
+21:22:56,418 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (112476 virtual)
+21:22:56,456 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (114912 virtual)
+21:22:56,516 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118151 virtual)
+21:22:56,524 gensim.topic_coherence.text_analysis INFO 43 batches submitted to accumulate stats from 2752 documents (118825 virtual)
+21:22:56,823 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:56,824 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:56,842 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:56,842 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:56,844 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:56,845 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:56,861 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:56,862 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:56,903 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:56,904 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:56,967 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:56,967 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:57,34 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:57,35 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:57,130 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:22:57,198 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119890 virtual documents
+21:22:58,33 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:22:58,66 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:22:58,68 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:22:58,70 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:22:58,72 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:22:58,75 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:22:58,79 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:22:58,82 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:22:58,85 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:22:58,87 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:22:58,91 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:22:58,93 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31603 virtual)
+21:22:58,375 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:58,376 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:58,377 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:58,377 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:58,381 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:58,381 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:58,385 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:58,385 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:58,510 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:58,511 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:58,566 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:58,567 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:58,603 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:22:58,603 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:22:58,679 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:22:58,730 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31867 virtual documents
+21:22:59,529 root INFO ETM model with 28 topics successfully trained
+21:22:59,529 root INFO Starting training for k=30...
+21:22:59,529 gensim.utils INFO loading Word2VecKeyedVectors object from resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:22:59,535 gensim.utils INFO setting ignored attribute vectors_norm to None
+21:22:59,535 gensim.utils INFO loaded resources/Reddit_PT_NOUN_tr0.8_mindf_0.01_maxdf_1/etm_w2v_embeddings.w2v
+21:24:07,340 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:24:07,372 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:24:07,375 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:24:07,377 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:24:07,379 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:24:07,382 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:24:07,386 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:24:07,389 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:24:07,392 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:24:07,395 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:24:07,398 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:24:07,400 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (32796 virtual)
+21:24:07,403 gensim.topic_coherence.text_analysis INFO 12 batches submitted to accumulate stats from 768 documents (35821 virtual)
+21:24:07,406 gensim.topic_coherence.text_analysis INFO 13 batches submitted to accumulate stats from 832 documents (38214 virtual)
+21:24:07,408 gensim.topic_coherence.text_analysis INFO 14 batches submitted to accumulate stats from 896 documents (40627 virtual)
+21:24:07,525 gensim.topic_coherence.text_analysis INFO 15 batches submitted to accumulate stats from 960 documents (43133 virtual)
+21:24:07,647 gensim.topic_coherence.text_analysis INFO 16 batches submitted to accumulate stats from 1024 documents (45692 virtual)
+21:24:07,668 gensim.topic_coherence.text_analysis INFO 17 batches submitted to accumulate stats from 1088 documents (49274 virtual)
+21:24:07,678 gensim.topic_coherence.text_analysis INFO 18 batches submitted to accumulate stats from 1152 documents (51732 virtual)
+21:24:07,681 gensim.topic_coherence.text_analysis INFO 19 batches submitted to accumulate stats from 1216 documents (54562 virtual)
+21:24:07,686 gensim.topic_coherence.text_analysis INFO 20 batches submitted to accumulate stats from 1280 documents (58188 virtual)
+21:24:07,690 gensim.topic_coherence.text_analysis INFO 21 batches submitted to accumulate stats from 1344 documents (60976 virtual)
+21:24:07,693 gensim.topic_coherence.text_analysis INFO 22 batches submitted to accumulate stats from 1408 documents (63845 virtual)
+21:24:07,834 gensim.topic_coherence.text_analysis INFO 23 batches submitted to accumulate stats from 1472 documents (67154 virtual)
+21:24:07,955 gensim.topic_coherence.text_analysis INFO 24 batches submitted to accumulate stats from 1536 documents (70151 virtual)
+21:24:07,958 gensim.topic_coherence.text_analysis INFO 25 batches submitted to accumulate stats from 1600 documents (72989 virtual)
+21:24:07,961 gensim.topic_coherence.text_analysis INFO 26 batches submitted to accumulate stats from 1664 documents (75343 virtual)
+21:24:07,964 gensim.topic_coherence.text_analysis INFO 27 batches submitted to accumulate stats from 1728 documents (78801 virtual)
+21:24:07,973 gensim.topic_coherence.text_analysis INFO 28 batches submitted to accumulate stats from 1792 documents (81342 virtual)
+21:24:07,979 gensim.topic_coherence.text_analysis INFO 29 batches submitted to accumulate stats from 1856 documents (84224 virtual)
+21:24:08,29 gensim.topic_coherence.text_analysis INFO 30 batches submitted to accumulate stats from 1920 documents (86220 virtual)
+21:24:08,122 gensim.topic_coherence.text_analysis INFO 31 batches submitted to accumulate stats from 1984 documents (88545 virtual)
+21:24:08,217 gensim.topic_coherence.text_analysis INFO 32 batches submitted to accumulate stats from 2048 documents (91695 virtual)
+21:24:08,251 gensim.topic_coherence.text_analysis INFO 33 batches submitted to accumulate stats from 2112 documents (93928 virtual)
+21:24:08,276 gensim.topic_coherence.text_analysis INFO 34 batches submitted to accumulate stats from 2176 documents (96371 virtual)
+21:24:08,281 gensim.topic_coherence.text_analysis INFO 35 batches submitted to accumulate stats from 2240 documents (99099 virtual)
+21:24:08,319 gensim.topic_coherence.text_analysis INFO 36 batches submitted to accumulate stats from 2304 documents (102182 virtual)
+21:24:08,340 gensim.topic_coherence.text_analysis INFO 37 batches submitted to accumulate stats from 2368 documents (104327 virtual)
+21:24:08,361 gensim.topic_coherence.text_analysis INFO 38 batches submitted to accumulate stats from 2432 documents (107533 virtual)
+21:24:08,421 gensim.topic_coherence.text_analysis INFO 39 batches submitted to accumulate stats from 2496 documents (109803 virtual)
+21:24:08,506 gensim.topic_coherence.text_analysis INFO 40 batches submitted to accumulate stats from 2560 documents (112520 virtual)
+21:24:08,517 gensim.topic_coherence.text_analysis INFO 41 batches submitted to accumulate stats from 2624 documents (114920 virtual)
+21:24:08,571 gensim.topic_coherence.text_analysis INFO 42 batches submitted to accumulate stats from 2688 documents (118187 virtual)
+21:24:08,586 gensim.topic_coherence.text_analysis INFO 43 batches submitted to accumulate stats from 2752 documents (118839 virtual)
+21:24:08,864 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:08,865 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:08,878 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:08,879 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:08,903 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:08,904 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:08,927 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:08,927 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:08,948 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:08,949 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:08,990 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:08,991 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:09,26 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:09,27 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:09,171 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:24:09,241 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 119888 virtual documents
+21:24:10,157 gensim.topic_coherence.probability_estimation INFO using ParallelWordOccurrenceAccumulator(processes=7, batch_size=64) to estimate probabilities from sliding windows
+21:24:10,189 gensim.topic_coherence.text_analysis INFO 1 batches submitted to accumulate stats from 64 documents (3025 virtual)
+21:24:10,192 gensim.topic_coherence.text_analysis INFO 2 batches submitted to accumulate stats from 128 documents (6054 virtual)
+21:24:10,194 gensim.topic_coherence.text_analysis INFO 3 batches submitted to accumulate stats from 192 documents (9038 virtual)
+21:24:10,196 gensim.topic_coherence.text_analysis INFO 4 batches submitted to accumulate stats from 256 documents (11826 virtual)
+21:24:10,199 gensim.topic_coherence.text_analysis INFO 5 batches submitted to accumulate stats from 320 documents (14857 virtual)
+21:24:10,202 gensim.topic_coherence.text_analysis INFO 6 batches submitted to accumulate stats from 384 documents (17960 virtual)
+21:24:10,205 gensim.topic_coherence.text_analysis INFO 7 batches submitted to accumulate stats from 448 documents (20373 virtual)
+21:24:10,208 gensim.topic_coherence.text_analysis INFO 8 batches submitted to accumulate stats from 512 documents (23337 virtual)
+21:24:10,211 gensim.topic_coherence.text_analysis INFO 9 batches submitted to accumulate stats from 576 documents (26393 virtual)
+21:24:10,214 gensim.topic_coherence.text_analysis INFO 10 batches submitted to accumulate stats from 640 documents (29970 virtual)
+21:24:10,215 gensim.topic_coherence.text_analysis INFO 11 batches submitted to accumulate stats from 704 documents (31603 virtual)
+21:24:10,500 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:10,501 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:10,505 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:10,505 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:10,508 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:10,509 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:10,509 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:10,509 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:10,638 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:10,638 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:10,707 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:10,708 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:10,737 gensim.topic_coherence.text_analysis INFO serializing accumulator to return to master...
+21:24:10,737 gensim.topic_coherence.text_analysis INFO accumulator serialized
+21:24:10,818 gensim.topic_coherence.text_analysis INFO 7 accumulators retrieved from output queue
+21:24:10,877 gensim.topic_coherence.text_analysis INFO accumulated word occurrence stats for 31867 virtual documents
+21:24:11,850 root INFO ETM model with 30 topics successfully trained
+21:24:11,850 root INFO       k    model  c_npmi_train  c_npmi_test  diversity         path  train_time_in_seconds
+0   5.0   etm_k5     -0.009967    -0.025955   0.640000   etm/etm_k5              66.121439
+1   8.0   etm_k8     -0.000296    -0.035100   0.675000   etm/etm_k8              66.568795
+2  10.0  etm_k10      0.000563    -0.039160   0.595000  etm/etm_k10              66.166846
+3  12.0  etm_k12     -0.000751    -0.043647   0.575000  etm/etm_k12              67.162926
+4  15.0  etm_k15     -0.001664    -0.055317   0.516667  etm/etm_k15              66.922859
+21:24:11,857 root INFO Saving results CSV...
+21:24:11,858 root INFO CSV file with results saved to training_outputs/csvs/etm_results.csv
+21:24:11,858 root INFO Elapsed training time: 772.4979593753815s

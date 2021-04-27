@@ -1,0 +1,78 @@
+Loading embeddings at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/embeddings/enwiki_20180420_300d_optimized.w2v...
+Loaded embeddings
+Loading lemma word mapping...
+Lemma word mapping loaded
+Starting postprocessing...
+Postprocessing models found in CSV: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/csvs/ctm_combined_results.csv...
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k5_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k5_combined
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k8_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k8_combined
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k10_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k10_combined
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k12_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k12_combined
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k15_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k15_combined
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k18_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k18_combined
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k20_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k20_combined
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k22_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k22_combined
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k25_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k25_combined
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k28_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k28_combined
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k30_combined
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/ctm/ctm_k30_combined
+Postprocessing finished for models found in CSV: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/csvs/ctm_combined_results.csv
+Postprocessing models found in CSV: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/csvs/etm_results.csv...
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k5
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k5
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k8
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k8
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k10
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k10
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k12
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k12
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k15
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k15
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k18
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k18
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k20
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k20
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k22
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k22
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k25
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k25
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k28
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k28
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k30
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/etm/etm_k30
+Postprocessing finished for models found in CSV: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/csvs/etm_results.csv
+Postprocessing models found in CSV: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/csvs/lda_results.csv...
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k5
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k5
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k8
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k8
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k10
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k10
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k12
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k12
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k15
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k15
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k18
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k18
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k20
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k20
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k22
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k22
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k25
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k25
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k28
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k28
+Loading model at: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k30
+Saved model at /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/models/lda/lda_k30
+Postprocessing finished for models found in CSV: /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/evaluation/2021-03-18_EN_TESTE_2/csvs/lda_results.csv
+Postprocessing finished - Elapsed execution time: 147.58830285072327s

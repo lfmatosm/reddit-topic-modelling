@@ -1,0 +1,19 @@
+20:36:37,511 root INFO Total docs: 3394
+20:36:37,511 gensim.corpora.dictionary INFO adding document #0 to Dictionary(0 unique tokens: [])
+20:36:37,742 gensim.corpora.dictionary INFO built Dictionary(11499 unique tokens: ['acontecimento', 'amigo', 'ano', 'atar', 'conhecimento']...) from 3394 documents (total 228104 corpus positions)
+20:36:37,742 root INFO Distinct tokens: 11499
+20:36:37,742 root INFO Docs processed: 3394
+20:36:37,742 root INFO Total words processed: 228104
+
+
+20:36:37,742 root INFO Doc-freqs length: 11499
+20:36:37,742 root INFO Look for token counts in the range: (0, 3394)
+20:36:37,743 root INFO Analysis intervals: [(1.0, 339.4), (340.4, 678.8), (679.8, 1018.1999999999999), (1019.1999999999999, 1357.6), (1358.6, 1697.0), (1698.0, 2036.3999999999999), (2037.3999999999999, 2375.7999999999997), (2376.7999999999997, 2715.2), (2716.2, 3054.6), (3055.6, 3394.0)]
+20:36:37,750 root INFO Documents-frequencies by interval: [11429, 44, 15, 5, 1, 4, 1, 0, 0, 0]
+20:36:37,750 root INFO Relevant marks: [2.94637596e-04 1.00294638e-01 2.00294638e-01 3.00294638e-01
+ 4.00294638e-01 5.00294638e-01 6.00294638e-01]
+20:36:37,750 root INFO Relevant frequencies for each bin: [11429, 44, 15, 5, 1, 4, 1]
+20:36:37,750 root INFO No. of bins: 7
+20:36:38,276 root INFO Histogram generated and saved
+
+

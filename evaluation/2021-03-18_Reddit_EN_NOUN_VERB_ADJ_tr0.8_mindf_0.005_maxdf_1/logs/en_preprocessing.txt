@@ -1,0 +1,38 @@
+Path:  /home/luizmatos/Projetos/UFF/Python/reddit-topic-modelling/datasets/original/depression_2009_2021/reddit-posts-gatherer-en.submissions_[subset].json
+Field:  body
+Dataset:  reddit-posts-gatherer-en.submissions
+Folder:  reddit-posts-gatherer-submissions
+Language:  en
+Is to lemmatize data?  True
+Is to remove stopwords?  True
+Is to remove POS categories?  True
+POS categories to keep:  ['NOUN', 'VERB', 'ADJ']
+Total of original documents: 32165
+                                    _id  ...                                                url
+0  {'$oid': '603eac835e3f2af86a029d31'}  ...  https://www.reddit.com/r/depression/comments/g...
+1  {'$oid': '603eacbd73805ad45e331ed7'}  ...  https://www.reddit.com/r/depression/comments/g...
+2  {'$oid': '603eb0efc70e1783b4a3a3af'}  ...  https://www.reddit.com/r/depression/comments/k...
+3  {'$oid': '603eaf42bdf46e778aea17ce'}  ...  https://www.reddit.com/r/depression/comments/i...
+4  {'$oid': '603eac4a5e3f2af86a029bbd'}  ...  https://www.reddit.com/r/depression/comments/g...
+
+[5 rows x 26 columns]
+Newlines and single-quotes removed from documents.
+Tokenized documents.
+Saved tokenized documents to temp file for further processing...
+Lemmatized documents.
+Word-lemma mapping created.
+Lemma-word mapping created.
+NOUN, VERB, ADJ POS categories of tokens kept and lemmatized.
+Read processed documents from temp file
+Using stoplist of length: 179
+No. of stopwords removed: 313810
+Stopwords removed.
+Removed temporary files.
+Size of data after preprocessing:  32165
+Row count after removal of rows with empty "body" fields: 32092
+Data dumped to  datasets/processed/reddit-posts-gatherer-submissions/reddit-posts-gatherer-en.submissions[processed].json
+Word-lemma and inverse mappings dumped to  datasets/processed/reddit-posts-gatherer-submissions/reddit-posts-gatherer-en.submissions[word_lemma_maps].json
+*******************
+
+
+
