@@ -27,7 +27,30 @@ for dataset in datasets:
     print(f'Processing "{dataset}"...')
     data = json.load(open(dataset, "r"))
     filtered_data = list(map(lambda document: {
-        "body": document["body"]
+        "clicked": document["clicked"],
+        "created_utc": document["created_utc"],
+        "date": document["date"],
+        "distinguished": document["distinguished"],
+        "edited": document["edited"],
+        "id": document["id"],
+        "is_original_content": document["is_original_content"],
+        "is_text_only": document["is_text_only"],
+        "link_flair_template_id": document["link_flair_template_id"],
+        "link_flair_text": document["link_flair_text"],
+        "locked": document["locked"],
+        "name": document["name"],
+        "num_comments": document["num_comments"],
+        "over_18": document["over_18"],
+        "permalink": document["permalink"],
+        "score": document["score"],
+        "body": document["body"],
+        "spoiler": document["spoiler"],
+        "stickied": document["stickied"],
+        "subreddit_id": document["subreddit_id"],
+        "subreddit_name": document["subreddit_name"],
+        "title": document["title"],
+        "upvote_ratio": document["upvote_ratio"],
+        "url": document["url"],
     }, data))
     updated_name = get_updated_name(dataset)
     json.dump(filtered_data, open(updated_name, "w"))
