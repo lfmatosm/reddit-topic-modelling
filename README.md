@@ -1,29 +1,33 @@
 # reddit-topic-modelling
-*Scripts*, *datasets* e utilitários para modelagem e identificação de tópicos relativos a depressão no *Reddit* usando *Latent Dirichlet Allocation* (LDA).
+*Scripts* e utilitários para modelagem e identificação de tópicos relativos a depressão no *Reddit*, em língua portuguesa e inglesa, usando técnicas de modelagem de tópicos. Os modelos de tópicos *Latent Dirichlet Allocation* (LDA), *Contextualized Topic Model* (CTM) e *Embedded Topic Model* (ETM) foram explorados neste estudo. 
+
+### Ambiente
+Use uma aplicação CLI compatível com *shell script* para executar os *scripts* de automatização de tarefas. A execução dos mesmos só foi realizada em ambiente Unix.
+
+* [python >= 3.7.6](https://www.python.org/downloads/): versão recomendada do python. A versão ```3.7.6``` da linguagem foi usada no projeto;
+* [pip >= 20.x.x](https://pip.pypa.io/en/stable/installing/): a versão ```20.2.4``` foi usada no projeto.
 
 ### Configuração
-Ative o ambiente Pipenv na raiz do projeto usando ```pipenv shell```
+Instale as dependências do projeto usando ```pip install -r requirements.txt```.
 
-A seguir, para instalar todas as dependências dos projetos-filhos, execute ```pipenv install```
+### Diretórios
+Alguns diretórios nesse projeto representam funcionalidades usadas para realização da modelagem de tópicos. Essas pastas são descritas a seguir, e estão listadas de acordo com sua ordem recomendada de uso pra treinamento: 
 
-Agora você provavelmente poderá executar quaisquer dos projetos-filhos sem problemas. Se quiser instalar apenas um dos projetos, entre na pasta referente e siga as instruções do mesmo.
+* [preprocessing](./preprocessing) - possui o *script* para pré-processamento dos *corpora* explorados neste estudo, descrito por ```preprocess.py```. Esse *script* pode receber como entrada um *corpus* JSON contendo diversos documentos, onde cada um deles é representado por seu texto armazenado em seu campo ```"body"```. O *script* realiza tokenização e possibilita que etapas como lematização, remoção de *stopwords* e de categorias de *part-of-speech* (POS) indesejadas sejam removidas, tanto em português quanto em inglês.
 
-### Projetos
-Os utilitários/*scripts* presentes neste projeto são, de forma geral, independentes do *dataset* utilizado - com exceção do *script* ```posts-gatherer```. Portanto, seu código pode ser facilmente reaproveitado para modelagem LDA em outros contextos. A seguir, há uma breve descsrição sobre o que cada projeto faz:
+* [vocabulary](./vocabulary) - possui o *script* ```vocab_evaluation.py```, usado para auxiliar a etapa de filtragem dos termos muito/pouco frequentes em um *corpus*. Após o pré-processamento do *corpus* realizado na etapa anterior, ainda podem restar no conjunto textual palavras que ocorrem com frequência alta ou baixa, e que não são interessantes para a modelagem. Esse *script* possibilita a geração de um histograma de faixas de frequência de palavras, que podem ser filtradas caso assim desejado pelo usuário.
 
-* ```lda-trainer``` - *scripts* de treinamento LDA. Deve ser usado apenas quando possuir um *dataset* pré-processado e em seu formato de entrada (conjunto de registros em um arquivo JSON)
-* ```models-evaluation``` - *notebook* Jupyter e scripts para avaliação de resultados de treinamento
-* ```posts_gatherer``` - *script* para coleta automatizada de postagens do *Reddit*. Você determina em que banco Mongo os dados devem ser salvos e *keywords*/*subreddits* para serem buscados, e o *script* executa a tarefa. Usado para montagem do *dataset* original para treinamento
-* ```text_preprocessor``` - *scripts* para pré-processamento de um *dataset*. Remoção de *stopwords*, *tokenização* e *lemmatização* são realizadas aqui. Um *dataset* deve ser pré-processado antes de ser submetido a treinamento no ```lda-trainer```
+* [preparation](./preparation) - possui o *script* para preparação de recursos para treinamento dos modelos de tópicos, descrito por ```prepare_training_resources.py```. Esse *script* prepara as entradas adequadas e recursos compartilhados para cada um dos três tipos de arquitetura de modelagem de tópicos aqui estudados: LDA, CTM e ETM. Note que o uso de *embeddings* de palavras SBERT e *word2vec* é necessário nesta etapa. O *corpus* pré-processado e o vocabulário/dicionário construídos na etapa anterior devem ser usados neste passo. O *script* produzirá dois conjuntos textuais, sendo o primeiro destinado ao treinamento dos modelos e o segundo destinado à sua validação.
+
+* [training](./training) - possui os *scripts* para treinamento dos modelos de tópicos: ```lda.py```, ```ctm.py``` e ```etm.py```. A partir do *corpus* pré-processado e das entradas preparadas, cada treinamento é realizado. A métrica de coerência NPMI é calculada com base no conjunto textual de validação criado na etapa anterior.
 
 ### *Datasets*
-Os *datasets*, original e pré-processado utilizados no presente trabalho encontram-se na pasta de mesmo nome. Observe que as bases de dados são arquivos no formato JSON, onde cada registro é um objeto representando uma submissão dentro do *Reddit*.
+Os *datasets* foram construídos por meio da API Pushshift, agregando postagens em português e em inglês relacionadas à discussões de depressão. Termos de busca tiveram de ser usados para coleta dos dados em português, dada a não existência de um *subreddit* voltado ao tema no idioma. A tabela a seguir detalha os *datasets* construídos. Ambos *corpora* estão disponíveis para uso na plataforma [Kaggle](https://www.kaggle.com/), em formato JSON.
 
-### Executando
-Cada projeto-filho possui sua forma de uso, detalhada em seus README. De forma geral os *scripts* são executáveis por linha de comando.
-
-### Resultados
-Uma avaliação dos resultados de treinamento obtidos no presente trabalho é realizada [neste notebook](https://github.com/lffloyd/reddit-topic-modelling/blob/master/models-evaluation/Reddit_pt%20-%20Modelagem%20de%20t%C3%B3picos%20-%20Resultados%20de%20treinamento.ipynb).
+| idioma          | subreddits usados | palavras-chave usadas                                                      |  período de coleta |  total de submissões coletadas | link |
+| :-------------: |:----------------: | :------------------------------------------------------------------------: | :----------------: | :----------------------------: | :--: |
+| português       | [brasil](https://www.reddit.com/r/brasil/), [desabafos](https://www.reddit.com/r/desabafos/) |   "depressão", "suicídio", "diagnóstico depressão", "tratamento depressão" |  2008-2021         | 3404                           | [1](https://www.kaggle.com/luizfmatos/reddit-portuguese-depression-related-submissions) |
+| inglês          | [depression](https://www.reddit.com/r/depression/)        |   -                                                                        |  2009-2021         | 32165                          | [2](https://www.kaggle.com/luizfmatos/reddit-english-depression-related-submissions) |
 
 ### Licença
 [MIT](LICENSE)
