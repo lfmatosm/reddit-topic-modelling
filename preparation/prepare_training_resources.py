@@ -66,7 +66,6 @@ def get_original_keys_with_lemmatized_values_in_vocabulary(lemma_word_map, vocab
 
 def optimize_embeddings(
     vocabulary, 
-    lemma_word_mapping,
     embedding_file,
     output_embedding_path, 
     n_dim,
@@ -107,7 +106,6 @@ def optimize_embeddings(
 
 parser = argparse.ArgumentParser(description='Prepares training/testing resources for LDA/CTM/ETM training scripts')
 parser.add_argument('--dataset', type=str, help='dataset path', required=True)
-parser.add_argument('--word_lemma_maps', type=str, help='word-lemma mappings path', required=False, default=None)
 parser.add_argument('--dictionary', type=str, help='dictionary path', required=True)
 parser.add_argument('--embeddings', type=str, help='embeddings path', required=True)
 parser.add_argument('--n_dim', type=int, help='embeddings dimensions', required=False, default=300)
@@ -149,12 +147,6 @@ vocab = [key for key in dictionary.token2id.keys()]
 logging.info(f'Gensim vocabulary length: {len(vocab)}')
 word2id = dictionary.token2id
 id2word = {v: k for k, v in word2id.items()}
-
-word_lemma_maps = None
-if args.word_lemma_maps is not None:
-    logging.info("Loading word-lemma mappings...")
-    word_lemma_maps = json.load(open(args.word_lemma_maps, "r"))
-    logging.info(f'Word-lemma and inverse mappings loaded with {len(word_lemma_maps)} entries')
 
 
 logging.info("Filtering words not present in vocabulary...")
@@ -309,14 +301,12 @@ logging.info("Creating ETM embeddings file with words in vocabulary")
 path_save = OUTPUT_PATH +  '/etm_w2v_embeddings.w2v'
 optimize_embeddings(
     vocab,
-    word_lemma_maps["lemma_word"],
     args.embeddings,
     path_save,
     args.n_dim,
     logging,
 )
 logging.info("ETM embeddings file with words in vocabulary created")
-del word_lemma_maps
 del vocab
 
 logging.info("Creating CTM training dataset file...")

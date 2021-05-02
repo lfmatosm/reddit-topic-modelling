@@ -152,28 +152,6 @@ class Preprocessor:
 
         return output
 
-    def create_word_lemma_mapping(self, path):
-        word_lemma_mapping = {}
-
-        documents = MemoryFriendlyJSONFileIterator(path)
-
-        for document in documents:
-            for token in document:
-                if token['text'] not in word_lemma_mapping:
-                    word_lemma_mapping[token['text']] = token['lemma']
-
-        return word_lemma_mapping
-    
-    def create_lemma_word_mapping(self, dictionary):
-        inverse = {}
-        for k, v in dictionary.items():
-            if v in inverse:
-                inverse[v].append(k)
-            else:
-                inverse[v] = [k]
-
-        return inverse
-
 
     def preprocess(self, data, stopwords_file_path=None):
         """Realizes preprocessing on the given data object. Removes special characters 
@@ -203,31 +181,20 @@ class Preprocessor:
 
         self.__logger("Tokenized documents.")
 
-        word_lemma_mapping = {} if self.__lemmatize_activated == True else None
-        lemma_word_mapping = {} if self.__lemmatize_activated == True else None
-
         path = self.save_to_temp_file(tokenized_data)
         del tokenized_data
         self.__logger("Saved tokenized documents to temp file for further processing...")
 
-        if self.__lemmatize_activated == True:
+        if self.__lemmatize_activated:
             path = self.lemmatize(path)
 
             self.__logger("Lemmatized documents.")
 
-            word_lemma_mapping = self.create_word_lemma_mapping(path)
-
-            self.__logger("Word-lemma mapping created.")
-
-            lemma_word_mapping = self.create_lemma_word_mapping(word_lemma_mapping)
-
-            self.__logger("Lemma-word mapping created.")
-
-        if self.__remove_pos_activated == True:
+        if self.__remove_pos_activated:
             path = self.filter_part_of_speech_tags(path, self.__pos_categories)
 
             self.__logger(f'{", ".join(self.__pos_categories)} POS categories of tokens kept and lemmatized.')
-        elif self.__lemmatize_activated == True:
+        elif self.__lemmatize_activated:
             path = self.get_lemmas(path)
 
             self.__logger("Token lemmas maintained on documents")
@@ -237,10 +204,11 @@ class Preprocessor:
 
         stopwords = None
 
-        if self.__remove_stopwords_activated == True:
+        if self.__remove_stopwords_activated:
             additional_stopwords = open(stopwords_file_path, "r").read().split(",") if stopwords_file_path is not None else []
 
             preprocessed_data = self.remove_stopwords(preprocessed_data, additional_stopwords)
+            print(f'stopwords removed = {preprocessed_data}')
 
             self.__logger("Stopwords removed.")
         else:
@@ -251,5 +219,4 @@ class Preprocessor:
                 os.remove(path)
         self.__logger("Removed temporary files.")
 
-        # return self.remove_small_words(preprocessed_data), word_lemma_mapping, lemma_word_mapping, stopwords
-        return preprocessed_data, word_lemma_mapping, lemma_word_mapping, stopwords
+        return preprocessed_data, stopwords
