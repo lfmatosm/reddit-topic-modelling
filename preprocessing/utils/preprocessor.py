@@ -2,6 +2,7 @@ from gensim.utils import simple_preprocess
 from nltk.corpus import stopwords
 import spacy
 import re
+import emoji
 import json
 import os
 
@@ -64,6 +65,11 @@ class Preprocessor:
         without_newlines = map(remove_newlines, texts)
 
         return map(remove_single_quotes, without_newlines)
+
+
+    #Removes emojis
+    def remove_emojis(self, texts):
+        return list(map(lambda text: emoji.get_emoji_regexp().sub(u'', text), list(texts)))
 
 
     #Removes documents with size of less than n words
@@ -172,12 +178,16 @@ class Preprocessor:
 
         self.__logger("Newlines and single-quotes removed from documents.")
 
+        data_without_emojis = self.remove_emojis(data_without_newlines)
+
+        self.__logger("Emojis removed from documents.")
+
         #Breaks each document into a list of words
         tokenize = lambda texts: [(yield simple_preprocess(text, deacc=True, min_len=1, max_len=30)) \
             for text in texts]
 
-        tokenized_data = tokenize(data_without_newlines)
-        del data_without_newlines
+        tokenized_data = tokenize(data_without_emojis)
+        del data_without_emojis
 
         self.__logger("Tokenized documents.")
 
