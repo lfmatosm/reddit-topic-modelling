@@ -10,14 +10,6 @@ Para executar o *script* principal deste diretório, use ```python vocab_evaluat
 * ```min_df_to_analyse``` (*obrigatório*) - faixa mínima de frequência em documentos (FD) para *tokens* a ser exibida;
 * ```max_df_to_analyse``` (*obrigatório*) - faixa máxima de frequência em documentos (FD) para *tokens* a ser exibida;
 
-* ```dataset``` (*obrigatório*) - caminho do *dataset* pré-processado;
-* ```dictionary``` (*obrigatório*) - caminho do dicionário associado ao *dataset*;
-* ```embeddings``` (*obrigatório*) - caminho dos *embeddings* *word2vec* a serem preparados para o treinamento de modelos ETM;
-* ```lang``` (*obrigatório*) - idioma do *dataset* sendo preparado. Pode receber ```"en"``` ou ```"pt"```;
-* ```n_dim``` - número de dimensões dos *embeddings*. Por padrão tem o valor ```300```;
-* ```train_size``` - fração de documentos a serem reservados para treino. O restante será reservado para validação. Deve receber uma fração; por padrão tem o valor ```1.0```, reservando todos os documentos para treinamento;
-* ```dataset_name``` - nome do *dataset* sendo usado. É empregado para gerar o diretório onde serão armazenados os recursos de treinamento, que pode ser encontrado em ```resources/<dataset_name>```. Por padrão tem o valor ```training_data```.
-
 Um exemplo de comando é o seguinte:
 
 ```shell
