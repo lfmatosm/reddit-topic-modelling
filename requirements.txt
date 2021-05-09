@@ -16,5 +16,6 @@ pymongo
 requests
 numpy
 scipy
+emoji
 nltk
 empath

@@ -56,9 +56,8 @@ parser = argparse.ArgumentParser(description='Trains LDA models with the given c
 parser.add_argument('--dataset_name', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument('--lang', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument('--train_documents', type=str, help='dataset path. A JSON file', required=True)
-parser.add_argument('--test_documents', type=str, help='dataset path. A JSON file', required=True)
+parser.add_argument('--validation_documents', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument('--dictionary', type=str, help='word dictionary path', required=True)
-parser.add_argument('--useCv', type=bool, default=False, help='wheter to use CountVectorizer or not', required=False)
 parser.add_argument('--topics', nargs='+', help='list of K values', required=True)
 args = parser.parse_args()
 
@@ -79,13 +78,13 @@ logging.info(f'LDA training for K = {topics}')
 
 logging.info("Loading documents and dictionary...")
 train_documents = json.load(open(args.train_documents, "r"))
-test_documents = json.load(open(args.test_documents, "r"))
+validation_documents = json.load(open(args.validation_documents, "r"))
 dictionary = joblib.load(args.dictionary)
 logging.info("Documents and dictionary loaded")
 
 df = create_model_dataframe()
 
-vectorizer = CountVectorizer(min_df=0.01, max_df=0.85) if args.useCv else CountVectorizer()
+vectorizer = CountVectorizer()
 
 vectorized_documents = vectorizer.fit_transform(train_documents["joined"])
 
@@ -129,7 +128,7 @@ for k in topics:
 
     model_name = get_model_name_for_k(k)
     npmi_train = get_coherence_score(topic_words, train_documents["split"], dictionary, "c_npmi")
-    npmi_test = get_coherence_score(topic_words, test_documents["split"], dictionary, "c_npmi")
+    npmi_valid = get_coherence_score(topic_words, validation_documents["split"], dictionary, "c_npmi")
     diversity = get_topic_diversity(topic_words)
     model_path = LDA_FOLDER + get_model_name_for_k(k)
 
@@ -138,7 +137,7 @@ for k in topics:
         k,
         model_name,
         npmi_train,
-        npmi_test,
+        npmi_valid,
         diversity,
         model_path,
         end-start,
