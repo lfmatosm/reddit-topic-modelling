@@ -51,7 +51,7 @@ parser = argparse.ArgumentParser(description="Trains CTM models with the given c
 parser.add_argument('--dataset_name', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument('--lang', type=str, help='dataset path. A JSON file', required=True)
 parser.add_argument("--train_documents", type=str, help="dataset path. TXT file", required=True)
-parser.add_argument("--test_documents", type=str, help="dataset path. TXT file", required=True)
+parser.add_argument("--validation_documents", type=str, help="dataset path. TXT file", required=True)
 parser.add_argument("--data_preparation", type=str, help="dataset path. TXT file", required=True)
 parser.add_argument("--prepared_training_dataset", type=str, help="dataset path. TXT file", required=True)
 parser.add_argument('--dictionary', type=str, help="word dictionary path", required=True)
@@ -76,9 +76,9 @@ logging.info(f'CTM training for K = {topics}')
 
 logging.info("Loading documents and dictionary...")
 train_documents = json.load(open(args.train_documents, "r"))
-test_documents = json.load(open(args.test_documents, "r"))
+validation_documents = json.load(open(args.validation_documents, "r"))
 logging.info(f'train_documents = {len(train_documents["split"])}')
-logging.info(f'test_documents = {len(test_documents["split"])}')
+logging.info(f'validation_documents = {len(validation_documents["split"])}')
 dictionary = joblib.load(args.dictionary)
 logging.info("Documents and dictionary loaded")
 
@@ -127,7 +127,7 @@ for k in topics:
 
     model_name = get_model_name(k, args.inference)
     npmi_train = get_coherence_score(topic_words, train_documents["split"], dictionary, "c_npmi")
-    npmi_test = get_coherence_score(topic_words, test_documents["split"], dictionary, "c_npmi")
+    npmi_valid = get_coherence_score(topic_words, validation_documents["split"], dictionary, "c_npmi")
     diversity = get_topic_diversity(topic_words)
     model_path = CTM_FOLDER + get_model_name(k, args.inference)
 
@@ -136,7 +136,7 @@ for k in topics:
         k,
         model_name,
         npmi_train,
-        npmi_test,
+        npmi_valid,
         diversity,
         model_path,
         end-start,

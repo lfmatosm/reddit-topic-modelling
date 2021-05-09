@@ -104,7 +104,7 @@ def optimize_embeddings(
     logging.info(f'{count}/{len(vocabulary)} words found on embeddings')
 
 
-parser = argparse.ArgumentParser(description='Prepares training/testing resources for LDA/CTM/ETM training scripts')
+parser = argparse.ArgumentParser(description='Prepares training/validation resources for LDA/CTM/ETM training scripts')
 parser.add_argument('--dataset', type=str, help='dataset path', required=True)
 parser.add_argument('--dictionary', type=str, help='dictionary path', required=True)
 parser.add_argument('--embeddings', type=str, help='embeddings path', required=True)
@@ -165,7 +165,7 @@ logging.info('Tokenizing documents and creating train dataset...')
 num_docs = len(docs)
 trSize = int(np.floor(train_size*num_docs))
 tsSize = int(num_docs - trSize)
-logging.info(f'No. documents - Train: {trSize}\tTest: {tsSize}')
+logging.info(f'No. documents - Train: {trSize}\tValidation: {tsSize}')
 
 idx_permute = np.random.permutation(num_docs).astype(int)
 
@@ -182,17 +182,17 @@ del idx_permute
 del docs
 
 logging.info('Number of documents (train): {} [this should be equal to {}]'.format(len(docs_tr), trSize))
-logging.info('Number of documents (test): {} [this should be equal to {}]'.format(len(docs_ts), tsSize))
+logging.info('Number of documents (validation): {} [this should be equal to {}]'.format(len(docs_ts), tsSize))
 del tsSize
 del trSize
 
-# Obtains the training snd test datasets as word lists
+# Obtains the training snd tvalidationest datasets as word lists
 words_tr = [[id2word[w] for w in doc] for doc in docs_tr]
 words_ts = [[id2word[w] for w in doc] for doc in docs_ts]
 del id2word
 
 logging.info(f'Final number of documents (train): {len(words_tr)}')
-logging.info(f'Final number of documents (test): {len(words_ts)}')
+logging.info(f'Final number of documents (validation): {len(words_ts)}')
 
 train_documents = {
     "split": words_tr,
@@ -204,16 +204,16 @@ os.makedirs(os.path.dirname(documents_path), exist_ok=True)
 json.dump(train_documents, open(documents_path, 'w'))
 logging.info(f'Train documents file saved (JSON): {documents_path}')
 
-test_documents = {
+validation_documents = {
     "split": words_ts,
     "joined": list(map(lambda x: " ".join(x), words_ts)),
 }
-documents_path = OUTPUT_PATH + "/test_documents.json"
-logging.info(f'Saving joined test documents file with {len(test_documents["split"])} documents (JSON): {documents_path}')
+documents_path = OUTPUT_PATH + "/validation_documents.json"
+logging.info(f'Saving joined Validation documents file with {len(validation_documents["split"])} documents (JSON): {documents_path}')
 os.makedirs(os.path.dirname(documents_path), exist_ok=True)
-json.dump(test_documents, open(documents_path, 'w'))
-logging.info(f'Test documents file saved (JSON): {documents_path}')
-del test_documents
+json.dump(validation_documents, open(documents_path, 'w'))
+logging.info(f'Validation documents file saved (JSON): {documents_path}')
+del validation_documents
 
 logging.info("Creating word dictionary for entire corpus...")
 path_save = OUTPUT_PATH + '/word_dictionary.gdict'

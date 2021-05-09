@@ -18,7 +18,7 @@ echo -e "\nStarting ctm, lda and etm training..."
 echo -e "\nStarting ctm training...\n"
 python training/ctm.py \
     --train_documents $base_prepared_resources_dir/train_documents.json \
-    --test_documents $base_prepared_resources_dir/test_documents.json \
+    --validation_documents $base_prepared_resources_dir/validation_documents.json \
     --data_preparation $base_prepared_resources_dir/ctm_data_preparation.obj \
     --prepared_training_dataset $base_prepared_resources_dir/ctm_training_dataset.dataset \
     --dictionary $base_prepared_resources_dir/word_dictionary.gdict \
@@ -30,7 +30,7 @@ python training/ctm.py \
 echo -e "\nStarting lda training...\n"
 python training/lda.py \
     --train_documents $base_prepared_resources_dir/train_documents.json \
-    --test_documents $base_prepared_resources_dir/test_documents.json \
+    --validation_documents $base_prepared_resources_dir/validation_documents.json \
     --dictionary $base_prepared_resources_dir/word_dictionary.gdict \
     --lang $lang \
     --dataset_name $train_batch_name \
@@ -40,7 +40,7 @@ python training/lda.py \
 echo -e "\nStarting etm training...\n"
 python training/etm.py \
     --train_documents $base_prepared_resources_dir/train_documents.json \
-    --test_documents $base_prepared_resources_dir/test_documents.json \
+    --validation_documents $base_prepared_resources_dir/validation_documents.json \
     --training_dataset $base_prepared_resources_dir/etm_training_dataset.dataset \
     --vocabulary $base_prepared_resources_dir/etm_vocabulary.vocab \
     --dictionary $base_prepared_resources_dir/word_dictionary.gdict \
