@@ -20,20 +20,23 @@ dataset.load_custom_dataset_from_folder(args.dataset_path)
 language = args.dataset_path.split(os.path.sep)[-1]
 
 lda_model = LDA()
-ctm_model = CTM(bert_model="distilusebase-multilingual-cased" if language == "pt" else "bert-base-nli-mean-tokens")
+ctm_model = CTM(bert_model="valhalla/distilbart-mnli-12-6" if language == "pt" else "bert-base-nli-mean-tokens")
 etm_model = ETM(train_embeddings=False, embeddings_path=args.embeddings_path)
+
+model_names = ["lda", "ctm", "etm"]
 
 coherence_metric = Coherence(topk=10, measure="c_npmi", texts=dataset.get_corpus())
 
 # Define the search space. To see which hyperparameters to optimize, see the topic model's initialization signature
 search_space = {"num_topics": Integer(low=3, high=30)}
 
-for model in [lda_model, ctm_model, etm_model]:
+models = [lda_model, ctm_model, etm_model]
+for i in range(len(models)):
     # Initialize an optimizer object and start the optimization.
     optimizer=Optimizer()
-    result = optimizer.optimize(model, dataset, coherence_metric, search_space, save_path="../optm_results", # path to store the results
+    result = optimizer.optimize(models[i], dataset, coherence_metric, search_space, save_path="../optm_results", # path to store the results
                                 number_of_call=30, # number of optimization iterations
                                 model_runs=5) # number of runs of the topic model
     #save the results of the optimization in file
-    result.save(f'{model.info()["name"]}.json')
+    result.save(f'{model_names[i]}.json')
     
