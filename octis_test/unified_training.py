@@ -1,3 +1,5 @@
+import json
+from utils.utils import get_best_hyperparameters
 from octis.dataset.dataset import Dataset
 from octis.models.LDA import LDA
 from octis.models.CTM import CTM
@@ -33,11 +35,11 @@ for model_name in models_to_train:
         models.append(LDA())
     elif model_name == "ctm":
         models.append(
-            CTM(bert_model="distiluse-base-multilingual-cased-v1" if language == "pt" else "bert-base-nli-mean-tokens"),
+            CTM(inference_type="combined", bert_model="distiluse-base-multilingual-cased-v1" if language == "pt" else "bert-base-nli-mean-tokens"),
         )
     elif model_name == "etm":
         models.append(
-            ETM(train_embeddings=False, embeddings_path=args.embeddings_path),
+            ETM(train_embeddings=False, embeddings_type='keyedvectors', embeddings_path=args.embeddings_path),
         )
 
 coherence_metric = Coherence(topk=10, measure="c_npmi", texts=dataset.get_corpus())
@@ -50,7 +52,11 @@ for i in range(len(models)):
     optimizer=Optimizer()
     result = optimizer.optimize(models[i], dataset, coherence_metric, search_space, save_path="../optm_results", # path to store the results
                                 number_of_call=30, # number of optimization iterations
-                                model_runs=5) # number of runs of the topic model
+                                model_runs=5, plot_best_seen=True) # number of runs of the topic model
     #save the results of the optimization in file
-    result.save(f'{models_to_train[i]}.json')
+    results_file = f'{models_to_train[i]}.json'
+    result.save(results_file)
+    results_with_best_hyperparams = get_best_hyperparameters(results_file)
+    json.dump(results_with_best_hyperparams, open(results_file, "w"), indent=4)
+    print(f'Optimization finished. Results can be found at: {results_file}')
     
