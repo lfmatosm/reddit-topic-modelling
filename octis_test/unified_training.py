@@ -7,7 +7,7 @@ from octis.models.ETM import ETM
 from octis.evaluation_metrics.diversity_metrics import TopicDiversity
 from octis.evaluation_metrics.coherence_metrics import Coherence
 from octis.optimization.optimizer import Optimizer
-from skopt.space.space import Categorical, Integer
+from skopt.space.space import Categorical, Integer, Real
 import argparse
 import os
 
@@ -40,8 +40,9 @@ for model_name in models_to_train:
             "model": LDA(),
             "search_space": {
                 "num_topics": topics_dimension,
-                "alpha": Categorical(["asymmetric", "auto"]),
-                "eta": Categorical([None, "auto"])
+                "alpha": Categorical(["auto", "symmetric", "asymmetric"]),
+                "eta": Categorical(["auto", "symmetric"]),
+                "decay": Real(0.5, 1.0),
             }
         })
     elif model_name == "ctm":
@@ -52,6 +53,7 @@ for model_name in models_to_train:
                 bert_model=bert_model),
             "search_space": {
                 "num_topics": topics_dimension,
+                "lr": Real(2e-3, 2e-1)
             }
         })
     elif model_name == "etm":
@@ -60,6 +62,7 @@ for model_name in models_to_train:
                 embeddings_path=args.embeddings_path),
             "search_space": {
                 "num_topics": topics_dimension,
+                "lr": Real(5.0e-3, 5.0e-1)
             }
         })
 
@@ -68,12 +71,12 @@ coherence_metric = Coherence(topk=10, measure="c_npmi", texts=dataset.get_corpus
 
 for i in range(len(models)):
     optimizer=Optimizer()
-    result = optimizer.optimize(models["model"][i], dataset, coherence_metric, models["search_space"][i], 
+    result = optimizer.optimize(models[i]["model"], dataset, coherence_metric, models[i]["search_space"], 
                                 save_path="../optm_results", # path to store the results
                                 number_of_call=30, # number of optimization iterations
                                 model_runs=5, plot_best_seen=True) # number of runs of the topic model
     #save the results of the optimization in file
-    results_file = f'{models_to_train[i]}.json'
+    results_file = f'{models_to_train[i]}_{language}.json'
     result.save(results_file)
     results_with_best_hyperparams = get_best_hyperparameters(results_file)
     json.dump(results_with_best_hyperparams, open(results_file, "w"), indent=4)
