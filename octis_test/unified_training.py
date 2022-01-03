@@ -1,4 +1,7 @@
 import json
+import re
+import numpy as np
+from datetime import datetime as dt
 from utils.utils import get_best_hyperparameters
 from octis.dataset.dataset import Dataset
 from octis.models.LDA import LDA
@@ -10,6 +13,11 @@ from octis.optimization.optimizer import Optimizer
 from skopt.space.space import Categorical, Integer, Real
 import argparse
 import os
+
+BASE_OUTPUT_PATH = f'./octis_test/optimizations'
+
+def get_current_datetime():
+    return re.sub("\.|:|\ |-", "", f'{dt.now()}')
 
 parser = argparse.ArgumentParser(description='Preprocessor destined for OCTIS dataset creation')
 parser.add_argument('--dataset_path', type=str, help='base path for the dataset files', required=True)
@@ -40,9 +48,9 @@ for model_name in models_to_train:
             "model": LDA(),
             "search_space": {
                 "num_topics": topics_dimension,
-                "alpha": Categorical(["auto", "symmetric", "asymmetric"]),
-                "eta": Categorical(["auto", "symmetric"]),
                 "decay": Real(0.5, 1.0),
+                # "alpha": Categorical(["auto", "symmetric", "asymmetric"]),
+                # "eta": Categorical(["auto", "symmetric"]),
             }
         })
     elif model_name == "ctm":
@@ -50,7 +58,7 @@ for model_name in models_to_train:
             if language == "pt" else "bert-base-nli-mean-tokens"
         models.append({
             "model": CTM(inference_type="combined", 
-                bert_model=bert_model),
+                bert_model=bert_model, bert_path=f'./{args.dataset_path.replace("/", "_")}_{language}'),
             "search_space": {
                 "num_topics": topics_dimension,
                 "lr": Real(2e-3, 2e-1)
@@ -71,14 +79,15 @@ coherence_metric = Coherence(topk=10, measure="c_npmi", texts=dataset.get_corpus
 
 for i in range(len(models)):
     optimizer=Optimizer()
+    now = get_current_datetime()
+    base_results_path = f'{BASE_OUTPUT_PATH}/{now}_{type(models[i]["model"]).__name__}_{language}'
     result = optimizer.optimize(models[i]["model"], dataset, coherence_metric, models[i]["search_space"], 
-                                save_path="../optm_results", # path to store the results
+                                save_path=base_results_path, # path to store the results
                                 number_of_call=30, # number of optimization iterations
                                 model_runs=5, plot_best_seen=True) # number of runs of the topic model
     #save the results of the optimization in file
-    results_file = f'{models_to_train[i]}_{language}.json'
-    result.save(results_file)
-    results_with_best_hyperparams = get_best_hyperparameters(results_file)
-    json.dump(results_with_best_hyperparams, open(results_file, "w"), indent=4)
-    print(f'Optimization finished. Results can be found at: {results_file}')
-    
+    results_path = f'{base_results_path}/{models_to_train[i]}_{language}.json'
+    result.save(results_path)
+    results_with_best_hyperparams = get_best_hyperparameters(results_path)
+    json.dump(results_with_best_hyperparams, open(results_path, "w"), indent=4)
+    print(f'Optimization finished. Results can be found at: {results_path}\n\n')
