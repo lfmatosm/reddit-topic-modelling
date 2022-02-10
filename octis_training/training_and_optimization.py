@@ -1,32 +1,30 @@
 import json
 import re
-import numpy as np
 from datetime import datetime as dt
 from utils.utils import get_best_hyperparameters
 from octis.dataset.dataset import Dataset
 from octis.models.LDA import LDA
 from octis.models.CTM import CTM
 from octis.models.ETM import ETM
-from octis.evaluation_metrics.diversity_metrics import TopicDiversity
 from octis.evaluation_metrics.coherence_metrics import Coherence
 from octis.optimization.optimizer import Optimizer
-from skopt.space.space import Categorical, Integer, Real
+from skopt.space.space import Integer, Real
 import argparse
 import os
 
-BASE_OUTPUT_PATH = f'./octis_test/optimizations'
+BASE_OUTPUT_PATH = f'./octis_training/optimizations'
 
 def get_current_datetime():
     return re.sub("\.|:|\ |-", "", f'{dt.now()}')
 
-parser = argparse.ArgumentParser(description='Preprocessor destined for OCTIS dataset creation')
+parser = argparse.ArgumentParser(description='Script for automated LDA, CTM and ETM training/optimization using OCTIS', add_help=True)
 parser.add_argument('--dataset_path', type=str, help='base path for the dataset files', required=True)
-parser.add_argument('--embeddings_path', type=str, default='empty', help='path for the Word2Vec embeddings files', required=False)
-parser.add_argument('--models', type=str, nargs='+', default=[], required=False)
+parser.add_argument('--embeddings_path', type=str, default='empty', help='path for the Word2Vec embeddings files to be used with ETM, if you desire to train this model', required=False)
+parser.add_argument('--models', type=str, nargs='+', default=[], help='lowercase space-separated list of models to be trained, e.g.: lda etm ctm', required=False)
 parser.add_argument('--all-models', dest='all_models', action='store_true')
+parser.add_argument('--min_k', type=int, default=3, help='Minimum no. of topics (k) in the search space, default: 3', required=False)
+parser.add_argument('--max_k', type=int, default=30, help='Maximum no. of topics (k) in the search space, default: 30', required=False)
 parser.set_defaults(all_models=False)
-parser.add_argument('--min_k', type=int, default=3, help='Minimum no. of topics (k) in the search space', required=False)
-parser.add_argument('--max_k', type=int, default=30, help='Maximum no. of topics (k) in the search space', required=False)
 args = parser.parse_args()
 
 models_to_train = ["lda", "ctm", "etm"] if args.all_models else args.models
@@ -48,9 +46,6 @@ for model_name in models_to_train:
             "model": LDA(),
             "search_space": {
                 "num_topics": topics_dimension,
-                "decay": Real(0.5, 1.0),
-                # "alpha": Categorical(["auto", "symmetric", "asymmetric"]),
-                # "eta": Categorical(["auto", "symmetric"]),
             }
         })
     elif model_name == "ctm":

@@ -8,14 +8,14 @@ import functools
 import joblib
 
 
-OUTPUT_FOLDER = "octis/datasets/tsv"
+OUTPUT_FOLDER = "octis_training/datasets/tsv"
 TSV_EXTENSION = "tsv"
 TXT_EXTENSION = "txt"
 READ_MODE = "r"
 WRITE_MODE = "w"
 
 
-parser = argparse.ArgumentParser(description='Preprocessor destined for OCTIS dataset creation')
+parser = argparse.ArgumentParser(description='Preprocessor destined for OCTIS dataset preparation. Creates a TSV dataset based on a previously preprocessed JSON dataset', add_help=True)
 parser.add_argument('--dataset_path', type=str, help='base path for the dataset files', required=True)
 parser.add_argument('--train_fraction', type=float, default=0.7, help='percentage of docs reserved for training', required=False)
 parser.add_argument('--test_fraction', type=float, default=0.2, help='percentage of docs reserved for testing', required=False)

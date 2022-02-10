@@ -12,7 +12,7 @@ def get_best_hyperparameters(results_file):
     for key, value in results["x_iters"].items():
         best_hyperparameters[key] = value[best_metric_value_idx]
     
-    best_model_idx =  np.argmax(results["dict_model_runs"][metric][f'iteration_{best_metric_value_idx}'])
+    best_model_idx = np.argmax(results["dict_model_runs"][metric][f'iteration_{best_metric_value_idx}'])
     best_hyperparameters["best_model_from_best_iteration"] = int(best_model_idx)
     best_hyperparameters["best_iteration"] = int(best_metric_value_idx)
     best_model_filename = f'{int(best_metric_value_idx)}_{int(best_model_idx)}.npz'
