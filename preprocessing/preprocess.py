@@ -2,7 +2,6 @@ from utils.preprocessor import Preprocessor
 from utils.parse import str2bool
 import pandas as pd
 import numpy as np
-import sys
 import json
 import re
 import os

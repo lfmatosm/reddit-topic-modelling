@@ -131,3 +131,6 @@ dmypy.json
 # Project specific
 training_outputs/
 .ipynb_checkpoints
+octis_training/optimizations/
+embeddings/
+octis_training/datasets

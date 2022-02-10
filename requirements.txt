@@ -19,3 +19,4 @@ scipy
 emoji
 nltk
 empath
+octis

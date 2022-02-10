@@ -183,7 +183,7 @@ class Preprocessor:
         self.__logger("Emojis removed from documents.")
 
         #Breaks each document into a list of words
-        tokenize = lambda texts: [(yield simple_preprocess(text, deacc=True, min_len=1, max_len=30)) \
+        tokenize = lambda texts: [(simple_preprocess(text, deacc=True, min_len=1, max_len=30)) \
             for text in texts]
 
         tokenized_data = tokenize(data_without_emojis)
@@ -218,7 +218,6 @@ class Preprocessor:
             additional_stopwords = open(stopwords_file_path, "r").read().split(",") if stopwords_file_path is not None else []
 
             preprocessed_data = self.remove_stopwords(preprocessed_data, additional_stopwords)
-            print(f'stopwords removed = {preprocessed_data}')
 
             self.__logger("Stopwords removed.")
         else:

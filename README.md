@@ -6,6 +6,7 @@ Use uma aplicação CLI compatível com *shell script* para executar os *scripts
 
 * [python >= 3.7.6](https://www.python.org/downloads/) - versão recomendada do python. A versão ```3.7.6``` da linguagem foi usada no projeto;
 * [pip >= 20.x.x](https://pip.pypa.io/en/stable/installing/) - a versão ```20.2.4``` foi usada no projeto.
+* [virtualenvwrapper](https://virtualenvwrapper.readthedocs.io/en/latest/)
 
 ### :hammer: Configuração
 Instale as dependências do projeto usando ```pip install -r requirements.txt```.
